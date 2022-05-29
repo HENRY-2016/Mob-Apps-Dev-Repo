@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "Dr kg",
+    "slug": "Dr_kg",
+    "version": "1.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#ff4d4d"
+    },
+    "updates": {
+    
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+  
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {"backgroundColor": "#ff4d4d"},
+      "package": "com.mogahenze.drkgbeddings",
+      "versionCode": 6
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
