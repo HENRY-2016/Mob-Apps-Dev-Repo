@@ -4,6 +4,7 @@
 var baseUrl = "http://176.58.115.77:5050";
 // var baseUrl = "http://192.168.0.157:8000";
 
+export const imageurl = baseUrl+"/images/";
 
 // // dashboard orders
 export const APIListDashboardAppStatics = baseUrl+"/api/app/googl/play/list/app/statics";
@@ -22,6 +23,7 @@ export const APIListDashboardTotalPayments = baseUrl+"/api/dashboard/list/all/to
 export const APIListNewOrders =  baseUrl+"/api/orders/list/all/new/orders";
 export const APIListPendingOrders =  baseUrl+"/api/orders/list/all/pending/orders";
 export const APIListClearedOrders =  baseUrl+"/api/orders/list/all/cleared/orders";
+export const APIListAllCustomerOrders  = baseUrl+"/api/orders/list/all/customer/orders/by/phone/";
 
 // // payments 
 export const APIListClearedPayments =  baseUrl+"/api/payments/list/all/cleared";
@@ -30,3 +32,5 @@ export const APIListNewPayments =  baseUrl+"/api/payments/list/all/new/payment";
 export const APIListFullPayments =  baseUrl+"/api/payments/list/all/full/payment";
 export const APIListHalfPayments =  baseUrl+"/api/payments/list/all/half/payment";
 
+//
+export const APIListCustomerOrderListArray  = baseUrl+"/api/orders/list/customer/order/list/array/by/id/";

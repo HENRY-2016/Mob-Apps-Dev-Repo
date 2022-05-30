@@ -68,25 +68,6 @@ render() {
 
             {/* =================================================== */}
                 <View style={{height:30}} ></View>
-                    <ScrollView horizontal={true} >
-                        <View style={[styles.tableHeaderView]}>
-                            <View style={styles.tableTrView} >
-                                <Text  style={styles.trThText}>Customer</Text>
-                            </View>
-                            <View style={styles.tableTrView} >
-                                <Text  style={styles.trThText}>Total</Text>
-                            </View>
-                            <View style={styles.tableTrView} >
-                                <Text  style={styles.trThText}>Payment</Text>
-                            </View>
-                            <View style={styles.tableTrView} >
-                                <Text  style={styles.trThText}>Date</Text>
-                            </View>
-                            
-                        </View>
-                    </ScrollView>
-                    
-                    <View style={[styles.mainSpaceView0,styles.mainSpaceView1]}></View>
                     <ScrollView>
                     { ClearedPaymentsDetails && ClearedPaymentsDetails.map((IteamKey, index) => (
 
