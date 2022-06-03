@@ -217,10 +217,10 @@ render() {
                                                 </View>
 
                                                     <View style={styles.offersLableLeftView}>
-                                                        <Text  style={styles.orderListLables}>{"Name :" + " "+ list.name}</Text>
-                                                        <Text  style={styles.orderListLables}>{"Size :" + " "+ list.status}</Text>
-                                                        <Text  style={styles.orderListLables}>{"Pcs : " + " "+ list.qty}</Text>
-                                                        <Text  style={styles.orderListLables}>{"Amount :" +" "+ this.formatNumberWithComma(list.amount)}</Text>
+                                                        <Text  style={styles.orderListLables}>{list.name}</Text>
+                                                        <Text  style={styles.orderListLables}>{list.status}</Text>
+                                                        <Text  style={styles.orderListLables}>{list.qty}</Text>
+                                                        <Text  style={styles.orderListLables}>{this.formatNumberWithComma(list.amount)}</Text>
                                                         <View style={{height:15}}></View>
                                                     </View>
                                             </View>

@@ -600,6 +600,7 @@ export default StyleSheet.create(
 		
 		height:50,width:'100%', 
 		backgroundColor:COLORS.colourNumberOne,
+		// backgroundColor:COLORS.colourNumberSeven,
 		borderBottomEndRadius:15,borderBottomLeftRadius:15,
 		alignItems: 'center', justifyContent: 'center',
 		
@@ -962,7 +963,7 @@ export default StyleSheet.create(
 	},
 	sublinksTitleTxt:
 	{
-		marginLeft:'28%', fontSize:20, color:COLORS.white,
+		marginLeft:'30%', fontSize:20, color:COLORS.white,
 	},
 	activityIdicaterView: 
 	{

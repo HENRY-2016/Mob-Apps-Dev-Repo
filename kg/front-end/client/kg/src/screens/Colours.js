@@ -12,9 +12,11 @@ export const COLORS = {
   colourNumberFive:"#E7E6E1",
   // colourNumberSix:"#e60000",
   colourNumberSix:"#ff4d4d",
+  // colourNumberSix:"#7B113A",
+  // colourNumberSix:"#630039",
 
-  
-  // colourNumberSeven:"#C70039",
+
+  // colourNumberSeven:"#630039",
   // colourNumberEight:"#FF0000",
   // colourNumberNone:"F7F6E7",
   

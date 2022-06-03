@@ -279,7 +279,6 @@ addToCartMirrorsProducts = (index) =>
 }
 addToCartNightWareProducts = (index) => 
 {
-    console.log("called...");
     const newItems = [...this.state.NightWareProducts]; // clone the array
 
     let product = newItems[index];
@@ -603,7 +602,7 @@ viewNightWareScreen = (props) => {
                         this.setState({showNightWareScreen:false});
                     }}>
             <Image style={styles.subMenuNaviLinksMainIcones} source={require('../imgs/bedroom/bedRoomThree/night.png')}/> 
-            <Text  style={ styles.subMenuNaviLinksText}>Night Wares</Text>
+            <Text  style={ styles.subMenuNaviLinksText}>Night Wear</Text>
         </TouchableOpacity>
         </View>
     );
@@ -723,7 +722,7 @@ render() {
             {showNightWareScreen ? <></>:
                 (
                 <>
-                    <Text  style={styles.sublinksTitleTxt}>Night Wares </Text>
+                    <Text  style={styles.sublinksTitleTxt}>Night Wears </Text>
                     <ScrollView>
                         <FlatList
                         data={ formatData(NightWareProducts,numColums)}

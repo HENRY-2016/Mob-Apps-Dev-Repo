@@ -110,7 +110,7 @@ componentDidMount() {
     .then(res => {
         let results =JSON.stringify(res.data); 
         this.setState({IroningBoardProducts:[...JSON.parse(results)]})
-        console.log(this.state)
+        // console.log(this.state)
         })
     .catch(err=>{Alert.alert("Error","\n\n"+err+"\n\nCan Not Load Products");})
 
