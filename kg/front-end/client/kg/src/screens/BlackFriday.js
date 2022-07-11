@@ -13,9 +13,22 @@ export default class BlackFriday extends React.Component {
 constructor(props){
     super(props);
     this.state = {
-        cartItemsIsLoading: false,
         cartItems: [],
         NumberOfItems:'',
+
+        DoNotShowBlackFridayScreen: false,
+
+        DoNotShowDisplayScreen: false,
+        DoNotShowItemDetailsScreen: true,
+
+        ItemDetails:[
+            "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-1.png?raw=true",
+            "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-2.png?raw=true",
+            "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-3.png?raw=true",
+            "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-4.png?raw=true",
+            "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-5.png?raw=true",
+            "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-6.png?raw=true",
+        ],
     }
     
 }
@@ -43,6 +56,24 @@ getNumberOfItems = () =>
         // console.log("===== geting NumberOfsItems")
     }catch (error) { console.log(error)}
 };
+
+showItemDisplayScreen = () =>
+{
+    this.setState({DoNotShowItemDetailsScreen: true})
+    this.setState({DoNotShowDisplayScreen: false})
+}
+showItemDetailsScreen = () =>
+{
+    this.setState({DoNotShowDisplayScreen: true})
+    this.setState({DoNotShowItemDetailsScreen: false})
+}
+displayItemDetailsScreen = (index) =>
+{
+    this.setState({ItemIndex:index})
+
+    setTimeout(this.showItemDetailsScreen,2000)
+
+}
 addtocart = (index) => 
 {
     const newItems = [...this.state.cartItems]; // clone the array
@@ -106,7 +137,9 @@ formatNumberWithComma(numb) {
 }
 render() {
     
-    const { cartItems,NumberOfItems,cartItemsIsLoading} = this.state;
+    const { cartItems,NumberOfItems,DoNotShowBlackFridayScreen} = this.state;
+    const {DoNotShowItemDetailsScreen,DoNotShowDisplayScreen,ItemDetails} = this.state;
+
 
     return (
         
@@ -133,12 +166,7 @@ render() {
                 </View>
             </View>
 
-            {cartItemsIsLoading ? (
-                <View style={[styles.centerElement, {height: 300}]}>
-                    <ActivityIndicator size="large" color="#ef5739" />
-                </View>
-            ) : (
-                <>
+            {DoNotShowBlackFridayScreen ?<></> : (<>
                 <ScrollView>
                     {cartItems && cartItems.map((item, i) => (
 						<>
@@ -181,6 +209,50 @@ render() {
                 </ScrollView>
                 </>
             )}
+
+            {DoNotShowItemDetailsScreen ? <></>:(<>
+                <ScrollView>
+                <View style={{height:20}}></View>
+                    <View style={styles.ImageSliderView}>
+                        <View style={{height:20}}></View>
+                        <SliderBox style={styles.ImageSliderView}
+                            images={ItemDetails} sliderBoxHeight={200}
+                            dotColor= {COLORS.white} inactiveDotColor={COLORS.colourNumberOne}
+                            paginationBoxVerticalPadding={10}
+                            autoplay circleLoop resizeMethod={'resize'} resizeMode={'cover'}
+                            paginationBoxStyle={styles.ImagePaginationBoxStyle}
+                            dotStyle={styles.ImageSliderDotStyle}
+                            ImageComponentStyle={ styles.ImageSliderImageComponentStyle}
+                            imageLoadingColor={COLORS.colourNumberOne}
+                            /> 
+                    </View> 
+                <View  style={styles.MainTextDetailsView}>
+                    <View style={styles.TextDetailsView}>
+                        <Text  style={styles.offersLables}> Name</Text>
+                        <Text  style={styles.TextDetails}> Description Description Description Description Description Description</Text>
+                        <Text  style={styles.offersLables}>Amount</Text>
+                    </View>
+                </View>
+
+                <View style={styles.offersbtnsView}>
+                    <TouchableOpacity style={styles.offersorderbtn}  onPress={this.showItemDisplayScreen} >
+                        <Text style = {styles.btnText} >Display</Text>
+                    </TouchableOpacity>
+                    <View style={{width:25}} ></View>
+
+                    <TouchableOpacity style={styles.offersorderbtn} onPress={()=>this.addtocart(ItemIndex)} >
+                        <Text style = {styles.btnText}> Add to cart </Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{height:20}}></View>
+                <View style={{alignItems: "center"}}>
+                    <TouchableOpacity style={styles.offersProcedbtn} >
+                        <Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >PROCED</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{height:20}}></View>
+                </ScrollView>
+            </>)}
 
             
         </View>

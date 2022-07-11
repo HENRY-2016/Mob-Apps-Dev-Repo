@@ -2,6 +2,7 @@
 import React from 'react';
 import { Text, View,Linking, TouchableOpacity,Alert, ScrollView} from 'react-native';
 import {Octicons,Ionicons,FontAwesome } from '@expo/vector-icons';
+import * as WebBrowser from 'expo-web-browser';
 import axios from "axios";
 import styles from "./stylesheet";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -24,7 +25,7 @@ componentDidMount()
 {
 
 }
-
+mogaHenzeDotCom = async () => {await WebBrowser.openBrowserAsync('https://mogahenze.com');};
 getAboutDetails = async () =>
 {
 
@@ -49,7 +50,8 @@ getNumberOfItems = () =>
 
 render() {
     
-    const { AboutDetails,NumberOfItems} = this.state;
+    const {NumberOfItems} = this.state;
+    
 
     return (
         
@@ -106,6 +108,9 @@ render() {
                         <Text  onPress={()=>{Linking.openURL('tel:0771977854');}} style={styles.orderListLables}>Or Call :: 0771 977 854 </Text>
                         <Text  onPress={()=>{Linking.openURL('mailto:jacob2016henry@gmail.com');}} style={styles.orderListLables}>Or Email ::</Text>
                         <Text  onPress={()=>{Linking.openURL('mailto:jacob2016henry@gmail.com');}} style={styles.orderListLables}> jacob2016henry@gmail.com </Text>
+                        <TouchableOpacity onPress={this.mogaHenzeDotCom} style={styles.orderListLables} >
+                            <Text style={styles.orderListLables}>More  Info </Text>
+                        </TouchableOpacity>
                         <Text  style={styles.orderListLables}>Your Feed Back Is Important </Text>
                         <Text  style={styles.orderListLables}>...Thank You...</Text>
                         <View style={{height:30}}></View>

@@ -68,7 +68,6 @@ getAllCustomerOrders = () =>
         this.setState({cartItems:[...results]})
         if (results.length === 0)
             {this.setState({CustomerDetailsFound:false})}
-        console.log(this.state)
         })
     .catch(err=>{console.log(err);})
     // console.log("component loaded")

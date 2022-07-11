@@ -529,21 +529,11 @@ export default StyleSheet.create(
 		fontSize:16,
 		color:'#000000',
 	},
-	homeImageSlider:
-	{
-		// justifyContent: 'center',
-		// alignContent:'center',
-		// backgroundColor: '#eeeeee',
-		height:230, width:'95%',
-		borderRadius:15,
-
-		marginLeft:5,
-		marginBottom:20,
-	},
-	homeImageSlidingImgs:
-	{
-		width:'100%',
-	},
+	
+	// homeImageSlidingImgs:
+	// {
+	// 	width:'100%',
+	// },
 	ordersText:
 	{
 		marginLeft:50,
@@ -1100,4 +1090,114 @@ export default StyleSheet.create(
 		borderRadius:15,
 
 	},
+
+
+
+	// ====================================================== Slider
+	// ====================================================== Slider
+// Silder 
+ImageSliderView:
+{
+	height:230, width:'94%', 
+	marginLeft:5,marginBottom:20,
+},
+ImagePaginationBoxStyle:
+{
+	position: "absolute",
+	bottom: 0,padding: 0,
+	alignItems: "center",
+	alignSelf: "center",
+	justifyContent: "center",
+},
+ImageSliderDotStyle:
+{
+	width: 10,height: 10,
+	borderRadius: 5,marginHorizontal: 0,
+	padding: 0,margin: 0,
+	backgroundColor: COLORS.colourNumberOne,
+},
+ImageSliderImageComponentStyle:{width: 400, marginLeft:0, marginTop: 5},
+/// ================================================ ================Video
+/// ================================================ ================ Video
+
+VideoView:{flexDirection:"row", marginTop:-25,},
+video: {alignSelf: 'center',width: 330,height: 300,},
+
+
+
+
+/// ================================================ ================Item Details screen
+/// ================================================ ================Item Details screen
+
+MainTextDetailsView:
+{
+
+	flexDirection:'column',
+	backgroundColor:COLORS.colourNumberSix,
+	marginLeft:10,marginRight:10, marginTop: 10,
+	borderTopEndRadius:15,borderTopLeftRadius:15,
+
+},
+TextDetailsView:{height:190,},
+TextDetails:
+{
+	paddingLeft:40, paddingTop:20,
+	fontSize:OTHERS.producttextfontsize,
+	color:COLORS.white,
+},
+
+	/// ================================================ ================modal
+	/// ================================================ ================modal
+	centeredView: 
+	{
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+		marginTop: 22,
+	},
+	modalView: 
+	{
+		margin: 20,
+		// backgroundColor: COLORS.cardColor,
+		backgroundColor: COLORS.black,
+		borderRadius: 20,
+		padding: 35,
+		alignItems: "center",
+		shadowColor: "#000",
+		shadowOffset: {width: 0,height: 2},
+		shadowOpacity: 0.25,
+		shadowRadius: 4,
+		elevation: 5
+	},
+
+	modalText: {
+	marginBottom: 15,
+	textAlign: "center"
+	},
+	modalOptionsBtnView:
+	{
+		borderRadius:30,marginLeft:10,
+		backgroundColor:COLORS.colourNumberFour,
+	},
+	modalTextLabels:
+	{
+		flexDirection: 'row',fontSize:18,
+		marginLeft:18, marginRight:18, paddingBottom:5,paddingTop:5,
+		color:COLORS.colourNumberTwo,
+		
+	},
+	modalCloseBtnView:
+	{
+		borderRadius:30,width:200, 
+		backgroundColor:COLORS.modalCloseCOlour,
+	},
+	modalCloseTextLabels:
+	{
+		flexDirection: 'row',fontSize:18,
+		paddingBottom:5,paddingTop:5,
+		color:COLORS.white,fontWeight: "bold",
+		textAlign: "center"
+	},
+
+	searchMainView:{margin: 15,width:'90%',},
 });

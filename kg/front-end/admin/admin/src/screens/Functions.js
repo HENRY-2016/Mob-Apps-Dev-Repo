@@ -1,5 +1,5 @@
 
-import {Image} from 'react-native';
+import {Image,View} from 'react-native';
 
 
 export const formatNumberWithComma = (numb) => {
@@ -12,4 +12,3 @@ export const HeaderTopRightIcon = ({image}) =>
     {return <Image source={image} style={{width: 40, height: 40}} />;};
 export const NavigationIcon = ({image}) => 
     {return<Image source={image} style={{width: 30, height: 30}} />;};
-

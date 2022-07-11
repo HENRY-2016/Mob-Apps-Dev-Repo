@@ -23,7 +23,7 @@
     "android": {
       "adaptiveIcon": {"backgroundColor": "#ff4d4d"},
       "package": "com.mogahenze.drkgbeddings",
-      "versionCode": 6
+      "versionCode": 7
     },
     "web": {
       "favicon": "./assets/favicon.png"

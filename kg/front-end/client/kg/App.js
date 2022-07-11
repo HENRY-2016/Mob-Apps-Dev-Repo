@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {View,Image,ActivityIndicator,Text} from "react-native";
 
@@ -9,11 +9,13 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 
-import { Entypo,FontAwesome5,MaterialCommunityIcons, MaterialIcons,} from '@expo/vector-icons';
+import { Entypo,Ionicons,FontAwesome,FontAwesome5,MaterialCommunityIcons, MaterialIcons,} from '@expo/vector-icons';
 
 // UIs
 import styles from "./src/screens/stylesheet";
 import Home from './src/screens/Home';
+import Media from './src/screens/Media';
+import Search from './src/screens/Search';
 import About from './src/screens/About';
 import Babies from './src/screens/Babies';
 import BedRoomOne from './src/screens/BedRoomOne';
@@ -36,7 +38,7 @@ function CustomDrawerContent(props) {
             <Entypo name="user" size={100} style={styles.draweUserIcones}/>
           </View>
           <View>
-            <Text  style={ styles.drawerUserName}>Our Customer</Text>
+            <Text  style={ styles.drawerUserName}>Our Products</Text>
           </View>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
@@ -48,7 +50,7 @@ function CustomDrawerContent(props) {
 
 const Drawer = createDrawerNavigator();
 
-function DrawerNavigetion() {
+function DrawerNavigation() {
   return (
     <Drawer.Navigator initialRouteName="Home"
       useLegacyImplementation
@@ -64,9 +66,20 @@ function DrawerNavigetion() {
     
     >
       
+        
+        {/* <Ionicons name="ios-videocam-sharp" size={24} color="black" /> */}
         <Drawer.Screen name="Home"   component={Home} options={{headerShown: false,swipeEnabled: false,
         title: 'Home',unmountOnBlur: true,
         drawerIcon:() => (<Entypo name="home" size={26} color="white" />),
+        }} />
+
+        <Drawer.Screen name="Media"   component={Media} options={{headerShown: false,swipeEnabled: false,
+        title: 'Media',unmountOnBlur: true,
+        drawerIcon:() => (<Ionicons name="ios-videocam-sharp" size={26} color="white" />),
+        }} />
+        <Drawer.Screen name="Search"   component={Search} options={{headerShown: false,swipeEnabled: false,
+        title: 'Search',unmountOnBlur: true,
+        drawerIcon:() => (<FontAwesome name="search" size={26} color="white" />),
         }} />
         <Drawer.Screen name="Offers"  component={Offers} options={{headerShown: false,swipeEnabled: false,
         title: 'Offers',unmountOnBlur: true,
@@ -156,7 +169,7 @@ export default function App() {
           </>
         )
         :
-        <DrawerNavigetion/>
+        <DrawerNavigation/>
       }
         
     </NavigationContainer>

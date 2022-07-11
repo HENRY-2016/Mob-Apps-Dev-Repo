@@ -1,9 +1,10 @@
 
 import React from 'react';
 import { Text, View,Image, TouchableOpacity,Alert, ScrollView} from 'react-native';
-import {Octicons,Ionicons,FontAwesome } from '@expo/vector-icons';
+import {Ionicons,FontAwesome } from '@expo/vector-icons';
 import axios from "axios";
 import styles from "./stylesheet";
+import { COLORS } from './Colours';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {APIHomeProducts,APISlider, imageurl} from './DataFileApis';
@@ -33,10 +34,26 @@ constructor(props){
     
     super(props);
     this.state = {
-        cartItemsIsLoading: false,
+        
+            modalVisible: false,
             cartItems:[],
             images:[],
             NumberOfItems:'',
+
+            // Screens
+            DoNotShowDisplayScreen: false,
+            DoNotShowItemDetailsScreen: true,
+
+            ItemDetails:[
+                "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-1.png?raw=true",
+                "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-2.png?raw=true",
+                "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-3.png?raw=true",
+                "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-4.png?raw=true",
+                "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-5.png?raw=true",
+                "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-6.png?raw=true",
+            ],
+            ItemIndex:'',
+
     }
     
 }
@@ -66,11 +83,34 @@ componentDidMount()
         this.setState({images:[...imageSiliders]})
         // console.log(this.state);
         })
-    .catch(err=>{Alert.alert("Error","\n\n"+err+"\n\nCan Not Load Products");})
+    .catch(err=>{Alert.alert("Error","\n\n Can Not Load Products\n\n Open App Again With \n\n Network Connection");})
+    // .catch(err=>{Alert.alert("Error","\n\n"+err+"\n\n Can Not Load Products\n\n Open App Again With \n\n Network Connection");})
+
 
     setInterval(this.getNumberOfItems,1000);
 }
 
+setModalVisible = (visible) => {this.setState({ modalVisible: visible });}
+
+showItemDisplayScreen = () =>
+{
+    console.log('Called........')
+    this.setState({DoNotShowItemDetailsScreen: true})
+    this.setState({DoNotShowDisplayScreen: false})
+}
+showItemDetailsScreen = () =>
+{
+    this.setState({DoNotShowDisplayScreen: true})
+    this.setState({DoNotShowItemDetailsScreen: false})
+}
+displayItemDetailsScreen = (index) =>
+{
+    console.log(index);
+    this.setState({ItemIndex:index})
+
+    setTimeout(this.showItemDetailsScreen,2000)
+
+}
 getNumberOfItems = () => 
 {
     try 
@@ -139,7 +179,7 @@ renderItem = ({item,index}) =>
             { return <View style={[styles.ItemInvisible]}></View> }
         return (
             <View style={styles.homeCardView2}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>this.displayItemDetailsScreen(index)}>
                     <Image source={{uri: imageurl+item.image}} style={styles.homeproductImage} />
                 </TouchableOpacity>
 
@@ -164,7 +204,8 @@ renderItem = ({item,index}) =>
 
 render() {
     
-    const { cartItems,NumberOfItems, cartItemsIsLoading} = this.state;
+    const {cartItems,NumberOfItems,ItemIndex} = this.state;
+    const {DoNotShowItemDetailsScreen,DoNotShowDisplayScreen,ItemDetails} = this.state;
 
     return (
         
@@ -192,44 +233,24 @@ render() {
                 
             </View>
             
-            {cartItemsIsLoading ? (
-                <View style={[styles.centerElement, {height: 300}]}>
-                    <ActivityIndicator size="large" color="#ef5739" />
-                </View>
-            ) : (
+            {DoNotShowDisplayScreen ?<></> : (
                 <>
                 <ScrollView>
                     <View style={styles.mainViewTopSpace} ></View>
                     <View style={styles.homeNavigationView}>
 
-                        <View style={styles.homeImageSlider}>
+                        <View style={styles.ImageSliderView}>
                             <View style={{height:20}}></View>
-                            <SliderBox style={styles.homeImageSlider}
+                            <SliderBox style={styles.ImageSliderView}
                                 images={this.state.images}
                                 sliderBoxHeight={200}
-                                dotColor="#7a42f4" inactiveDotColor="#90A4AE"
-                                paginationBoxVerticalPadding={20}
-                                autoplay circleLoop
-                                resizeMethod={'resize'} resizeMode={'cover'}
-                                paginationBoxStyle={{
-                                    position: "absolute",
-                                    bottom: 0,
-                                    padding: 0,
-                                    alignItems: "center",
-                                    alignSelf: "center",
-                                    justifyContent: "center",
-                                }}
-                                dotStyle={{
-                                    width: 10,
-                                    height: 10,
-                                    borderRadius: 5,
-                                    marginHorizontal: 0,
-                                    padding: 0,
-                                    margin: 0,
-                                    backgroundColor: "rgba(128, 128, 128, 0.92)"
-                                }}
-                                ImageComponentStyle={{borderRadius:50, width: 400, marginLeft:0, marginTop: 5}}
-                                imageLoadingColor="#2196F3"
+                                dotColor= {COLORS.white} inactiveDotColor={COLORS.colourNumberOne}
+                                paginationBoxVerticalPadding={10}
+                                autoplay circleLoop resizeMethod={'resize'} resizeMode={'cover'}
+                                paginationBoxStyle={styles.ImagePaginationBoxStyle}
+                                dotStyle={styles.ImageSliderDotStyle}
+                                ImageComponentStyle={ styles.ImageSliderImageComponentStyle}
+                                imageLoadingColor={COLORS.colourNumberOne}
                                 /> 
                         </View> 
                         
@@ -244,6 +265,53 @@ render() {
                 </ScrollView>
                 </>
             )}
+
+
+            {DoNotShowItemDetailsScreen ? <></>:(<>
+                <ScrollView>
+                <View style={{height:20}}></View>
+                    <View style={styles.ImageSliderView}>
+                        <View style={{height:20}}></View>
+                        <SliderBox style={styles.ImageSliderView}
+                            images={ItemDetails} sliderBoxHeight={200}
+                            dotColor= {COLORS.white} inactiveDotColor={COLORS.colourNumberOne}
+                            paginationBoxVerticalPadding={10}
+                            autoplay circleLoop resizeMethod={'resize'} resizeMode={'cover'}
+                            paginationBoxStyle={styles.ImagePaginationBoxStyle}
+                            dotStyle={styles.ImageSliderDotStyle}
+                            ImageComponentStyle={ styles.ImageSliderImageComponentStyle}
+                            imageLoadingColor={COLORS.colourNumberOne}
+                            /> 
+                    </View> 
+                <View  style={styles.MainTextDetailsView}>
+                    <View style={styles.TextDetailsView}>
+                        <Text  style={styles.offersLables}> Name</Text>
+                        <Text  style={styles.TextDetails}> Description Description Description Description Description Description</Text>
+                        <Text  style={styles.offersLables}>Amount</Text>
+                    </View>
+                </View>
+
+                <View style={styles.offersbtnsView}>
+                    <TouchableOpacity style={styles.offersorderbtn}  onPress={this.showItemDisplayScreen} >
+                        <Text style = {styles.btnText} >Display</Text>
+                    </TouchableOpacity>
+                    <View style={{width:25}} ></View>
+
+                    <TouchableOpacity style={styles.offersorderbtn} onPress={()=>this.addtocart(ItemIndex)} >
+                        <Text style = {styles.btnText}> Add to cart </Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{height:20}}></View>
+                <View style={{alignItems: "center"}}>
+                    <TouchableOpacity style={styles.offersProcedbtn} >
+                        <Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >PROCED</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{height:20}}></View>
+                </ScrollView>
+            </>)}
+
+
         </View>
     );
 }

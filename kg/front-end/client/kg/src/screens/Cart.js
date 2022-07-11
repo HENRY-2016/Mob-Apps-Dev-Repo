@@ -134,15 +134,15 @@ setorderNumber = () => {this.setState({orderNumber:this.orderNumber})}
 
 // sign up
 setpaymentMethodValue = (text) =>{this.setState({paymentMethodValue:text});}
-setdeliveryMethodValue = (text) =>{this.setState({deliveryMethodValue:text}); console.log("=====>>>>"+this.state.deliveryMethodValue)}
-setSelectedLanguage = (text) =>{this.setState({SelectedLanguage:text}); console.log("=====>>"+this.state.SelectedLanguage)}
+setdeliveryMethodValue = (text) =>{this.setState({deliveryMethodValue:text}); }
+setSelectedLanguage = (text) =>{this.setState({SelectedLanguage:text});}
 setSignUpUserPassword = (text) =>{this.setState({SignUpUserPassword:text});}
 
 
 
 componentDidMount() {
 
-    console.log("geting data")
+    // console.log("geting data")
     try 
     {   
         AsyncStorage.getItem('cartItems').then((cart)=>{
@@ -436,7 +436,7 @@ render() {
 
                         <View style={styles.orderListDetailsText} >
                             <View style={{height:20}} ></View>
-                            <Text style={styles.nextbtnText} >Customer Order Details</Text>
+                            {/* <Text style={styles.nextbtnText} >Customer Order Details</Text> */}
                             <TextInput style={styles.input} placeholder="Phone Number" onChangeText={text => this.setUserPhone(text)} 
                             placeholderTextColor = "#fff" 
                             maxLength={10} keyboardType="numeric" 
