@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "Kam Beddings",
+    "slug": "Kam_Beddings",
+    "version": "1.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#6495ED"
+    },
+    "updates": {
+    
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+  
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {"backgroundColor": "#6495ED"},
+      "package": "com.mogahenze.kambeddings",
+      "versionCode": 3
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
