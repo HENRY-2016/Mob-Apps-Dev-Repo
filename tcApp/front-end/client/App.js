@@ -19,7 +19,7 @@ import Loan from './src/screens/Loan';
 import Services from './src/screens/Services';
 import Saloon from './src/screens/Saloon';
 import Agency from './src/screens/Agency';
-import Construction from './src/screens/Construction';
+import Providers from './src/screens/Providers';
 import Store from './src/screens/Store';
 import TeamImage from './src/imgs/teamwork.png';
 import FeedBack from './src/screens/Feedback';
@@ -98,8 +98,8 @@ return (
         title: 'Tc Services',unmountOnBlur: true,
         }} />
 
-        <Drawer.Screen name="Construction"   component={Construction} options={{headerShown: false,swipeEnabled: false,
-        title: 'Tc Construction',unmountOnBlur: true,
+        <Drawer.Screen name="Providers"   component={Providers} options={{headerShown: false,swipeEnabled: false,
+        title: 'Tc Providers',unmountOnBlur: true,
         }} />
 
         

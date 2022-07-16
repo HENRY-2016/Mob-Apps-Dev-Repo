@@ -11,7 +11,7 @@ import { COLORS } from './Colours';
 import {
         APILogInClubMemberByCardNo,APIClubMemberApplication,APIListAllCountries,
         APIClubMemberAllRenewals,APIPostImg,APIClubMemberAllReferrals,APIListAllChats,
-        APIMemberChatsPost,APIMemberChatsLogIn,
+        APIMemberChatsPost,APIMemberChatsLogIn,APIUpdateClubMemberPassword, 
     } from './DataFileApis';
 
 
@@ -89,9 +89,13 @@ constructor(props){
         ClubLogInPassword:'',
 
         // log in profile
+        DoNotShowProfileDetailsScreen:true, 
+        DoNotShowProfileSettingsScreen:true,
         ClubMemberAllRenewals:[],
         ClubMemberAllReferrals:[],
         AllMemberChats:[],
+        NewPassword:'',
+        ClubMemberId:'',
         ClubMemberRegistration:'',
         ClubMemberPayment:'',
         IsMemberLogeIn:false,
@@ -137,12 +141,15 @@ initializeClubUserName = () =>
             let Category= jsonData[0].ClubMemberCategory;
             let Registration= jsonData[0].Registration;
             let Payment= jsonData[0].Payment;
+            let Id= jsonData[0].Id;
+
 
             this.setState({ClubMemberName:Name});
             this.setState({ClubMemberCardNo:CardNo});
             this.setState({ClubMemberCategory:Category});
             this.setState({ClubMemberPayment:Payment});
             this.setState({ClubMemberRegistration:Registration});
+            this.setState({ClubMemberId:Id});
             this.setState({IsMemberLogeIn:true});
             this.getAllClubMemberRenewals(CardNo);
         }
@@ -187,6 +194,7 @@ getAllClubMemberRenewals = (ClubMemberCardNo) =>
     
 }
 
+setNewPassword = (text) =>{this.setState({NewPassword:text});}
 setChatChat = (text) =>{this.setState({ChatChat:text});}
 setClubCardNoLogIn = (text) =>{this.setState({ClubCardNoLogIn:text});}
 setMemberPhone = (text) =>{this.setState({MemberPhone:text});}
@@ -248,7 +256,16 @@ setCountrySelectedValue  = (text) =>
 setClubLogInName = (text) =>{this.setState({ClubLogInName:text});}
 setClubLogInPassword = (text) =>{this.setState({ClubLogInPassword:text});}
 
-
+showProfileDetailsScreen = () =>
+{
+    this.setState({DoNotShowProfileSettingsScreen:true})
+    this.setState({DoNotShowProfileDetailsScreen:true})
+}
+showProfileSettingsScreen = () =>
+{
+    this.setState({DoNotShowProfileDetailsScreen:false})
+    this.setState({DoNotShowProfileSettingsScreen:false})
+}
 showChatScreen = () =>
 {
     this.setState({DoNotShowBenefitsScreen:true})
@@ -937,8 +954,9 @@ logInUser = async () =>
                     let Type = jsonResults[0].MemberType;
                     let Payment = jsonResults[0].PaymentType;
                     let Registration = jsonResults[0].Registration;
+                    let Id = jsonResults[0].id;
                     try {
-                        let MemberDetails={ClubUserName:Name,ClubMemberCardNo:CardNo,ClubMemberCategory:Type,Registration:Registration,Payment:Payment}
+                        let MemberDetails={ClubUserName:Name,ClubMemberCardNo:CardNo,ClubMemberId:Id,ClubMemberCategory:Type,Registration:Registration,Payment:Payment}
                         const Details  = []
                         Details.push(MemberDetails)
                         await AsyncStorage.setItem('ClubMemberDetails',JSON.stringify(Details));
@@ -950,6 +968,7 @@ logInUser = async () =>
                     this.setState({ClubMemberCategory:Type});
                     this.setState({ClubMemberPayment:Payment});
                     this.setState({ClubMemberRegistration:Registration});
+                    this.setState({ClubMemberId:Id});
                     this.setState({IsMemberLogeIn:true});
                     this.getAllClubMemberRenewals (CardNo)
                     this.showUserAccountScreen();
@@ -965,10 +984,37 @@ logInUser = async () =>
     }
 }
 
+updateUserPassword = async () =>
+{
+    let NewPass = this.state.NewPassword;
+    let id = this.state.ClubMemberId;
+    console.log(NewPass+"::"+id)
+    if ((NewPass.length == 0))
+        {Alert.alert('Warning','Password Should Not Be Empty')}
+    else
+    {
+        try
+        {
+            const Request = await axios.put(APIUpdateClubMemberPassword, 
+                    {"id":id,"Password":NewPass})
+            let result = Request.data.status;
+            console.log(result);
+            Alert.alert("Request Status","\n\n"+result);
+            
+            
+        }
+
+        catch (error)
+            {
+
+                Alert.alert("An Error","\n\n  Check Your Network Connections\n"+error)
+            };
+    }
+}
 render() {
 
     const {DoNotShowChatScreen,DoNotShowMainNavBtnScreen,DoNotShowChatWindowScreen,DoNotShowChatLogInScreen} = this.state;
-
+    const {DoNotShowProfileDetailsScreen,DoNotShowProfileSettingsScreen} = this.state;
     const { DoNotShowUserAccountScreen,DoNotShowMemberCategoryScreen} = this.state;
     const {MemberFaceImage,MemberBodyImage,MemberNominateFaceImage1} = this.state;
     const { DoNotShowHomeScreen,DoNotShowBenefitsScreen,DoNotShowLogInScreen,DoNotShowApplyMembershipScreen} = this.state;
@@ -1076,11 +1122,11 @@ render() {
 
                         <View style={styles.ApplyCardView} >
                             <View style={{height:10}}></View>
-                                <Text style={styles.chatCustomerText} > Start A Chat With Your Number  </Text>
+                                <Text style={styles.chatCustomerText} > Start A Chat With Your Tc Number  </Text>
                             <View style={{height:10}}></View>
                         
                         <View style={styles.LogInPinView}>
-                            <TextInput style={[styles.input,styles.input1]} placeholder="Tc Number"  
+                            <TextInput style={[styles.input,styles.input1]} placeholder="Eg.Tcc113"  
                             placeholderTextColor = "#5800c4"  onChangeText={text => this.setClubCardNoLogIn(text)}
                             />
                             <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn5]} onPress={this.chatLogIn} >
@@ -1093,6 +1139,12 @@ render() {
 
                 {DoNotShowChatWindowScreen?<></>:(<>
                     <View style={styles.orderListDetailsText} >
+                    <View style={styles.ApplyCardView} >
+                            <View style={{height:10}}></View>
+                                <Text style={styles.chatCustomerText} > {ClubMemberName} </Text>
+                            <View style={{height:10}}></View>
+                        </View>
+                        <View style={{height:20}}></View>
                         <View style={styles.ApplyCardView} >
                             <View style={{height:10}}></View>
                                 <Text style={styles.chatCustomerText} > Tc Chatting... Chat With Us  </Text>
@@ -1515,7 +1567,7 @@ render() {
 
                             </View>
                         </View>
-
+                        {DoNotShowProfileDetailsScreen ?(<>
                         <View style={{height:20}} ></View>
                         <View style = {[styles.mainTableTitleHandleView]} >
                             <Text style = { styles.tableTitleHandleText}> Referrals </Text>
@@ -1555,54 +1607,80 @@ render() {
                             ))}
                             </View>
 
+                        
+                            <View style={{height:20}} ></View>
+                            <View style = {[styles.mainTableTitleHandleView]} >
+                                <Text style = { styles.tableTitleHandleText}> Renewals </Text>
+                            </View>
 
-                        <View style={{height:20}} ></View>
-                        <View style = {[styles.mainTableTitleHandleView]} >
-                            <Text style = { styles.tableTitleHandleText}> Renewals </Text>
-                        </View>
+                            <View style={styles.mainTableOuterView} >
+                            {ClubMemberAllRenewals && ClubMemberAllRenewals.map((item, index) => (
 
-                        <View style={styles.mainTableOuterView} >
-                        {ClubMemberAllRenewals && ClubMemberAllRenewals.map((item, index) => (
+                                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                                <View key={index}>
+                                    <View style={styles.mainTableView}>
+                                        <View style={styles.tableTrView} >
+                                            <Text  style={styles.trTdText}>{item.Renewal}</Text>
+                                        </View>
+                                        <View style={styles.tableTrView} >
+                                            <Text  style={styles.trTdText}>{item.Fee}</Text>
+                                        </View>
 
-                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                            <View key={index}>
-                                <View style={styles.mainTableView}>
-                                    <View style={styles.tableTrView} >
-                                        <Text  style={styles.trTdText}>{item.Renewal}</Text>
-                                    </View>
-                                    <View style={styles.tableTrView} >
-                                        <Text  style={styles.trTdText}>{item.Fee}</Text>
-                                    </View>
+                                        <View style={styles.tableTrView} >
+                                            <Text  style={styles.trTdText}>{item.DateOne}</Text>
+                                        </View>
+                                        <View style={styles.tableTrView} >
+                                            <Text  style={styles.trTdText}> To </Text>
+                                        </View>
+                                        <View style={styles.tableTrView} >
+                                            <Text  style={styles.trTdText}>{item.DateTwo}</Text>
+                                        </View>
 
-                                    <View style={styles.tableTrView} >
-                                        <Text  style={styles.trTdText}>{item.DateOne}</Text>
-                                    </View>
-                                    <View style={styles.tableTrView} >
-                                        <Text  style={styles.trTdText}> To </Text>
-                                    </View>
-                                    <View style={styles.tableTrView} >
-                                        <Text  style={styles.trTdText}>{item.DateTwo}</Text>
-                                    </View>
-
-                                    
-                                    <View style={styles.tableTrView} >
-                                        <View style={{width:20}} ></View>
+                                        
+                                        <View style={styles.tableTrView} >
+                                            <View style={{width:20}} ></View>
+                                        </View>
                                     </View>
                                 </View>
-                            </View>
-                            </ScrollView>
-                            ))}
-                            </View>
+                                </ScrollView>
+                                ))}
+                                </View>
+                                </>):(<></>)}
 
-                        <View style={{width:20}} ></View>  
+                            {DoNotShowProfileSettingsScreen ? <></>:(<>
+                                <View style={{height:20}} ></View>
+                                <View style={styles.ApplyCardView} >
+                                    <Text style={styles.AboutText} >Update Your Password</Text>
+                                    <TextInput style={styles.input} placeholder="New Password"
+                                    placeholderTextColor = "#5800c4"  onChangeText={text => this.setNewPassword(text)}
+                                    />
+
+                                <View style={{alignItems:'center'}}>
+                                    <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn1]} onPress={this.updateUserPassword} >
+                                        <Text style = {styles.btnText}> Update  </Text>
+                                    </TouchableOpacity>
+                                    <View style={{height:20}} ></View>
+                                    <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn2]} onPress={this.showProfileDetailsScreen} >
+                                        <Text style = {styles.btnText}>  Cancel </Text>
+                                    </TouchableOpacity>
+                                    <View style={{height:30}} ></View>
+                                </View>
+                                </View>
+                            
+                            </>)}
                         
-
+                        <View style={{alignItems:'center'}}>
+                        <View style={{height:20}} ></View>
+                            <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn3]} onPress={this.showProfileSettingsScreen} >
+                                <Text style = {styles.btnText}> Settings  </Text>
+                            </TouchableOpacity>
+                        </View>
                         <View >
                             <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn4]} onPress={this.logOutUser} >
                                 <Text style = {styles.btnText}> Log Out  </Text>
                             </TouchableOpacity>
                         </View>
-                    
+                        
                     </>)}
                     
                 {/* <View style={styles.MainBottomSpaceView}></View> */}

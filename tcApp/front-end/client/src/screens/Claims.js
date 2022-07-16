@@ -137,10 +137,12 @@ setCountrySelectedValue  = (text) =>
                         ====================================================================
                     */}
                     {DoNotTreatmentsDetailsScreen ?<></>:(<>
-                        <View style={styles.ApplyCardView} >
+                        {/* <View style={styles.ApplyCardView} >
                             <Text style={styles.AboutText} >Will Show List</Text> 
                             <Text style={styles.AboutText} >Code : Name Format</Text> 
-                        </View>
+                        </View> */}
+                    <Text style={styles.AboutTitleText} >Coming Soon</Text>
+
                     </>) }
 
                     {/* 
@@ -154,7 +156,9 @@ setCountrySelectedValue  = (text) =>
                     */}
                     { DoNotTreatmentsApplyScreen ? <></>:(<>
                         <View style={{height:10}}></View>
-                            <View style={styles.ApplyCardView} >
+                    <Text style={styles.AboutTitleText} >Coming Soon</Text>
+
+                            {/* <View style={styles.ApplyCardView} >
                             <View style={{height:30}}></View>
                             <Text style = {styles.btnText}> Your Details </Text>
 
@@ -174,9 +178,6 @@ setCountrySelectedValue  = (text) =>
                             />
 
                             {CountrySelected == "USA" || CountrySelected =="UK" ?(<>
-                            {/* <TextInput style={styles.input} placeholder="Country" editable = {false}  defaultValue={CountrySelected}
-                            placeholderTextColor = "#5800c4"  
-                            />*/}
                             <View style={styles.PhoneInput} >
                                 <TextInput style={[styles.phoneInput,styles.phoneInput1]}  editable = {false}  defaultValue={PhoneCountryCode} placeholder="Code" onChangeText={text => this.setMemberPhone(text)}
                                 placeholderTextColor = "#5800c4" 
@@ -221,7 +222,7 @@ setCountrySelectedValue  = (text) =>
 
                             <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn4]} onPress={this.postMembershipApplication} >
                                 <Text style = {styles.btnText}> Send  </Text>
-                            </TouchableOpacity> 
+                            </TouchableOpacity>  */}
                             <View style={{height:10}} ></View>
                     </>)}
                     
