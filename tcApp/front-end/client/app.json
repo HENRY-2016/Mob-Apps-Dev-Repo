@@ -22,7 +22,7 @@
       "adaptiveIcon": {
         "backgroundColor": "#8f33ff"},
         "package": "com.mogahenze.triplecare",
-        "versionCode": 2
+        "versionCode": 4
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -13,7 +13,7 @@ export const COLORS = {
   colourNumberOne:"#5800c4",
   colourNumberTwo:"#b980ff",
   colourNumberThree:"#811aff",
-  // colourNumberSix:"#ff4d4d",
+  colourNumberFour:"#663399",
 
   AppBgColor:"#8f33ff",
 

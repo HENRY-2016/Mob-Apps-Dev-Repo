@@ -117,36 +117,32 @@ export default StyleSheet.create(
 		fontSize:OTHERS.producttextfontsize,
 		color:COLORS.black,
 	},
-	// MainSmallBtnView:
-	// {
-	// 	flexDirection: 'column',
-	// 	marginTop:'35%',marginBottom:'35%', marginLeft:10,marginRight:10,
-		
-	// 	height:50,width:'95%', 
-	// 	borderBottomEndRadius:15,borderBottomLeftRadius:15,
-	// 	alignItems: 'center', justifyContent: 'center',
-	// },
-
-	// SmallBtnOne: 
-	// {
-	// 	marginTop: 1,
-	// 	backgroundColor:COLORS.colourNumberOne,
-	// 	paddingTop: 15,height: 43,
-	// 	borderRadius: 50,
-	// 	justifyContent: "center",
-	// 	marginLeft:5,
-	// },
-	// SmallBtnOne1: {width: 210},
-	// SmallBtnOne2: {width: 250},
-
+	
 	btnText: {
 		color: COLORS.white,
 		fontSize: OTHERS.bigbtnfontsize,
 		marginTop:-20,
 		justifyContent: "center",textAlign: "center",
 	},
+	btnText2: {
+		color: COLORS.colourNumberOne,
+		fontSize: OTHERS.bigbtnfontsize,
+		marginTop:-20,
+		justifyContent: "center",textAlign: "center",
+	},
 	
-
+	chatInput: {
+		margin: 15,
+		height: 65,
+		color:COLORS.colourNumberOne,
+		fontSize:19,
+		width:'90%',
+		textAlign:'center',
+		borderWidth: 3,
+		borderRadius: 50,
+		borderColor:COLORS.colourNumberOne,
+	
+	},
 	input: {
 		margin: 15,
 		height: 40,
@@ -310,6 +306,22 @@ export default StyleSheet.create(
 		width: 330,
 		height: 300,
 	},
+
+// ================================================================
+// ================================================================
+// ================================================================
+
+	// Home screen
+// ================================================================
+// ================================================================
+
+TcNewsIconMainView:{width:'95%',},
+TcNewsIcon:
+{
+	marginLeft:20,
+	marginRight:60,
+	width:300,
+},
 	
 	// ================================================================
 	// ================================================================
@@ -335,6 +347,11 @@ export default StyleSheet.create(
 		borderRadius:15,
 		width:'95%', marginLeft:10,marginRight:15,
 		
+	},
+	ApplyCardView2:
+	{
+		backgroundColor:COLORS.colourNumberTwo,
+		width:'100%',
 	},
 
 
@@ -411,6 +428,17 @@ mainTableTitleHandleView:
 	width:150,height: 45,
 	marginLeft:10,
 },
+
+mainTableTitleHandleView2:
+{
+	backgroundColor:COLORS.colourNumberThree,
+	borderRadius:0,
+	borderBottomColor:COLORS.colourNumberTwo,
+	borderBottomWidth:2,
+	height: 45,
+	marginLeft:10,
+},
+mainTableTitleHandleView3:{width:220},
 tableTitleHandleText: {
 	color: COLORS.white,
 	fontSize: 20,marginTop:8,
@@ -419,8 +447,9 @@ tableTitleHandleText: {
 mainTableView:
 {
 	flexDirection:'row',
-	backgroundColor: COLORS.colourNumberThree,
+	// backgroundColor: COLORS.colourNumberThree,
 },
+
 tableTrView:
 {
 	paddingBottom: 8, paddingTop:8,
@@ -429,20 +458,71 @@ tableTrView:
 	borderBottomWidth:2,
 	height:65,
 },
+tableTrView2:
+{
+	paddingBottom: 8, paddingTop:8,
+	textAlign: "center",
+	borderBottomColor:COLORS.colourNumberThree,
+	borderBottomWidth:2,
+	height:65,
+	// height:40,
+},
 trTdText:
 {
 	flexDirection: 'row',fontSize:18,
 	paddingBottom:5,marginTop:8, 
 	paddingLeft:10, paddingRight:10,
-	color:COLORS.white,
+	color:COLORS.colourNumberThree,
 },
 
+
+
+// ================================================================
+// ================================================================
+	// chat screen
+// ================================================================
+// ================================================================
+
+chatRatings:
+{
+	// marginLeft:10,
+},
+ratingChatBtnView:
+	{
+		flexDirection: 'row', justifyContent: 'center',
+		height: 30, marginTop:8, alignItems: 'center'
+	},
+ratingChatBtn: {
+	width: 150,
+	// marginTop: 10, marginBottom:10,
+
+	backgroundColor:COLORS.colourNumberThree,
+	height: 38,
+	borderRadius: 50,
+	
+},
+ratingChatBtn2: {
+	width: 200,
+	// marginTop: 10, marginBottom:10,
+
+	backgroundColor:COLORS.colourNumberThree,
+	height: 38,
+	borderRadius: 50,
+	
+},
+ratingChatBtnText:
+{
+	color:COLORS.white,
+	fontSize:OTHERS.bigbtnfontsize,
+	marginLeft:30, marginTop:5,
+},
 
 // ================================================================
 // ================================================================
 	// splash screen
 // ================================================================
 // ================================================================
+
 mainViewSplah: {
 	paddingTop: 23,
 	flex:1,
@@ -477,6 +557,7 @@ splashScreenImage:
 	marginRight:60,
 	width:240,height:240,
 },
+
 splashScreenTextView:
 {
 	flexDirection: 'row',
@@ -509,7 +590,6 @@ drawerUserView:
 
 drawerIcon:
 {
-	color:COLORS.white,
 	width:120,height:120,
 	marginLeft:20,
 
@@ -567,12 +647,12 @@ mainChatView:
 	position: 'absolute',right: 5,top: 5,
 },
 chatCustomerText: {
-	color: COLORS.colourNumberOne,
 	paddingLeft:10,fontSize: 18,
+	color: COLORS.colourNumberOne,
 },
-chatReplayText: {
-	color: COLORS.colourNumberOne,
+chatReplyText: {
 	paddingLeft:10,fontSize: 18,
+	color: COLORS.colourNumberFour,
 },
 mainMenuView:
 {
@@ -763,7 +843,5 @@ PhotoUploadBtnText:
 	marginTop:0,
 	justifyContent: "center",textAlign: "center",
 },
-
-
 
 });

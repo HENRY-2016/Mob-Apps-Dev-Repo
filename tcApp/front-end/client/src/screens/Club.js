@@ -31,9 +31,6 @@ constructor(props){
 
         // On chat
         DoNotShowMainNavBtnScreen:false, // should be false always
-        DoNotShowChatScreen:true,
-        DoNotShowChatWindowScreen:true,
-        DoNotShowChatLogInScreen:true, 
         // ShowSplashScreen:false,
         // CustomerDetailsFound:true,
         ClubCardNoLogIn:'',
@@ -157,24 +154,6 @@ initializeClubUserName = () =>
         })
     }catch (error) { console.log(error)}
 
-    /// Chats=========
-    try 
-    {   
-        AsyncStorage.getItem('ChatDetails').then((Details)=>{
-        if (Details !== null) {
-            // We have data!!
-            const jsonData = JSON.parse(Details)
-            let Name = jsonData[0].ChatUserName;
-            let CardNo = jsonData[0].ChatCardNo;
-
-            this.setState({ChartCardNo:CardNo});
-            this.setState({ChatMemberName:Name});
-            this.showInnerChatWindowScreen();
-        }
-        else {this.showInnerChatLogInScreen();}
-        })
-    }catch (error) { console.log(error)}
-
 }
 
 getAllClubMemberRenewals = (ClubMemberCardNo) =>
@@ -266,36 +245,7 @@ showProfileSettingsScreen = () =>
     this.setState({DoNotShowProfileDetailsScreen:false})
     this.setState({DoNotShowProfileSettingsScreen:false})
 }
-showChatScreen = () =>
-{
-    this.setState({DoNotShowBenefitsScreen:true})
-    this.setState({DoNotShowLogInScreen:true})
-    this.setState({DoNotShowUserAccountScreen:true})
-    this.setState({DoNotShowApplyMembershipScreen:true})
-    this.setState({DoNotShowMemberCategoryScreen:true})
-    this.setState({DoNotShowMainNavBtnScreen:true})
-    this.setState({DoNotShowHomeScreen:true})
-    this.setState({DoNotShowChatScreen:false})
-}
-closeChatScreen = () =>
-{
-    this.setState({DoNotShowMainNavBtnScreen:false})
-    this.setState({DoNotShowChatScreen:true})
-    this.setState({DoNotShowHomeScreen:false})
-}
-showInnerChatLogInScreen = () =>
-{
-    this.setState({DoNotShowChatWindowScreen:true})
-    this.setState({DoNotShowChatLogInScreen:false})
-}
-showInnerChatWindowScreen = () =>
-{
-    this.setState({DoNotShowChatLogInScreen:true})
-    this.setState({DoNotShowChatWindowScreen:false})
-    this.getAllChats();
-    setInterval(this.getAllChats,6000);
 
-}
 
 showHomeScreen = () =>
 {
@@ -304,14 +254,12 @@ showHomeScreen = () =>
     this.setState({DoNotShowUserAccountScreen:true})
     this.setState({DoNotShowApplyMembershipScreen:true})
     this.setState({DoNotShowMemberCategoryScreen:true})
-    this.setState({DoNotShowChatScreen:true})
     this.setState({DoNotShowHomeScreen:false})
 }
 
 showBenefitsScreen = () =>
 {
     this.setState({DoNotShowLogInScreen:true})
-    this.setState({DoNotShowChatScreen:true})
     this.setState({DoNotShowApplyMembershipScreen:true})
     this.setState({DoNotShowHomeScreen:true})
     this.setState({DoNotShowUserAccountScreen:true})
@@ -321,7 +269,6 @@ showBenefitsScreen = () =>
 showLogInScreen = () =>
 {
     this.setState({DoNotShowHomeScreen:true})
-    this.setState({DoNotShowChatScreen:true})
     this.setState({DoNotShowBenefitsScreen:true})
     this.setState({DoNotShowApplyMembershipScreen:true})
     this.setState({DoNotShowUserAccountScreen:true})
@@ -331,7 +278,6 @@ showLogInScreen = () =>
 showApplyMembershipScreen = () =>
 {
     this.setState({DoNotShowLogInScreen:true})
-    this.setState({DoNotShowChatScreen:true})
     this.setState({DoNotShowHomeScreen:true})
     this.setState({DoNotShowUserAccountScreen:true})
     this.setState({DoNotShowBenefitsScreen:true})
@@ -342,7 +288,6 @@ showApplyMembershipScreen = () =>
 showUserAccountScreen = () =>
 {
     this.setState({DoNotShowLogInScreen:true})
-    this.setState({DoNotShowChatScreen:true})
     this.setState({DoNotShowHomeScreen:true})
     this.setState({DoNotShowBenefitsScreen:true})
     this.setState({DoNotShowApplyMembershipScreen:true})
@@ -353,90 +298,11 @@ showUserAccountScreen = () =>
 showMemberCategoryScreen = () =>
 {
     this.setState({DoNotShowLogInScreen:true})
-    this.setState({DoNotShowChatScreen:true})
     this.setState({DoNotShowHomeScreen:true})
     this.setState({DoNotShowBenefitsScreen:true})
     this.setState({DoNotShowApplyMembershipScreen:true})
     this.setState({DoNotShowUserAccountScreen:true})
     this.setState({DoNotShowMemberCategoryScreen:false})
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-getAllChats = () =>
-{
-    let ClubNo = this.state.ChartCardNo;
-    axios.get(APIListAllChats+ClubNo)
-    .then(res => {
-        let results =JSON.stringify(res.data); 
-        this.setState({AllMemberChats:[...JSON.parse(results)]})
-        if (results.length === 0)
-            {this.setState({CustomerDetailsFound:false})}
-        })
-    .catch(err=>{ console.log("=====>>>"+err)}) 
-}
-chatLogIn = async () =>
-{
-    let ClubCardNoLogIn = this.state.ClubCardNoLogIn;
-
-    if ((ClubCardNoLogIn.length == 0))
-        {Alert.alert('Warning','Please Tc Number Is Required')}
-    else
-    {
-        try
-        {
-            const loginRequest = await axios.get(APIMemberChatsLogIn+ClubCardNoLogIn)
-            let results = loginRequest.data
-            let jsonString = JSON.stringify(results)
-            console.log(jsonString)
-            console.log(results.length)
-            let jsonResults =JSON.parse(jsonString);
-
-            if (results.length == 0)
-                {Alert.alert("Sorry","\n\n  No Member Records Found \n\n Try Again")}
-            else
-            {
-                let CardNo = jsonResults[0].CardNo;
-                
-                if ((CardNo !== ClubCardNoLogIn))
-                    {Alert.alert("Sorry","\n\n Invalid User Tc Number \n\n Try Again")}
-
-                else
-                {
-                    let Name= jsonResults[0].Name;
-                    try {
-                        let MemberDetails={ChatUserName:Name,ChatCardNo:CardNo}
-                        const ChatDetails  = []
-                        ChatDetails.push(MemberDetails)
-                        await AsyncStorage.setItem('ChatDetails',JSON.stringify(ChatDetails));
-                        } 
-                    catch (error) {console.log(error)}
-
-                    this.setState({ChartCardNo:CardNo});
-                    this.setState({ChatMemberName:Name});
-                    this.showInnerChatWindowScreen();
-                }
-
-                }
-            }
-
-        catch (error)
-            {
-                Alert.alert("An Error","Host Not Found Or\n\n  Check Your Network Connections\n"+error)
-            };
-    }
 }
 
 
@@ -449,42 +315,6 @@ logOutUser = async () =>
         Alert.alert("Warning","\n\n You Have Logged Out")
 
     }catch (error) { console.log(error)}
-}
-logOutUserFromChat = async () => 
-{
-    try 
-    {   
-        await AsyncStorage.removeItem ('ChatDetails');
-        Alert.alert("Warning","\n\n You Have Logged Out \n\n From Chat")
-
-    }catch (error) { console.log(error)}
-}
-postMemberChat = async () => 
-{
-    let cardNo = this.state.ChartCardNo;
-    let memberName = this.state.ChatMemberName;
-    let chat = this.state.ChatChat;
-
-    if ((chat.length == 0))
-    {Alert.alert("Warning","\n \n Chat Input \n \n Can Not Be Empty")}
-
-    else
-    {
-        try
-        {
-            const postRequest = await axios.post(APIMemberChatsPost,
-                {
-                    "CardNo":cardNo,
-                    "MemberName":memberName,
-                    "Chat":chat,
-                }
-            )
-            let result = postRequest.data.status;
-            Alert.alert("Chat Status",result);
-        }
-        catch (error)
-            {Alert.alert("An Error","Host Not Found Or Check\n\nYour Network Connections\n\n"+error)};
-    }
 }
 
 facePhotoImage = async () => 
@@ -1013,13 +843,12 @@ updateUserPassword = async () =>
 }
 render() {
 
-    const {DoNotShowChatScreen,DoNotShowMainNavBtnScreen,DoNotShowChatWindowScreen,DoNotShowChatLogInScreen} = this.state;
     const {DoNotShowProfileDetailsScreen,DoNotShowProfileSettingsScreen} = this.state;
     const { DoNotShowUserAccountScreen,DoNotShowMemberCategoryScreen} = this.state;
     const {MemberFaceImage,MemberBodyImage,MemberNominateFaceImage1} = this.state;
     const { DoNotShowHomeScreen,DoNotShowBenefitsScreen,DoNotShowLogInScreen,DoNotShowApplyMembershipScreen} = this.state;
 
-    const {ClubMemberName,ClubMemberAllReferrals,ClubMemberCategory,AllMemberChats,IsMemberLogeIn} = this.state;
+    const {ClubMemberName,ClubMemberAllReferrals,ClubMemberCategory,IsMemberLogeIn} = this.state;
     const {ClubMemberCardNo,ClubMemberAllRenewals,ClubMemberRegistration,ClubMemberPayment} = this.state;
     const { Countries,CountrySelectedValue,CountrySelected,PhoneCountryCode,ReferralType} = this.state;
 
@@ -1038,7 +867,7 @@ render() {
                     <Text style = { styles.productTopTitleName}> Club </Text>
                 </View> */}
             <View style={styles.mainChatView}>
-                <TouchableOpacity style={styles.openChatBtn} onPress={this.showChatScreen}>
+                <TouchableOpacity style={styles.openChatBtn} onPress={() => this.props.navigation.navigate('Chat')}>
                     <Ionicons name="ios-chatbubble-ellipses-sharp" size={30} style={styles.opeMenuIcone} />
                 </TouchableOpacity>
             </View>
@@ -1054,7 +883,7 @@ render() {
 
 
                     <View style={styles.MainNavigationBtnView1}>
-                    {DoNotShowMainNavBtnScreen?<></>:(<>
+                    {/* {DoNotShowMainNavBtnScreen?<></>:(<> */}
                     <View style={styles.MainNavigationBtnView}>
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
                         <View style={styles.MainNavigationBtnSpaceView} ></View>
@@ -1102,100 +931,10 @@ render() {
                             <View style={styles.MainNavigationBtnSpaceView} ></View>
                         </ScrollView>
                     </View>
-                    </>)}
+                    {/* </>)} */}
                     </View>
                     <View style={{height:20}}></View>
 
-                                {/* 
-                ====================================================================
-                ====================================================================
-                ====================================================================
-                            Begin Chart Screen
-                ====================================================================
-                ====================================================================
-                ====================================================================
-            */}
-
-            {DoNotShowChatScreen ?<></>:(<>
-                {DoNotShowChatLogInScreen?<></>:(<>
-                    <View style={styles.orderListDetailsText} >
-
-                        <View style={styles.ApplyCardView} >
-                            <View style={{height:10}}></View>
-                                <Text style={styles.chatCustomerText} > Start A Chat With Your Tc Number  </Text>
-                            <View style={{height:10}}></View>
-                        
-                        <View style={styles.LogInPinView}>
-                            <TextInput style={[styles.input,styles.input1]} placeholder="Eg.Tcc113"  
-                            placeholderTextColor = "#5800c4"  onChangeText={text => this.setClubCardNoLogIn(text)}
-                            />
-                            <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn5]} onPress={this.chatLogIn} >
-                                <Text style = {styles.btnText}> Next  </Text>
-                            </TouchableOpacity>
-                        </View>
-                        </View>
-                    </View>
-                </>)}
-
-                {DoNotShowChatWindowScreen?<></>:(<>
-                    <View style={styles.orderListDetailsText} >
-                    <View style={styles.ApplyCardView} >
-                            <View style={{height:10}}></View>
-                                <Text style={styles.chatCustomerText} > {ClubMemberName} </Text>
-                            <View style={{height:10}}></View>
-                        </View>
-                        <View style={{height:20}}></View>
-                        <View style={styles.ApplyCardView} >
-                            <View style={{height:10}}></View>
-                                <Text style={styles.chatCustomerText} > Tc Chatting... Chat With Us  </Text>
-                            <View style={{height:10}}></View>
-                        </View>
-                        <View style={{height:20}}></View>
-                        <View style={styles.ApplyCardView} >
-                        {AllMemberChats && AllMemberChats.map((item,index) => (
-                            <View key={index} >
-                                <View style={{height:20}} ></View>
-                                <Text style={styles.chatCustomerText} > {item.Chat}  </Text>
-                                <Text style={styles.chatCustomerText} > {item.ChatDate}  </Text>
-                                <View style={{height:5}}  ></View>
-                                <Text style={styles.chatReplayText} > { item.Reply}</Text>
-                                <Text style={styles.chatReplayText} >{item.ReplayDate}</Text>
-                                <View style={{height:20}} ></View>
-                            </View>
-                            ))}
-                        </View>
-                        <View style={{height:20}} ></View>
-                        <View style={styles.ApplyCardView} >
-                            <TextInput style={styles.input} placeholder="Your Chat"  
-                            placeholderTextColor = "#5800c4"  onChangeText={text => this.setChatChat(text)}
-                            />
-                            <View style={{alignItems:'center'}} >
-                                <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn2]} onPress={this.postMemberChat} >
-                                    <Text style = {styles.btnText}> Send  </Text>
-                                </TouchableOpacity>
-                                <View style={{height:20}} ></View>
-                            </View>
-                            </View>
-                        </View>
-                </>)}
-
-                <View style={styles.ApplyCardView} >
-                    <View style={{alignItems:'center'}} >
-                        <View style={{height:10}} ></View>
-                        <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn3]} onPress={this.logOutUserFromChat} >
-                            <Text style = {styles.btnText}> Chat Sign Out  </Text>
-                        </TouchableOpacity>
-                        <View style={{height:10}} ></View>
-
-                        <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn4]} onPress={this.closeChatScreen} >
-                            <Text style = {styles.btnText}> Close Chat  </Text>
-                        </TouchableOpacity>
-                        <View style={{height:10}} ></View>
-                    </View>
-                </View>
-                <View style={{height:20}} ></View>
-            </>)}
-        
                     {/* 
                         ====================================================================
                         ====================================================================
@@ -1569,6 +1308,45 @@ render() {
                         </View>
                         {DoNotShowProfileDetailsScreen ?(<>
                         <View style={{height:20}} ></View>
+                        <View style = {[styles.mainTableTitleHandleView2,styles.mainTableTitleHandleView3]} >
+                            <Text style = { styles.tableTitleHandleText}>Tc Credit :: 1,000,000 </Text>
+                        </View>
+
+                        <View style={styles.mainTableOuterView} >
+                        {ClubMemberAllReferrals && ClubMemberAllReferrals.map((item, index) => (
+
+                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                            <View key={index}>
+                                <View style={styles.mainTableView}>
+                                    <View style={styles.tableTrView} >
+                                        <Text  style={styles.trTdText}>{item.Number}</Text>
+                                    </View>
+
+                                    <View style={styles.tableTrView} >
+                                        <Text  style={styles.trTdText}>{item.Date}</Text>
+                                    </View>
+
+                                    <View style={styles.tableTrView} >
+                                        <Text  style={styles.trTdText}>{item.Points}</Text>
+                                    </View>
+
+                                    <View style={styles.tableTrView} >
+                                        <Text  style={styles.trTdText}>{item.TccNumber}</Text>
+                                    </View>
+
+                                    <View style={styles.tableTrView} >
+                                        <Text  style={styles.trTdText}>{item.MemberName}</Text>
+                                    </View>
+                                    <View style={styles.tableTrView} >
+                                        <View style={{width:20}} ></View>
+                                    </View>
+                                </View>
+                            </View>
+                            </ScrollView>
+                            ))}
+                            </View>
+
+                            <View style={{height:20}} ></View>
                         <View style = {[styles.mainTableTitleHandleView]} >
                             <Text style = { styles.tableTitleHandleText}> Referrals </Text>
                         </View>

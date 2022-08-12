@@ -1,4 +1,3 @@
-import 'react-native-gesture-handler';
 import React, {useState} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {View,Image,Text} from "react-native";
@@ -24,6 +23,7 @@ import Store from './src/screens/Store';
 import TeamImage from './src/imgs/teamwork.png';
 import FeedBack from './src/screens/Feedback';
 import Claims from './src/screens/Claims';
+import Chat from './src/screens/chat';
 
 function CustomDrawerContent(props) {
 return (
@@ -68,9 +68,14 @@ return (
         title: 'Tc Home',unmountOnBlur: true,
         }} />
 
+        <Drawer.Screen name="Chat"   component={Chat} options={{headerShown: false,swipeEnabled: false,
+        title: 'Tc Chat',unmountOnBlur: true,
+        }} />
+
         <Drawer.Screen name="Club"   component={Club} options={{headerShown: false,swipeEnabled: false,
         title: 'Tc Club',unmountOnBlur: true,
         }} />
+
 
         <Drawer.Screen name="Claims"   component={Claims} options={{headerShown: false,swipeEnabled: false,
         title: 'Tc Claims',unmountOnBlur: true,

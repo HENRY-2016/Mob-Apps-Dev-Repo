@@ -3,7 +3,7 @@ import React from 'react';
 import { Text, View, Alert,TextInput,TouchableOpacity, ScrollView, Image} from 'react-native';
 import styles from "./stylesheet";
 import {Picker} from '@react-native-picker/picker';
-import { AntDesign,FontAwesome} from '@expo/vector-icons';
+import { Ionicons, AntDesign,FontAwesome} from '@expo/vector-icons';
 
 import axios from "axios";
 import { COLORS } from './Colours';
@@ -88,8 +88,13 @@ setCountrySelectedValue  = (text) =>
                         </View>
                     </View>
 
-                    <View style = { styles.productTopTitleNameView}>
+                    {/* <View style = { styles.productTopTitleNameView}>
                         <Text style = { styles.productTopTitleName}> Claims </Text>
+                    </View> */}
+                    <View style={styles.mainChatView}>
+                        <TouchableOpacity style={styles.openChatBtn} onPress={() => this.props.navigation.navigate('Chat')}>
+                            <Ionicons name="ios-chatbubble-ellipses-sharp" size={30} style={styles.opeMenuIcone} />
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <ScrollView>
