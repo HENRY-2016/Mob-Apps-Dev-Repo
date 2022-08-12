@@ -351,9 +351,9 @@ render() {
                 
 
                 <ScrollView>
-                    {cartItems && cartItems.map((item, i) => (
+                    {cartItems && cartItems.map((item, index) => (
                         <>
-                        <View key={i} style={styles.offersMainContainerView}>
+                        <View key={index} style={styles.offersMainContainerView}>
 
                             <View style={styles.offersimageRightView}>
                                 <TouchableOpacity  style={{paddingRight: 1}}>
@@ -538,9 +538,9 @@ render() {
                     </View>
                 </View>
 
-                    {cartItems && cartItems.map((item, i) => (
+                    {cartItems && cartItems.map((item, index) => (
                         <>
-                        <View key={i} style={styles.orderListMainContainerView}>
+                        <View key={index} style={styles.orderListMainContainerView}>
 
                             <View style={styles.offersimageRightView}>
                                 <TouchableOpacity  style={{paddingRight: 10}}>

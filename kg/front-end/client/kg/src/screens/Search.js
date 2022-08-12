@@ -1,38 +1,25 @@
 
 import React from 'react';
-import { Text,Image, View, TouchableOpacity,Alert, ScrollView} from 'react-native';
+import { Text,Image, View, TouchableOpacity,Alert, FlatList, ScrollView} from 'react-native';
 import {FontAwesome,Ionicons } from '@expo/vector-icons';
+import {Picker} from '@react-native-picker/picker';
+
 import axios from "axios";
 import styles from "./stylesheet";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
-import { FlatList } from 'react-native-gesture-handler';
 
 import { COLORS } from './Colours';
 
 // APIs
 import {
-    APIBabies, imageurl,
-    // APIBathRoomTowelsProducts,
-    // APIBathRoomDoorMatsProducts,
-    // APIBathRoomCurtainsProducts
+    mageurl,APISearchName,
+    APIBabiesNames,APIBathRoomNames,
+    APIBedRoomNames,APILivingRoomNames,
     } from './DataFileApis';
 
-const numColums = 2;
-const formatData = (data,numColums) =>
-{
-    const numberOfFullRows = Math.floor(data.length / numColums);
-
-    let numberOfElementsLastRow = data.length - (numberOfFullRows * numColums);
-    while (numberOfElementsLastRow !== numColums && numberOfElementsLastRow !==0)
-    {
-        data.push({key:`blank-${numberOfElementsLastRow}`,empty:true});
-        numberOfElementsLastRow = numberOfElementsLastRow +1;
-    }
-    return data;
-}
-
-
+import { formatData,numColums,
+    addItemsToCart,formatNumberWithComma
+    } from './Functions';
 
 
 export default class Search extends React.Component {
@@ -42,43 +29,28 @@ constructor(props){
     super(props);
     this.state = {
         cartItemsIsLoading: false,
-            cartItems:[],
-            isVisible:false,
-            SearchName:'',
-            SearchNamesOptions : [
-                {
-                    id: "0",
-                    title: "Type First Letter",},
-                {
-                    id: "1",
-                    title: "Nets",},
-                {
-                    id: "2",
-                    title:"Blankets",
-                },
-                {
-                    id: "3",
-                    title: "Nets2",},
-                {
-                    id: "4",
-                    title:"Blankets2",
-                }
-            ],
         
             NumberOfItems:'',
 
-            // screens
-            showRobsScreen:false, // do not display empty view
-            showTowelsScreen:true, // display empty view
-            showShowerCurtainsScreen:true, // display empty view
-            showBlanketsScreen:true, // display empty view
-            showDoorMatsScreen:true, // display empty view
+            SearchResults:[],
+            BabiesNamesList:[],
+            LivingRoomNamesList:[],
+            BathRoomNamesList:[],
+            BedRoomNamesList:[],
+            ProductsNameSelected:'',
+            // Screens
+            DoNotShowDisplayScreen: false,
+            DoNotShowItemDetailsScreen: true,
 
-            // Products 
-            BabiesProducts:[],
-            BathRoomTowelsProducts:[],
-            RoomDoorMatsProducts:[],
-            RoomBathroomCurtainsProducts:[],
+            ItemDetails:[
+                "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-1.png?raw=true",
+                "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-2.png?raw=true",
+                "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-3.png?raw=true",
+                "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-4.png?raw=true",
+                "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-5.png?raw=true",
+                "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-6.png?raw=true",
+            ],
+            ItemIndex:'',
     }
 
 
@@ -86,14 +58,33 @@ constructor(props){
     
 }
 componentDidMount() {
-    axios.get(APIBabies)
+    axios.get(APIBabiesNames)
     .then(res => {
         let results =JSON.stringify(res.data); 
-        this.setState({BabiesProducts:[...JSON.parse(results)]})
-        // console.log(this.state)
-        // console.log("1 ==>"+results)
+        this.setState({BabiesNamesList:[...JSON.parse(results)]})
         })
-    .catch(err=>{})
+    .catch()
+
+    axios.get(APILivingRoomNames)
+    .then(res => {
+        let results =JSON.stringify(res.data); 
+        this.setState({LivingRoomNamesList:[...JSON.parse(results)]})
+        })
+    .catch()
+
+    axios.get(APIBathRoomNames)
+    .then(res => {
+        let results =JSON.stringify(res.data); 
+        this.setState({BathRoomNamesList:[...JSON.parse(results)]})
+        })
+    .catch()
+
+    axios.get(APIBedRoomNames)
+    .then(res => {
+        let results =JSON.stringify(res.data); 
+        this.setState({BedRoomNamesList:[...JSON.parse(results)]})
+        })
+    .catch(err=>{Alert.alert("Error","Can Not Load Data")})
 
     setInterval(this.getNumberOfItems,1000);
 }
@@ -109,127 +100,67 @@ getNumberOfItems = () =>
 };
 
 
+setProductsNameSelectedValue = (text) => {this.setState({ProductsNameSelected:text})}
 
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-///                     Adding to Cart 
-
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-addToCartBathRobsProducts = (index) => 
+displayItemDetailsScreen = (index) =>
 {
-    const newItems = [...this.state.BabiesProducts]; // clone the array
+    console.log(index);
+    this.setState({ItemIndex:index})
+    setTimeout(this.showItemDetailsScreen,1000)
 
-    let product = newItems[index];
-    let id = index;
-    let name = product.Name;
-    let status = product.Description;
-    let amount = product.Amount;
-    let image = product.image;
-    let qty = 1;
-    let itemcart={ id: id, name: name, status: status, amount: amount, qty:qty,image:image}
-    // console.log("====="+JSON.stringify(itemcart))
+}
+showItemDisplayScreen = () =>
+{
+    this.setState({DoNotShowItemDetailsScreen: true})
+    this.setState({DoNotShowDisplayScreen: false})
+}
+getProducts = () =>
+{
+    let searchName = this.state.ProductsNameSelected;
+    console.log(searchName);
 
-    AsyncStorage.getItem('cartItems').then((datacart)=>{
-            if (datacart !== null) 
-            {
-                // We have data!!
-                const cart = JSON.parse(datacart)
-                cart.push(itemcart)
-                AsyncStorage.setItem('cartItems',JSON.stringify(cart));
-                alert("Item Added To Cart")
-            }
-            else{
-                const cart  = []
-                cart.push(itemcart)
-                AsyncStorage.setItem('cartItems',JSON.stringify(cart));
-                alert("Item Added To Cart");
-            }
+    axios.get(APISearchName+searchName)
+    .then(res => {
+        let results =JSON.stringify(res.data); 
+        this.setState({SearchResults:[...JSON.parse(results)]})
+        // console.log(this.state)
         })
-        .catch((err)=>{alert(err)})
-
-        // NumberOfItems
-        AsyncStorage.getItem('NumberOfItems').then((number)=>{
-            if (number !== null) 
-            {
-                // We have data!!
-                const value = JSON.parse(number)
-                let newnumber = parseInt(value) + 1;
-                console.log("== New ===",newnumber)
-                AsyncStorage.setItem('NumberOfItems',JSON.stringify(newnumber));
-                console.log("number Added")
-            }
-            else{
-                let newnumber = 1;
-                AsyncStorage.setItem('NumberOfItems',JSON.stringify(newnumber));
-                console.log("Initial Num Added To Cart")
-            }
-        })
-        .catch((err)=>{alert(err)})
+    .catch(err=>{Alert.alert("Error","\n\n Can Not Load Products");})
 }
 
-
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-///                     rendering items
-
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-renderBathRobsProducts = ({item,index}) => 
+renderItem = ({item,index}) => 
     {
         if (item.empty === true)
             { return <View style={[styles.ItemInvisible]}></View> }
         return (
             <View style={styles.homeCardView2}>
-                <TouchableOpacity>
-                    <Image source={{uri: imageurl+item.image}} style={styles.homeproductImage} />
-                    {/* <Image source={{uri: item.thumbnailImage}} style={styles.homeproductImage} /> */}
+                <TouchableOpacity onPress={()=>this.displayItemDetailsScreen(index)}>
+                    <Image source={{uri: imageurl+item.image}} style={styles.productImage} />
                 </TouchableOpacity>
 
                 <View style={styles.productTextView}>
                     <Text numberOfLines={1} style={styles.producttext}> {item.Name}</Text>
                     <Text numberOfLines={1} style={styles.producttext}> {item.Description}</Text>
-                    <Text numberOfLines={1} style={styles.producttext}> {this.formatNumberWithComma(item.Amount)}</Text>
+                    <Text numberOfLines={1} style={styles.producttext}> {formatNumberWithComma(item.Amount)}</Text>
                 </View>
 
                 <View style={styles.homeOrderbtnView}>
                     <View style={[styles.centerElement, styles.homeOrderBtn]}>
-                        <TouchableOpacity style={styles.homeordersbtn} onPress={()=>this.addToCartBathRobsProducts(index)} >
+                        <TouchableOpacity style={styles.homeordersbtn} onPress={()=>addItemsToCart(index,this.state.cartItems)} >
                             <Text style = { styles.homeorderstxt}> Add to cart </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
             </View>
+            
         )
     }
 
-
-selectValue = (value) => {
-        // Value is whatever user selected in autocomplete.
-        console.log(value)
-    };
-    setSearchName = (data) => {
-    // const result = await fetch("http://example.com/address");
-    console.log("====>>"+data);
-    let jsonStr = JSON.stringify(data)
-    // let jsonObj = JSON.parse(jsonStr)
-    // console.log("====>>"+ jsonStr);
-    // console.log("====nnn"+ jsonObj[1]['title']);
-
-
-    // this.setState({SearchName:data})
-};
-setSearchNameResults = () =>
-{
-    console.log("====>> API Data");
-
-}
 render() {
     
-    const { SearchName,SearchNamesOptions, NumberOfItems} = this.state;
+    const {ProductsNameSelected,SearchResults, NumberOfItems,ItemIndex} = this.state;
+    const{BabiesNamesList,LivingRoomNamesList,BathRoomNamesList,BedRoomNamesList} = this.state;
+    const {DoNotShowDisplayScreen,DoNotShowItemDetailsScreen} = this.state
 
     return (
         
@@ -256,16 +187,100 @@ render() {
             </View>
 
             <View style={{height:10}} ></View>
-            <View style={styles.searchMainView} >
-                <AutocompleteDropdown 
-                    clearOnFocus={false}
-                    closeOnBlur={true}
-                    closeOnSubmit={false}
-                    initialValue={{id:"0"}}
-                    onSelectItem ={(itemValue) =>this.setSearchName(itemValue)}
-                    dataSet={SearchNamesOptions}
-                />
+
+            <View style={styles.searchBar}>
+                <View style={styles.searchBarLeftView} >
+                <View style={styles.searchPickerSelectionInputView}>
+                    <Picker style={styles.searchPickerSelectioninputs} dropdownIconColor= {COLORS.black}
+                        selectedValue={ProductsNameSelected}
+                        
+                        onValueChange={(itemValue) =>this.setProductsNameSelectedValue(itemValue)}>
+                            <Picker.Item label="Babies Items"/> 
+                            {BabiesNamesList && BabiesNamesList.map((iteam,Index ) => (
+                            <Picker.Item label={iteam.Name} value={iteam.Name} /> 
+                            ))}
+                            <Picker.Item label="Living Room Items"/> 
+                            {LivingRoomNamesList && LivingRoomNamesList.map((iteam,Index ) => (
+                            <Picker.Item label={iteam.Name} value={iteam.Name} /> 
+                            ))}
+                            <Picker.Item label="Bath Room Items"/> 
+                            {BathRoomNamesList && BathRoomNamesList.map((iteam,Index ) => (
+                            <Picker.Item label={iteam.Name} value={iteam.Name} /> 
+                            ))}
+                            <Picker.Item label="Bed Room Items"/> 
+                            {BedRoomNamesList && BedRoomNamesList.map((iteam,Index ) => (
+                            <Picker.Item label={iteam.Name} value={iteam.Name} /> 
+                            ))}
+                    </Picker>
+                </View>
+                </View>
+
+                <View>
+                <View >
+                        <TouchableOpacity onPress={this.getProducts} style={styles.searchBtn} >
+                            <FontAwesome name="search" size={26} color="white" />
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </View>
+
+            
+
+            {DoNotShowDisplayScreen ?<></> : (<>
+                    <View style={{ height:15}}></View>
+                    <FlatList
+                    data={ formatData(SearchResults,numColums)}
+                    renderItem={this.renderItem}
+                    numColumns={numColums}
+                    />
+                </>
+            )}
+
+            {DoNotShowItemDetailsScreen ? <></>:(<>
+                <ScrollView>
+                <View style={{height:20}}></View>
+                    <View style={styles.ImageSliderView}>
+                        <View style={{height:20}}></View>
+                        <SliderBox style={styles.ImageSliderView}
+                            images={ItemDetails} sliderBoxHeight={200}
+                            dotColor= {COLORS.white} inactiveDotColor={COLORS.colourNumberOne}
+                            paginationBoxVerticalPadding={10}
+                            autoplay circleLoop resizeMethod={'resize'} resizeMode={'cover'}
+                            paginationBoxStyle={styles.ImagePaginationBoxStyle}
+                            dotStyle={styles.ImageSliderDotStyle}
+                            ImageComponentStyle={ styles.ImageSliderImageComponentStyle}
+                            imageLoadingColor={COLORS.colourNumberOne}
+                            /> 
+                    </View> 
+                <View  style={styles.MainTextDetailsView}>
+                    <View style={styles.TextDetailsView}>
+                        <Text  style={styles.offersLables}> Name</Text>
+                        <Text  style={styles.TextDetails}> Description Description Description Description Description Description</Text>
+                        <Text  style={styles.offersLables}>Amount</Text>
+                    </View>
+                </View>
+
+                <View style={styles.offersbtnsView}>
+                    <TouchableOpacity style={styles.offersorderbtn}  onPress={this.showItemDisplayScreen} >
+                        <Text style = {styles.btnText} >Display</Text>
+                    </TouchableOpacity>
+                    <View style={{width:25}} ></View>
+
+                    <TouchableOpacity style={styles.offersorderbtn} onPress={()=>addItemsToCart(ItemIndex,this.state.cartItems)} >
+                        <Text style = {styles.btnText}> Add to cart </Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{height:20}}></View>
+                <View style={{alignItems: "center"}}>
+                    <TouchableOpacity style={styles.offersProcedbtn} >
+                        <Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >PROCED</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{height:20}}></View>
+                </ScrollView>
+            </>)}
+
+            
         </View>
     );
 }

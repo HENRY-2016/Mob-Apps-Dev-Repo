@@ -545,18 +545,11 @@ export default StyleSheet.create(
 		height:40,
 
 	},
-	// homeCardView:
-	// {
-	// 	flexDirection: 'row', 
-	// 	backgroundColor: COLORS.cardBgColour,
-	// 	borderRadius:20, width:'90%', height: 150, 
-	// 	marginLeft:10,marginRight:10, 
-	// 	marginTop:10, 
-	// },
+	
 	homeCardView2:
 	{
 		flex: 1, 
-		backgroundColor: COLORS.colourNumberSix,
+		backgroundColor: COLORS.cardColor,
 		borderRadius:20,
 		height: 280,
 		marginLeft:10,marginRight:10,marginTop:8,marginBottom:40, 
@@ -822,7 +815,8 @@ export default StyleSheet.create(
 	homeNavigationView:
 	{
 		backgroundColor: COLORS.colourNumberZero,
-		height: 260,
+		// backgroundColor: COLORS.white,
+		height: 238,
 		marginBottom:30,
 	},
 	homeNavigationButtonMainView:
@@ -1096,9 +1090,14 @@ export default StyleSheet.create(
 	// ====================================================== Slider
 	// ====================================================== Slider
 // Silder 
+HomeImageSliderView:
+{
+	height:210, width:'94%', 
+	marginLeft:5,marginBottom:20,
+},
 ImageSliderView:
 {
-	height:230, width:'94%', 
+	height:250, width:'94%', 
 	marginLeft:5,marginBottom:20,
 },
 ImagePaginationBoxStyle:
@@ -1116,6 +1115,7 @@ ImageSliderDotStyle:
 	padding: 0,margin: 0,
 	backgroundColor: COLORS.colourNumberOne,
 },
+
 ImageSliderImageComponentStyle:{width: 400, marginLeft:0, marginTop: 5},
 /// ================================================ ================Video
 /// ================================================ ================ Video
@@ -1200,4 +1200,70 @@ TextDetails:
 	},
 
 	searchMainView:{margin: 15,width:'90%',},
+
+
+// changes == 30/07/2022
+MainCardRowView:
+{
+	flexDirection:'row'
+},
+MainCardView:
+{
+	flexDirection:'column', 
+	backgroundColor: COLORS.cardColor,
+	borderRadius:20, width:165, height: 298, 
+	marginLeft:5,marginRight:5,marginTop:10, 
+},
+productImage:
+{
+	marginLeft:7,marginTop:7,
+	// ,marginRight:2, marginTop:8,marginBottom:8,
+	height: 160,width: 150,  borderRadius:15,
+	backgroundColor: COLORS.mainBgColour,
+},
+
+// search screen
+searchBar:
+{
+	flexDirection:'row',
+	backgroundColor:COLORS.black,
+	height:80,
+},
+searchBarLeftView:
+{
+	width:270,height:60, 
+	marginTop:10,marginLeft:10,
+
+},
+searchBarRightView:
+{
+	width:300,
+},
+searchPickerSelectionInputView: {
+	margin: 5, flex: 1,
+	height: 10,
+	width:'90%',
+	textAlign:'left',
+	borderWidth: 3,
+	borderRadius: 50,
+	borderColor:COLORS.colourNumberOne,
+	backgroundColor:COLORS.white,
+},
+searchPickerSelectioninputs:
+{
+	marginTop: -5,marginLeft:10,
+	height: 40,color:COLORS.black,
+	fontSize:18,width:'90%',
+
+},
+searchBtn: {
+	width: 60,height: 60,
+	marginTop: 10, marginBottom:10,
+
+	backgroundColor:COLORS.colourNumberOne,
+	padding: 15,
+	borderRadius: 50,
+	justifyContent: "center",
+	
+},
 });

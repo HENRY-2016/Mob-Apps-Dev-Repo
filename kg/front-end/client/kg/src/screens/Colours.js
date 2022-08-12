@@ -1,9 +1,11 @@
 //https://www.w3schools.com/colors/colors_picker.asp
 // https://bestofreactjs.com/repo/intellidev1991-react-native-image-slider-box
+// https://www.w3schools.com/colors/colors_hex.asp
 export const COLORS = {
   
   black: "#000",
   ///////////////////////////////////
+  cardColor:"#4169E1",
   colourNumberZero:"#ff4d4d",
   colourNumberOne:"#C70039",
   colourNumberTwo:"#FF0000",

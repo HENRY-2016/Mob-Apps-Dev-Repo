@@ -52,3 +52,10 @@ export const APIBathRoomTowelsProducts = baseurl+"/api/listAllBathRoomTowelsProd
 export const  APIBathRoomDoorMatsProducts = baseurl+"/api/listAllBathRoomDoorMatsProducts";
 export const  APIBathRoomCurtainsProducts = baseurl+"/api/listAllBathRoomCurtainsProducts";
 
+// Search
+export const APIBabiesNames = baseurl+"/api/listAllBabiesNames";
+export const APIBathRoomNames = baseurl+"/api/listAllBathRoomNames";
+export const APIBedRoomNames = baseurl+"/api/listAllBedRoomNames";
+export const APILivingRoomNames = baseurl+"/api/listAllLivingRoomNames";
+export const APISearchName = baseurl+"/api/listSearchResults/by/name/";
+

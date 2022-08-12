@@ -3,6 +3,7 @@ import React from 'react';
 import { Text,Image, View, TouchableOpacity,Alert, ScrollView} from 'react-native';
 import {FontAwesome,Ionicons } from '@expo/vector-icons';
 import axios from "axios";
+import { SliderBox } from "react-native-image-slider-box";
 import styles from "./stylesheet";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -17,20 +18,10 @@ import {
         }from './DataFileApis';
 
 import { COLORS } from './Colours';
+import { formatData,numColums,
+    addItemsToCart,formatNumberWithComma
+    } from './Functions';
 
-const numColums = 2;
-const formatData = (data,numColums) =>
-{
-    const numberOfFullRows = Math.floor(data.length / numColums);
-
-    let numberOfElementsLastRow = data.length - (numberOfFullRows * numColums);
-    while (numberOfElementsLastRow !== numColums && numberOfElementsLastRow !==0)
-    {
-        data.push({key:`blank-${numberOfElementsLastRow}`,empty:true});
-        numberOfElementsLastRow = numberOfElementsLastRow +1;
-    }
-    return data;
-}
 
 
 
@@ -74,6 +65,7 @@ constructor(props){
                 "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-5.png?raw=true",
                 "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-6.png?raw=true",
             ],
+            ItemIndex:'',
     }
     
 }
@@ -134,7 +126,6 @@ getNumberOfItems = () =>
     try 
     {   AsyncStorage.getItem ('NumberOfItems')
         .then(value =>{if (value != null){ this.setState({NumberOfItems:value})}})
-        // console.log("===== geting NumberOfItems")
     }catch (error) { console.log(error)}
 };
 
@@ -155,330 +146,7 @@ displayItemDetailsScreen = (index) =>
     setTimeout(this.showItemDetailsScreen,2000)
 
 }
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-///                     Adding to Cart 
-
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-addToCartCurtainsProducts = (index) => 
-{
-    const newItems = [...this.state.CurtainsProducts]; // clone the array
-
-    let product = newItems[index];
-    let id = index;
-    let name = product.Name;
-    let status = product.Description;
-    let amount = product.Amount;
-    // let image = JSON.stringify(product.thumbnailImage);
-    let image = product.image;
-    let qty = 1;
-    let itemcart={ id: id, name: name, status: status, amount: amount, qty:qty,image:image}
-    // console.log("====="+JSON.stringify(itemcart))
-
-    AsyncStorage.getItem('cartItems').then((datacart)=>{
-            if (datacart !== null) 
-            {
-                // We have data!!
-                const cart = JSON.parse(datacart)
-                cart.push(itemcart)
-                AsyncStorage.setItem('cartItems',JSON.stringify(cart));
-                alert("Item Added To Cart")
-            }
-            else{
-                const cart  = []
-                cart.push(itemcart)
-                AsyncStorage.setItem('cartItems',JSON.stringify(cart));
-                alert("Item Added To Cart");
-            }
-        })
-        .catch((err)=>{alert(err)})
-
-        // NumberOfItems
-        AsyncStorage.getItem('NumberOfItems').then((number)=>{
-            if (number !== null) 
-            {
-                // We have data!!
-                const value = JSON.parse(number)
-                let newnumber = parseInt(value) + 1;
-                console.log("== New ===",newnumber)
-                AsyncStorage.setItem('NumberOfItems',JSON.stringify(newnumber));
-                console.log("number Added")
-            }
-            else{
-                let newnumber = 1;
-                AsyncStorage.setItem('NumberOfItems',JSON.stringify(newnumber));
-                console.log("Initial Num Added To Cart")
-            }
-        })
-        .catch((err)=>{alert(err)})
-}
-
-
-addToCartSeatsProducts = (index) => 
-{
-    const newItems = [...this.state.SeatsProducts]; // clone the array
-
-    let product = newItems[index];
-    let id = index;
-    let name = product.Name;
-    let status = product.Description;
-    let amount = product.Amount;
-    // let image = JSON.stringify(product.thumbnailImage);
-    let image = product.image;
-    let qty = 1;
-    let itemcart={ id: id, name: name, status: status, amount: amount, qty:qty,image:image}
-    // console.log("====="+JSON.stringify(itemcart))
-
-    AsyncStorage.getItem('cartItems').then((datacart)=>{
-            if (datacart !== null) 
-            {
-                // We have data!!
-                const cart = JSON.parse(datacart)
-                cart.push(itemcart)
-                AsyncStorage.setItem('cartItems',JSON.stringify(cart));
-                alert("Item Added To Cart")
-            }
-            else{
-                const cart  = []
-                cart.push(itemcart)
-                AsyncStorage.setItem('cartItems',JSON.stringify(cart));
-                alert("Item Added To Cart");
-            }
-        })
-        .catch((err)=>{alert(err)})
-
-        // NumberOfItems
-        AsyncStorage.getItem('NumberOfItems').then((number)=>{
-            if (number !== null) 
-            {
-                // We have data!!
-                const value = JSON.parse(number)
-                let newnumber = parseInt(value) + 1;
-                console.log("== New ===",newnumber)
-                AsyncStorage.setItem('NumberOfItems',JSON.stringify(newnumber));
-                console.log("number Added")
-            }
-            else{
-                let newnumber = 1;
-                AsyncStorage.setItem('NumberOfItems',JSON.stringify(newnumber));
-                console.log("Initial Num Added To Cart")
-            }
-        })
-        .catch((err)=>{alert(err)})
-}
-addToCartSideBoardsProducts = (index) => 
-{
-    const newItems = [...this.state.SideBoardsProducts]; // clone the array
-
-    let product = newItems[index];
-    let id = index;
-    let name = product.Name;
-    let status = product.Description;
-    let amount = product.Amount;
-    // let image = JSON.stringify(product.thumbnailImage);
-    let image = product.image;
-    let qty = 1;
-    let itemcart={ id: id, name: name, status: status, amount: amount, qty:qty,image:image}
-    // console.log("====="+JSON.stringify(itemcart))
-
-    AsyncStorage.getItem('cartItems').then((datacart)=>{
-            if (datacart !== null) 
-            {
-                // We have data!!
-                const cart = JSON.parse(datacart)
-                cart.push(itemcart)
-                AsyncStorage.setItem('cartItems',JSON.stringify(cart));
-                alert("Item Added To Cart")
-            }
-            else{
-                const cart  = []
-                cart.push(itemcart)
-                AsyncStorage.setItem('cartItems',JSON.stringify(cart));
-                alert("Item Added To Cart");
-            }
-        })
-        .catch((err)=>{alert(err)})
-
-        // NumberOfItems
-        AsyncStorage.getItem('NumberOfItems').then((number)=>{
-            if (number !== null) 
-            {
-                // We have data!!
-                const value = JSON.parse(number)
-                let newnumber = parseInt(value) + 1;
-                console.log("== New ===",newnumber)
-                AsyncStorage.setItem('NumberOfItems',JSON.stringify(newnumber));
-                console.log("number Added")
-            }
-            else{
-                let newnumber = 1;
-                AsyncStorage.setItem('NumberOfItems',JSON.stringify(newnumber));
-                console.log("Initial Num Added To Cart")
-            }
-        })
-        .catch((err)=>{alert(err)})
-}
-
-addToCartTablesProducts = (index) => 
-{
-    const newItems = [...this.state.TablesProducts]; // clone the array
-
-    let product = newItems[index];
-    let id = index;
-    let name = product.Name;
-    let status = product.Description;
-    let amount = product.Amount;
-    // let image = JSON.stringify(product.thumbnailImage);
-    let image = product.image;
-    let qty = 1;
-    let itemcart={ id: id, name: name, status: status, amount: amount, qty:qty,image:image}
-    // console.log("====="+JSON.stringify(itemcart))
-
-    AsyncStorage.getItem('cartItems').then((datacart)=>{
-            if (datacart !== null) 
-            {
-                // We have data!!
-                const cart = JSON.parse(datacart)
-                cart.push(itemcart)
-                AsyncStorage.setItem('cartItems',JSON.stringify(cart));
-                alert("Item Added To Cart")
-            }
-            else{
-                const cart  = []
-                cart.push(itemcart)
-                AsyncStorage.setItem('cartItems',JSON.stringify(cart));
-                alert("Item Added To Cart");
-            }
-        })
-        .catch((err)=>{alert(err)})
-
-        // NumberOfItems
-        AsyncStorage.getItem('NumberOfItems').then((number)=>{
-            if (number !== null) 
-            {
-                // We have data!!
-                const value = JSON.parse(number)
-                let newnumber = parseInt(value) + 1;
-                console.log("== New ===",newnumber)
-                AsyncStorage.setItem('NumberOfItems',JSON.stringify(newnumber));
-                console.log("number Added")
-            }
-            else{
-                let newnumber = 1;
-                AsyncStorage.setItem('NumberOfItems',JSON.stringify(newnumber));
-                console.log("Initial Num Added To Cart")
-            }
-        })
-        .catch((err)=>{alert(err)})
-}
-addToCartCarpetsProducts = (index) => 
-{
-    const newItems = [...this.state.CarpetsProducts]; // clone the array
-
-    let product = newItems[index];
-    let id = index;
-    let name = product.Name;
-    let status = product.Description;
-    let amount = product.Amount;
-    // let image = JSON.stringify(product.thumbnailImage);
-    let image = product.image;
-    let qty = 1;
-    let itemcart={ id: id, name: name, status: status, amount: amount, qty:qty,image:image}
-    // console.log("====="+JSON.stringify(itemcart))
-
-    AsyncStorage.getItem('cartItems').then((datacart)=>{
-            if (datacart !== null) 
-            {
-                // We have data!!
-                const cart = JSON.parse(datacart)
-                cart.push(itemcart)
-                AsyncStorage.setItem('cartItems',JSON.stringify(cart));
-                alert("Item Added To Cart")
-            }
-            else{
-                const cart  = []
-                cart.push(itemcart)
-                AsyncStorage.setItem('cartItems',JSON.stringify(cart));
-                alert("Item Added To Cart");
-            }
-        })
-        .catch((err)=>{alert(err)})
-
-        // NumberOfItems
-        AsyncStorage.getItem('NumberOfItems').then((number)=>{
-            if (number !== null) 
-            {
-                // We have data!!
-                const value = JSON.parse(number)
-                let newnumber = parseInt(value) + 1;
-                console.log("== New ===",newnumber)
-                AsyncStorage.setItem('NumberOfItems',JSON.stringify(newnumber));
-                console.log("number Added")
-            }
-            else{
-                let newnumber = 1;
-                AsyncStorage.setItem('NumberOfItems',JSON.stringify(newnumber));
-                console.log("Initial Num Added To Cart")
-            }
-        })
-        .catch((err)=>{alert(err)})
-}
-
-addToCartIroningBoardProducts = (index) => 
-{
-    const newItems = [...this.state.IroningBoardProducts]; // clone the array
-
-    let product = newItems[index];
-    let id = index;
-    let name = product.Name;
-    let status = product.Description;
-    let amount = product.Amount;
-    // let image = JSON.stringify(product.thumbnailImage);
-    let image = product.image;
-    let qty = 1;
-    let itemcart={ id: id, name: name, status: status, amount: amount, qty:qty,image:image}
-    // console.log("====="+JSON.stringify(itemcart))
-
-    AsyncStorage.getItem('cartItems').then((datacart)=>{
-            if (datacart !== null) 
-            {
-                // We have data!!
-                const cart = JSON.parse(datacart)
-                cart.push(itemcart)
-                AsyncStorage.setItem('cartItems',JSON.stringify(cart));
-                alert("Item Added To Cart")
-            }
-            else{
-                const cart  = []
-                cart.push(itemcart)
-                AsyncStorage.setItem('cartItems',JSON.stringify(cart));
-                alert("Item Added To Cart");
-            }
-        })
-        .catch((err)=>{alert(err)})
-
-        // NumberOfItems
-        AsyncStorage.getItem('NumberOfItems').then((number)=>{
-            if (number !== null) 
-            {
-                // We have data!!
-                const value = JSON.parse(number)
-                let newnumber = parseInt(value) + 1;
-                console.log("== New ===",newnumber)
-                AsyncStorage.setItem('NumberOfItems',JSON.stringify(newnumber));
-                console.log("number Added")
-            }
-            else{
-                let newnumber = 1;
-                AsyncStorage.setItem('NumberOfItems',JSON.stringify(newnumber));
-                console.log("Initial Num Added To Cart")
-            }
-        })
-        .catch((err)=>{alert(err)})
-}
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -493,7 +161,7 @@ renderCurtainsProducts = ({item,index}) =>
             { return <View style={[styles.ItemInvisible]}></View> }
         return (
             <View style={styles.homeCardView2}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>this.displayItemDetailsScreen(index)}>
                     <Image source={{uri: imageurl+item.image}} style={styles.homeproductImage} />
                     {/* <Image source={{uri: item.thumbnailImage}} style={styles.homeproductImage} /> */}
                 </TouchableOpacity>
@@ -501,12 +169,12 @@ renderCurtainsProducts = ({item,index}) =>
                 <View style={styles.productTextView}>
                     <Text numberOfLines={1} style={styles.producttext}> {item.Name}</Text>
                     <Text numberOfLines={1} style={styles.producttext}> {item.Description}</Text>
-                    <Text numberOfLines={1} style={styles.producttext}> {this.formatNumberWithComma(item.Amount)}</Text>
+                    <Text numberOfLines={1} style={styles.producttext}> {formatNumberWithComma(item.Amount)}</Text>
                 </View>
 
                 <View style={styles.homeOrderbtnView}>
                     <View style={[styles.centerElement, styles.homeOrderBtn]}>
-                        <TouchableOpacity style={styles.homeordersbtn} onPress={()=>this.addToCartCurtainsProducts(index)} >
+                        <TouchableOpacity style={styles.homeordersbtn} onPress={()=>addItemsToCart(index,this.state.CurtainsProducts)} >
                             <Text style = { styles.homeorderstxt}> Add to cart </Text>
                         </TouchableOpacity>
                     </View>
@@ -522,7 +190,7 @@ renderSeatsProducts = ({item,index}) =>
             { return <View style={[styles.ItemInvisible]}></View> }
         return (
             <View style={styles.homeCardView2}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>this.displayItemDetailsScreen(index)}>
                     <Image source={{uri: imageurl+item.image}} style={styles.homeproductImage} />
                     {/* <Image source={{uri: item.thumbnailImage}} style={styles.homeproductImage} /> */}
                 </TouchableOpacity>
@@ -530,12 +198,12 @@ renderSeatsProducts = ({item,index}) =>
                 <View style={styles.productTextView}>
                     <Text numberOfLines={1} style={styles.producttext}> {item.Name}</Text>
                     <Text numberOfLines={1} style={styles.producttext}> {item.Description}</Text>
-                    <Text numberOfLines={1} style={styles.producttext}> {this.formatNumberWithComma(item.Amount)}</Text>
+                    <Text numberOfLines={1} style={styles.producttext}> {formatNumberWithComma(item.Amount)}</Text>
                 </View>
 
                 <View style={styles.homeOrderbtnView}>
                     <View style={[styles.centerElement, styles.homeOrderBtn]}>
-                        <TouchableOpacity style={styles.homeordersbtn} onPress={()=>this.addToCartSeatsProducts(index)} >
+                        <TouchableOpacity style={styles.homeordersbtn} onPress={()=>addItemsToCart(index, this.state.SeatsProducts)} >
                             <Text style = { styles.homeorderstxt}> Add to cart </Text>
                         </TouchableOpacity>
                     </View>
@@ -551,7 +219,7 @@ renderSideBoardsProducts = ({item,index}) =>
             { return <View style={[styles.ItemInvisible]}></View> }
         return (
             <View style={styles.homeCardView2}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>this.displayItemDetailsScreen(index)}>
                     <Image source={{uri: imageurl+item.image}} style={styles.homeproductImage} />
                     {/* <Image source={{uri: item.thumbnailImage}} style={styles.homeproductImage} /> */}
                 </TouchableOpacity>
@@ -559,12 +227,12 @@ renderSideBoardsProducts = ({item,index}) =>
                 <View style={styles.productTextView}>
                     <Text numberOfLines={1} style={styles.producttext}> {item.Name}</Text>
                     <Text numberOfLines={1} style={styles.producttext}> {item.Description}</Text>
-                    <Text numberOfLines={1} style={styles.producttext}> {this.formatNumberWithComma(item.Amount)}</Text>
+                    <Text numberOfLines={1} style={styles.producttext}> {formatNumberWithComma(item.Amount)}</Text>
                 </View>
 
                 <View style={styles.homeOrderbtnView}>
                     <View style={[styles.centerElement, styles.homeOrderBtn]}>
-                        <TouchableOpacity style={styles.homeordersbtn} onPress={()=>this.addToCartSideBoardsProducts(index)} >
+                        <TouchableOpacity style={styles.homeordersbtn} onPress={()=>addItemsToCart(index,this.state.SideBoardsProducts)} >
                             <Text style = { styles.homeorderstxt}> Add to cart </Text>
                         </TouchableOpacity>
                     </View>
@@ -580,7 +248,7 @@ renderTablesProducts = ({item,index}) =>
             { return <View style={[styles.ItemInvisible]}></View> }
         return (
             <View style={styles.homeCardView2}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>this.displayItemDetailsScreen(index)}>
                     <Image source={{uri: imageurl+item.image}} style={styles.homeproductImage} />
                     {/* <Image source={{uri: item.thumbnailImage}} style={styles.homeproductImage} /> */}
                 </TouchableOpacity>
@@ -588,12 +256,12 @@ renderTablesProducts = ({item,index}) =>
                 <View style={styles.productTextView}>
                     <Text numberOfLines={1} style={styles.producttext}> {item.Name}</Text>
                     <Text numberOfLines={1} style={styles.producttext}> {item.Description}</Text>
-                    <Text numberOfLines={1} style={styles.producttext}> {this.formatNumberWithComma(item.Amount)}</Text>
+                    <Text numberOfLines={1} style={styles.producttext}> {formatNumberWithComma(item.Amount)}</Text>
                 </View>
 
                 <View style={styles.homeOrderbtnView}>
                     <View style={[styles.centerElement, styles.homeOrderBtn]}>
-                        <TouchableOpacity style={styles.homeordersbtn} onPress={()=>this.addToCartTablesProducts(index)} >
+                        <TouchableOpacity style={styles.homeordersbtn} onPress={()=>addItemsToCart(index,this.state.TablesProducts)} >
                             <Text style = { styles.homeorderstxt}> Add to cart </Text>
                         </TouchableOpacity>
                     </View>
@@ -609,20 +277,19 @@ renderCarpetsProducts = ({item,index}) =>
             { return <View style={[styles.ItemInvisible]}></View> }
         return (
             <View style={styles.homeCardView2}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>this.displayItemDetailsScreen(index)}>
                     <Image source={{uri: imageurl+item.image}} style={styles.homeproductImage} />
-                    {/* <Image source={{uri: item.thumbnailImage}} style={styles.homeproductImage} /> */}
                 </TouchableOpacity>
 
                 <View style={styles.productTextView}>
                     <Text numberOfLines={1} style={styles.producttext}> {item.Name}</Text>
                     <Text numberOfLines={1} style={styles.producttext}> {item.Description}</Text>
-                    <Text numberOfLines={1} style={styles.producttext}> {this.formatNumberWithComma(item.Amount)}</Text>
+                    <Text numberOfLines={1} style={styles.producttext}> {formatNumberWithComma(item.Amount)}</Text>
                 </View>
 
                 <View style={styles.homeOrderbtnView}>
                     <View style={[styles.centerElement, styles.homeOrderBtn]}>
-                        <TouchableOpacity style={styles.homeordersbtn} onPress={()=>this.addToCartCarpetsProducts(index)} >
+                        <TouchableOpacity style={styles.homeordersbtn} onPress={()=>addItemsToCart(index,this.state.CarpetsProducts)} >
                             <Text style = { styles.homeorderstxt}> Add to cart </Text>
                         </TouchableOpacity>
                     </View>
@@ -637,7 +304,7 @@ renderIroningBoardProducts = ({item,index}) =>
             { return <View style={[styles.ItemInvisible]}></View> }
         return (
             <View style={styles.homeCardView2}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>this.displayItemDetailsScreen(index)}>
                     <Image source={{uri: imageurl+item.image}} style={styles.homeproductImage} />
                     {/* <Image source={{uri: item.thumbnailImage}} style={styles.homeproductImage} /> */}
                 </TouchableOpacity>
@@ -645,12 +312,12 @@ renderIroningBoardProducts = ({item,index}) =>
                 <View style={styles.productTextView}>
                     <Text numberOfLines={1} style={styles.producttext}> {item.Name}</Text>
                     <Text numberOfLines={1} style={styles.producttext}> {item.Description}</Text>
-                    <Text numberOfLines={1} style={styles.producttext}> {this.formatNumberWithComma(item.Amount)}</Text>
+                    <Text numberOfLines={1} style={styles.producttext}> {formatNumberWithComma(item.Amount)}</Text>
                 </View>
 
                 <View style={styles.homeOrderbtnView}>
                     <View style={[styles.centerElement, styles.homeOrderBtn]}>
-                        <TouchableOpacity style={styles.homeordersbtn} onPress={()=>this.addToCartIroningBoardProducts(index)} >
+                        <TouchableOpacity style={styles.homeordersbtn} onPress={()=>addItemsToCart(index,this.state.IroningBoardProducts)} >
                             <Text style = { styles.homeorderstxt}> Add to cart </Text>
                         </TouchableOpacity>
                     </View>
@@ -662,11 +329,7 @@ renderIroningBoardProducts = ({item,index}) =>
 
 
 
-formatNumberWithComma(numb) {
-    let str = numb.toString().split(".");
-    str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return str.join(".");
-}
+
 viewCurtainsScreen = (props) => {
         return (
                 <>
@@ -843,7 +506,7 @@ viewIroningBoardScreen = (props) => {
 
 render() {
     
-    const { cartItems, NumberOfItems} = this.state;
+    const {ItemIndex, NumberOfItems} = this.state;
     const {showCurtainsScreen, showSeatsScreen,showSideBoardsScreen,showTablesScreen,showBridalSandalsScreen,showCarpetsScreen, showIroningBoardScreen} = this.state;
     const {CurtainsProducts,SeatsProducts,SideBoardsProducts,TablesProducts,CarpetsProducts,IroningBoardProducts} = this.state;
     const {DoNotShowItemDetailsScreen,DoNotShowDisplayScreen,ItemDetails} = this.state;
@@ -875,74 +538,71 @@ render() {
         
             {/* showCurtainsScreen */}
             {showCurtainsScreen ? <></> :(<>
+                {DoNotShowDisplayScreen ? <></> :(<>
                     <Text  style={styles.sublinksTitleTxt}>Curtains </Text>
-
-                    <ScrollView>
                         <FlatList
                         data={ formatData(CurtainsProducts,numColums)}
                         renderItem={this.renderCurtainsProducts}
                         numColumns={numColums}
                         />
                         <View style={styles.blankSpaceView}></View>
-                    </ScrollView>  
-
-                        {DoNotShowItemDetailsScreen ? <></>:(<>
-                        <ScrollView>
-                        <View style={{height:20}}></View>
-                            <View style={styles.ImageSliderView}>
-                                <View style={{height:20}}></View>
-                                <SliderBox style={styles.ImageSliderView}
-                                    images={ItemDetails} sliderBoxHeight={200}
-                                    dotColor= {COLORS.white} inactiveDotColor={COLORS.colourNumberOne}
-                                    paginationBoxVerticalPadding={10}
-                                    autoplay circleLoop resizeMethod={'resize'} resizeMode={'cover'}
-                                    paginationBoxStyle={styles.ImagePaginationBoxStyle}
-                                    dotStyle={styles.ImageSliderDotStyle}
-                                    ImageComponentStyle={ styles.ImageSliderImageComponentStyle}
-                                    imageLoadingColor={COLORS.colourNumberOne}
-                                    /> 
-                            </View> 
-                        <View  style={styles.MainTextDetailsView}>
-                            <View style={styles.TextDetailsView}>
-                                <Text  style={styles.offersLables}> Name</Text>
-                                <Text  style={styles.TextDetails}> Description Description Description Description Description Description</Text>
-                                <Text  style={styles.offersLables}>Amount</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.offersbtnsView}>
-                            <TouchableOpacity style={styles.offersorderbtn}  onPress={this.showItemDisplayScreen} >
-                                <Text style = {styles.btnText} >Display</Text>
-                            </TouchableOpacity>
-                            <View style={{width:25}} ></View>
-
-                            <TouchableOpacity style={styles.offersorderbtn} onPress={()=>this.addtocart(ItemIndex)} >
-                                <Text style = {styles.btnText}> Add to cart </Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{height:20}}></View>
-                        <View style={{alignItems: "center"}}>
-                            <TouchableOpacity style={styles.offersProcedbtn} >
-                                <Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >PROCED</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{height:20}}></View>
-                        </ScrollView>
-                    </>)}
                 </>)}
+                {DoNotShowItemDetailsScreen ? <></>:(<>
+                <ScrollView>
+                <View style={{height:20}}></View>
+                    <View style={styles.ImageSliderView}>
+                        <View style={{height:20}}></View>
+                        <SliderBox style={styles.ImageSliderView}
+                            images={ItemDetails} sliderBoxHeight={200}
+                            dotColor= {COLORS.white} inactiveDotColor={COLORS.colourNumberOne}
+                            paginationBoxVerticalPadding={10}
+                            autoplay circleLoop resizeMethod={'resize'} resizeMode={'cover'}
+                            paginationBoxStyle={styles.ImagePaginationBoxStyle}
+                            dotStyle={styles.ImageSliderDotStyle}
+                            ImageComponentStyle={ styles.ImageSliderImageComponentStyle}
+                            imageLoadingColor={COLORS.colourNumberOne}
+                            /> 
+                    </View> 
+                <View  style={styles.MainTextDetailsView}>
+                    <View style={styles.TextDetailsView}>
+                        <Text  style={styles.offersLables}> Name</Text>
+                        <Text  style={styles.TextDetails}> Description Description Description Description Description Description</Text>
+                        <Text  style={styles.offersLables}>Amount</Text>
+                    </View>
+                </View>
+
+                <View style={styles.offersbtnsView}>
+                    <TouchableOpacity style={styles.offersorderbtn}  onPress={this.showItemDisplayScreen} >
+                        <Text style = {styles.btnText} >Display</Text>
+                    </TouchableOpacity>
+                    <View style={{width:25}} ></View>
+
+                    <TouchableOpacity style={styles.offersorderbtn} onPress={()=>addItemsToCart(ItemIndex,this.state.CurtainsProducts)} >
+                        <Text style = {styles.btnText}> Add to cart </Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{height:20}}></View>
+                <View style={{alignItems: "center"}}>
+                    <TouchableOpacity style={styles.offersProcedbtn} >
+                        <Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >Proceed To Cart</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{height:70}}></View>
+                </ScrollView>
+            </>)}
+        </>)}
 
             {/* showSeatsScreen  */}
             {showSeatsScreen ? <></>:(<>
+                {DoNotShowDisplayScreen ? <></> :(<>
                 <Text  style={styles.sublinksTitleTxt}>Seats </Text>
-                <ScrollView>
                     <FlatList
                     data={ formatData(SeatsProducts,numColums)}
                     renderItem={this.renderSeatsProducts}
                     numColumns={numColums}
                     />
                     <View style={styles.blankSpaceView}></View>
-                </ScrollView> 
-
+                </>)}
                 {DoNotShowItemDetailsScreen ? <></>:(<>
                     <ScrollView>
                     <View style={{height:20}}></View>
@@ -973,90 +633,88 @@ render() {
                         </TouchableOpacity>
                         <View style={{width:25}} ></View>
 
-                        <TouchableOpacity style={styles.offersorderbtn} onPress={()=>this.addtocart(ItemIndex)} >
+                        <TouchableOpacity style={styles.offersorderbtn} onPress={()=>addItemsToCart(ItemIndex,this.state.SeatsProducts)} >
                             <Text style = {styles.btnText}> Add to cart </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{height:20}}></View>
                     <View style={{alignItems: "center"}}>
                         <TouchableOpacity style={styles.offersProcedbtn} >
-                            <Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >PROCED</Text>
+                            <Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >Proceed To Cart</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={{height:20}}></View>
+                    <View style={{height:70}}></View>
                     </ScrollView>
                 </>)}
             </>)}
 
              {/*showSideBoardsScreen  */}
             {showSideBoardsScreen ? <></>:(<>
+                {DoNotShowDisplayScreen ? <></> :(<>
                     <Text  style={styles.sublinksTitleTxt}>Side Board </Text>
-                    <ScrollView>
                         <FlatList
                         data={ formatData(SideBoardsProducts,numColums)}
                         renderItem={this.renderSideBoardsProducts}
                         numColumns={numColums}
                         />
                         <View style={styles.blankSpaceView}></View>
-                    </ScrollView> 
-
-                    {DoNotShowItemDetailsScreen ? <></>:(<>
-                        <ScrollView>
-                        <View style={{height:20}}></View>
-                            <View style={styles.ImageSliderView}>
-                                <View style={{height:20}}></View>
-                                <SliderBox style={styles.ImageSliderView}
-                                    images={ItemDetails} sliderBoxHeight={200}
-                                    dotColor= {COLORS.white} inactiveDotColor={COLORS.colourNumberOne}
-                                    paginationBoxVerticalPadding={10}
-                                    autoplay circleLoop resizeMethod={'resize'} resizeMode={'cover'}
-                                    paginationBoxStyle={styles.ImagePaginationBoxStyle}
-                                    dotStyle={styles.ImageSliderDotStyle}
-                                    ImageComponentStyle={ styles.ImageSliderImageComponentStyle}
-                                    imageLoadingColor={COLORS.colourNumberOne}
-                                    /> 
-                            </View> 
-                        <View  style={styles.MainTextDetailsView}>
-                            <View style={styles.TextDetailsView}>
-                                <Text  style={styles.offersLables}> Name</Text>
-                                <Text  style={styles.TextDetails}> Description Description Description Description Description Description</Text>
-                                <Text  style={styles.offersLables}>Amount</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.offersbtnsView}>
-                            <TouchableOpacity style={styles.offersorderbtn}  onPress={this.showItemDisplayScreen} >
-                                <Text style = {styles.btnText} >Display</Text>
-                            </TouchableOpacity>
-                            <View style={{width:25}} ></View>
-
-                            <TouchableOpacity style={styles.offersorderbtn} onPress={()=>this.addtocart(ItemIndex)} >
-                                <Text style = {styles.btnText}> Add to cart </Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{height:20}}></View>
-                        <View style={{alignItems: "center"}}>
-                            <TouchableOpacity style={styles.offersProcedbtn} >
-                                <Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >PROCED</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{height:20}}></View>
-                        </ScrollView>
-                    </>)}
                 </>)}
+                {DoNotShowItemDetailsScreen ? <></>:(<>
+                    <ScrollView>
+                    <View style={{height:20}}></View>
+                        <View style={styles.ImageSliderView}>
+                            <View style={{height:20}}></View>
+                            <SliderBox style={styles.ImageSliderView}
+                                images={ItemDetails} sliderBoxHeight={200}
+                                dotColor= {COLORS.white} inactiveDotColor={COLORS.colourNumberOne}
+                                paginationBoxVerticalPadding={10}
+                                autoplay circleLoop resizeMethod={'resize'} resizeMode={'cover'}
+                                paginationBoxStyle={styles.ImagePaginationBoxStyle}
+                                dotStyle={styles.ImageSliderDotStyle}
+                                ImageComponentStyle={ styles.ImageSliderImageComponentStyle}
+                                imageLoadingColor={COLORS.colourNumberOne}
+                                /> 
+                        </View> 
+                    <View  style={styles.MainTextDetailsView}>
+                        <View style={styles.TextDetailsView}>
+                            <Text  style={styles.offersLables}> Name</Text>
+                            <Text  style={styles.TextDetails}> Description Description Description Description Description Description</Text>
+                            <Text  style={styles.offersLables}>Amount</Text>
+                        </View>
+                    </View>
+
+                    <View style={styles.offersbtnsView}>
+                        <TouchableOpacity style={styles.offersorderbtn}  onPress={this.showItemDisplayScreen} >
+                            <Text style = {styles.btnText} >Display</Text>
+                        </TouchableOpacity>
+                        <View style={{width:25}} ></View>
+
+                        <TouchableOpacity style={styles.offersorderbtn} onPress={()=>addItemsToCart(ItemIndex,this.state.SideBoardsProducts)} >
+                            <Text style = {styles.btnText}> Add to cart </Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{height:20}}></View>
+                    <View style={{alignItems: "center"}}>
+                        <TouchableOpacity style={styles.offersProcedbtn} >
+                            <Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >Proceed To Cart</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{height:70}}></View>
+                    </ScrollView>
+                </>)}
+            </>)}
 
             {/*showTablesScreen  */}
             {showTablesScreen ? <></>:(<>
-                <Text  style={styles.sublinksTitleTxt}>Tables</Text>
-                <ScrollView>
+                {DoNotShowDisplayScreen ? <></> :(<>
+                    <Text  style={styles.sublinksTitleTxt}>Tables</Text>
                     <FlatList
                     data={ formatData(TablesProducts,numColums)}
                     renderItem={this.renderTablesProducts}
                     numColumns={numColums}
                     />
                     <View style={styles.blankSpaceView}></View>
-                </ScrollView> 
-
+                </>)}
                 {DoNotShowItemDetailsScreen ? <></>:(<>
                         <ScrollView>
                         <View style={{height:20}}></View>
@@ -1087,194 +745,136 @@ render() {
                             </TouchableOpacity>
                             <View style={{width:25}} ></View>
 
-                            <TouchableOpacity style={styles.offersorderbtn} onPress={()=>this.addtocart(ItemIndex)} >
+                            <TouchableOpacity style={styles.offersorderbtn} onPress={()=>addItemsToCart(ItemIndex,this.state.TablesProducts)} >
                                 <Text style = {styles.btnText}> Add to cart </Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{height:20}}></View>
                         <View style={{alignItems: "center"}}>
                             <TouchableOpacity style={styles.offersProcedbtn} >
-                                <Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >PROCED</Text>
+                                <Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >Proceed To Cart</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={{height:20}}></View>
+                        <View style={{height:70}}></View>
                         </ScrollView>
                     </>)}
             </>)}
 
-            {/*showBridalSandalsScreen  */}
-            {showBridalSandalsScreen ? <></>:(<>
-                    <Text  style={styles.sublinksTitleTxt}>Bridal Sandals</Text>
-                    <ScrollView>
-                        <FlatList
-                        data={ formatData(cartItems,numColums)}
-                        renderItem={this.renderProducts}
-                        numColumns={numColums}
-                        />
-                        <View style={styles.blankSpaceView}></View>
-                    </ScrollView> 
-
-                    {DoNotShowItemDetailsScreen ? <></>:(<>
-                        <ScrollView>
-                        <View style={{height:20}}></View>
-                            <View style={styles.ImageSliderView}>
-                                <View style={{height:20}}></View>
-                                <SliderBox style={styles.ImageSliderView}
-                                    images={ItemDetails} sliderBoxHeight={200}
-                                    dotColor= {COLORS.white} inactiveDotColor={COLORS.colourNumberOne}
-                                    paginationBoxVerticalPadding={10}
-                                    autoplay circleLoop resizeMethod={'resize'} resizeMode={'cover'}
-                                    paginationBoxStyle={styles.ImagePaginationBoxStyle}
-                                    dotStyle={styles.ImageSliderDotStyle}
-                                    ImageComponentStyle={ styles.ImageSliderImageComponentStyle}
-                                    imageLoadingColor={COLORS.colourNumberOne}
-                                    /> 
-                            </View> 
-                        <View  style={styles.MainTextDetailsView}>
-                            <View style={styles.TextDetailsView}>
-                                <Text  style={styles.offersLables}> Name</Text>
-                                <Text  style={styles.TextDetails}> Description Description Description Description Description Description</Text>
-                                <Text  style={styles.offersLables}>Amount</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.offersbtnsView}>
-                            <TouchableOpacity style={styles.offersorderbtn}  onPress={this.showItemDisplayScreen} >
-                                <Text style = {styles.btnText} >Display</Text>
-                            </TouchableOpacity>
-                            <View style={{width:25}} ></View>
-
-                            <TouchableOpacity style={styles.offersorderbtn} onPress={()=>this.addtocart(ItemIndex)} >
-                                <Text style = {styles.btnText}> Add to cart </Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{height:20}}></View>
-                        <View style={{alignItems: "center"}}>
-                            <TouchableOpacity style={styles.offersProcedbtn} >
-                                <Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >PROCED</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{height:20}}></View>
-                        </ScrollView>
-                    </>)}
-                </>)}
 
             {/*showCarpetsScreen  */}
             {showCarpetsScreen ? <></>:(<>
+                {DoNotShowDisplayScreen ? <></> :(<>
                     <Text  style={styles.sublinksTitleTxt}>Carpets</Text>
-                    <ScrollView>
                         <FlatList
                         data={ formatData(CarpetsProducts,numColums)}
                         renderItem={this.renderCarpetsProducts}
                         numColumns={numColums}
                         />
                         <View style={styles.blankSpaceView}></View>
-                    </ScrollView> 
-
-                    {DoNotShowItemDetailsScreen ? <></>:(<>
-                        <ScrollView>
-                        <View style={{height:20}}></View>
-                            <View style={styles.ImageSliderView}>
-                                <View style={{height:20}}></View>
-                                <SliderBox style={styles.ImageSliderView}
-                                    images={ItemDetails} sliderBoxHeight={200}
-                                    dotColor= {COLORS.white} inactiveDotColor={COLORS.colourNumberOne}
-                                    paginationBoxVerticalPadding={10}
-                                    autoplay circleLoop resizeMethod={'resize'} resizeMode={'cover'}
-                                    paginationBoxStyle={styles.ImagePaginationBoxStyle}
-                                    dotStyle={styles.ImageSliderDotStyle}
-                                    ImageComponentStyle={ styles.ImageSliderImageComponentStyle}
-                                    imageLoadingColor={COLORS.colourNumberOne}
-                                    /> 
-                            </View> 
-                        <View  style={styles.MainTextDetailsView}>
-                            <View style={styles.TextDetailsView}>
-                                <Text  style={styles.offersLables}> Name</Text>
-                                <Text  style={styles.TextDetails}> Description Description Description Description Description Description</Text>
-                                <Text  style={styles.offersLables}>Amount</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.offersbtnsView}>
-                            <TouchableOpacity style={styles.offersorderbtn}  onPress={this.showItemDisplayScreen} >
-                                <Text style = {styles.btnText} >Display</Text>
-                            </TouchableOpacity>
-                            <View style={{width:25}} ></View>
-
-                            <TouchableOpacity style={styles.offersorderbtn} onPress={()=>this.addtocart(ItemIndex)} >
-                                <Text style = {styles.btnText}> Add to cart </Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{height:20}}></View>
-                        <View style={{alignItems: "center"}}>
-                            <TouchableOpacity style={styles.offersProcedbtn} >
-                                <Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >PROCED</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{height:20}}></View>
-                        </ScrollView>
-                    </>)}
                 </>)}
+                {DoNotShowItemDetailsScreen ? <></>:(<>
+                    <ScrollView>
+                    <View style={{height:20}}></View>
+                        <View style={styles.ImageSliderView}>
+                            <View style={{height:20}}></View>
+                            <SliderBox style={styles.ImageSliderView}
+                                images={ItemDetails} sliderBoxHeight={200}
+                                dotColor= {COLORS.white} inactiveDotColor={COLORS.colourNumberOne}
+                                paginationBoxVerticalPadding={10}
+                                autoplay circleLoop resizeMethod={'resize'} resizeMode={'cover'}
+                                paginationBoxStyle={styles.ImagePaginationBoxStyle}
+                                dotStyle={styles.ImageSliderDotStyle}
+                                ImageComponentStyle={ styles.ImageSliderImageComponentStyle}
+                                imageLoadingColor={COLORS.colourNumberOne}
+                                /> 
+                        </View> 
+                    <View  style={styles.MainTextDetailsView}>
+                        <View style={styles.TextDetailsView}>
+                            <Text  style={styles.offersLables}> Name</Text>
+                            <Text  style={styles.TextDetails}> Description Description Description Description Description Description</Text>
+                            <Text  style={styles.offersLables}>Amount</Text>
+                        </View>
+                    </View>
+
+                    <View style={styles.offersbtnsView}>
+                        <TouchableOpacity style={styles.offersorderbtn}  onPress={this.showItemDisplayScreen} >
+                            <Text style = {styles.btnText} >Display</Text>
+                        </TouchableOpacity>
+                        <View style={{width:25}} ></View>
+
+                        <TouchableOpacity style={styles.offersorderbtn} onPress={()=>addItemsToCart(ItemIndex, this.state.CarpetsProducts)} >
+                            <Text style = {styles.btnText}> Add to cart </Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{height:20}}></View>
+                    <View style={{alignItems: "center"}}>
+                        <TouchableOpacity style={styles.offersProcedbtn} >
+                            <Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >Proceed To Cart</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{height:70}}></View>
+                    </ScrollView>
+                </>)}
+            </>)}
 
             {/*showIroningBoardScreen  */}
             {showIroningBoardScreen ? <></>:(<>
+                {DoNotShowDisplayScreen ? <></> :(<>
                     <Text  style={styles.sublinksTitleTxt}>Ironing Boards</Text>
-                    <ScrollView>
                         <FlatList
                         data={ formatData(IroningBoardProducts,numColums)}
                         renderItem={this.renderIroningBoardProducts}
                         numColumns={numColums}
                         />
                         <View style={styles.blankSpaceView}></View>
-                    </ScrollView> 
-                    {DoNotShowItemDetailsScreen ? <></>:(<>
-                        <ScrollView>
-                        <View style={{height:20}}></View>
-                            <View style={styles.ImageSliderView}>
-                                <View style={{height:20}}></View>
-                                <SliderBox style={styles.ImageSliderView}
-                                    images={ItemDetails} sliderBoxHeight={200}
-                                    dotColor= {COLORS.white} inactiveDotColor={COLORS.colourNumberOne}
-                                    paginationBoxVerticalPadding={10}
-                                    autoplay circleLoop resizeMethod={'resize'} resizeMode={'cover'}
-                                    paginationBoxStyle={styles.ImagePaginationBoxStyle}
-                                    dotStyle={styles.ImageSliderDotStyle}
-                                    ImageComponentStyle={ styles.ImageSliderImageComponentStyle}
-                                    imageLoadingColor={COLORS.colourNumberOne}
-                                    /> 
-                            </View> 
-                        <View  style={styles.MainTextDetailsView}>
-                            <View style={styles.TextDetailsView}>
-                                <Text  style={styles.offersLables}> Name</Text>
-                                <Text  style={styles.TextDetails}> Description Description Description Description Description Description</Text>
-                                <Text  style={styles.offersLables}>Amount</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.offersbtnsView}>
-                            <TouchableOpacity style={styles.offersorderbtn}  onPress={this.showItemDisplayScreen} >
-                                <Text style = {styles.btnText} >Display</Text>
-                            </TouchableOpacity>
-                            <View style={{width:25}} ></View>
-
-                            <TouchableOpacity style={styles.offersorderbtn} onPress={()=>this.addtocart(ItemIndex)} >
-                                <Text style = {styles.btnText}> Add to cart </Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{height:20}}></View>
-                        <View style={{alignItems: "center"}}>
-                            <TouchableOpacity style={styles.offersProcedbtn} >
-                                <Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >PROCED</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{height:20}}></View>
-                        </ScrollView>
-                    </>)}
                 </>)}
+                {DoNotShowItemDetailsScreen ? <></>:(<>
+                    <ScrollView>
+                    <View style={{height:20}}></View>
+                        <View style={styles.ImageSliderView}>
+                            <View style={{height:20}}></View>
+                            <SliderBox style={styles.ImageSliderView}
+                                images={ItemDetails} sliderBoxHeight={200}
+                                dotColor= {COLORS.white} inactiveDotColor={COLORS.colourNumberOne}
+                                paginationBoxVerticalPadding={10}
+                                autoplay circleLoop resizeMethod={'resize'} resizeMode={'cover'}
+                                paginationBoxStyle={styles.ImagePaginationBoxStyle}
+                                dotStyle={styles.ImageSliderDotStyle}
+                                ImageComponentStyle={ styles.ImageSliderImageComponentStyle}
+                                imageLoadingColor={COLORS.colourNumberOne}
+                                /> 
+                        </View> 
+                    <View  style={styles.MainTextDetailsView}>
+                        <View style={styles.TextDetailsView}>
+                            <Text  style={styles.offersLables}> Name</Text>
+                            <Text  style={styles.TextDetails}> Description Description Description Description Description Description</Text>
+                            <Text  style={styles.offersLables}>Amount</Text>
+                        </View>
+                    </View>
 
+                    <View style={styles.offersbtnsView}>
+                        <TouchableOpacity style={styles.offersorderbtn}  onPress={this.showItemDisplayScreen} >
+                            <Text style = {styles.btnText} >Display</Text>
+                        </TouchableOpacity>
+                        <View style={{width:25}} ></View>
+
+                        <TouchableOpacity style={styles.offersorderbtn} onPress={()=>addItemsToCart(ItemIndex,this.state.IroningBoardProducts)} >
+                            <Text style = {styles.btnText}> Add to cart </Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{height:20}}></View>
+                    <View style={{alignItems: "center"}}>
+                        <TouchableOpacity style={styles.offersProcedbtn} >
+                            <Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >Proceed To Cart</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{height:70}}></View>
+                    </ScrollView>
+                </>)}
+            </>)}
             <View style={styles.subMenuNaviLinksTabView}>
                 <View style={styles.subMenuNaviLinksTabSpaceView}></View>
-                <ScrollView horizontal={true} >
+                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
                     <this.viewCurtainsScreen size={100} color={COLORS.subLinkNaviColour} />
                     <this.viewSeatsScreen size={100} color={COLORS.subLinkNaviColour} />
                     <this.viewSideBoardsScreen  size={100} color={COLORS.subLinkNaviColour}/>

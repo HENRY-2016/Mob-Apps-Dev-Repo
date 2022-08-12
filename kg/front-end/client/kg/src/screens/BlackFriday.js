@@ -1,12 +1,14 @@
 
 import React from 'react';
-import { Text, View, TouchableOpacity, ScrollView, Image, ActivityIndicator} from 'react-native';
+import { Text, View, TouchableOpacity, Alert, ScrollView, Image} from 'react-native';
 import {FontAwesome,Ionicons } from '@expo/vector-icons';
 import styles from "./stylesheet";
 import axios from "axios";
+import { SliderBox } from "react-native-image-slider-box";
 import {APIlistAllBlackFridayProducts, imageurl} from './DataFileApis';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Alert } from 'react-native-web';
+// import { Alert } from 'react-native-web';
+import { COLORS } from './Colours';
 
 
 export default class BlackFriday extends React.Component {
@@ -15,8 +17,6 @@ constructor(props){
     this.state = {
         cartItems: [],
         NumberOfItems:'',
-
-        DoNotShowBlackFridayScreen: false,
 
         DoNotShowDisplayScreen: false,
         DoNotShowItemDetailsScreen: true,
@@ -29,6 +29,7 @@ constructor(props){
             "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-5.png?raw=true",
             "https://github.com/HENRY-2016/Development-Repo/blob/main/kg-app-6.png?raw=true",
         ],
+        ItemIndex:'',
     }
     
 }
@@ -37,9 +38,7 @@ componentDidMount() {
     axios.get(APIlistAllBlackFridayProducts)
     .then(res => {
         let results =JSON.stringify(res.data); 
-        console.log("=====>"+results)
         this.setState({cartItems:[...JSON.parse(results)]})
-        console.log(this.state)
         })
     .catch(err=>{Alert.alert("Error","\n\n"+err)})
 
@@ -49,11 +48,9 @@ setInterval(this.getNumberOfItems,1000);
 
 getNumberOfItems = () => 
 {
-    // console.log("geting data")
     try 
     {   AsyncStorage.getItem ('NumberOfItems')
         .then(value =>{if (value != null){ this.setState({NumberOfItems:value})}})
-        // console.log("===== geting NumberOfsItems")
     }catch (error) { console.log(error)}
 };
 
@@ -74,70 +71,11 @@ displayItemDetailsScreen = (index) =>
     setTimeout(this.showItemDetailsScreen,2000)
 
 }
-addtocart = (index) => 
-{
-    const newItems = [...this.state.cartItems]; // clone the array
 
-    let product = newItems[index];
-    let id = index;
-    let name = product.Name;
-    let status = product.Description;
-    let amount = product.PalaceHolderTwo;
-    let image = product.image;
-    let qty = 1;
-    let itemcart={ id: id, name: name, status: status, amount: amount, qty:qty,image:image}
-    
 
-    console.log("product details===>"+ JSON.stringify(itemcart));
-
-    AsyncStorage.getItem('cartItems').then((datacart)=>{
-            if (datacart !== null) 
-            {
-                // We have data!!
-                const cart = JSON.parse(datacart)
-                cart.push(itemcart)
-                AsyncStorage.setItem('cartItems',JSON.stringify(cart));
-                alert("Item Added To Cart")
-            }
-            else{
-                const cart  = []
-                cart.push(itemcart)
-                AsyncStorage.setItem('cartItems',JSON.stringify(cart));
-                alert("Item Added To Cart")
-            }
-        })
-        .catch((err)=>{alert(err)})
-        // store intia1 Oder List with cartItems
-        // AsyncStorage.setItem('orderList',JSON.stringify(this.cartItems));
-
-        // NumberOfItems
-        AsyncStorage.getItem('NumberOfItems').then((number)=>{
-            if (number !== null) 
-            {
-                // We have data!!
-                const value = JSON.parse(number)
-                let newnumber = parseInt(value) + 1;
-                console.log("== New ===",newnumber)
-                AsyncStorage.setItem('NumberOfItems',JSON.stringify(newnumber));
-                console.log("number Added")
-            }
-            else{
-                let newnumber = 1;
-                AsyncStorage.setItem('NumberOfItems',JSON.stringify(newnumber));
-                console.log("Initial Num Added To Cart")
-            }
-        })
-        .catch((err)=>{alert(err)})
-}
-
-formatNumberWithComma(numb) {
-    let str = numb.toString().split(".");
-    str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return str.join(".");
-}
 render() {
     
-    const { cartItems,NumberOfItems,DoNotShowBlackFridayScreen} = this.state;
+    const { cartItems,NumberOfItems,ItemIndex} = this.state;
     const {DoNotShowItemDetailsScreen,DoNotShowDisplayScreen,ItemDetails} = this.state;
 
 
@@ -166,25 +104,23 @@ render() {
                 </View>
             </View>
 
-            {DoNotShowBlackFridayScreen ?<></> : (<>
+            {DoNotShowDisplayScreen ?<></> : (<>
                 <ScrollView>
-                    {cartItems && cartItems.map((item, i) => (
+                    {cartItems && cartItems.map((item, index) => (
 						<>
-						<View key={i} style={styles.offersMainContainerView}>
+						<View key={item.id} style={styles.offersMainContainerView}>
 
                             <View style={styles.offersimageRightView}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={()=>this.displayItemDetailsScreen(index)}>
                                     <Image source={{uri: imageurl+item.image}} style={styles.productImage} />
-                                    {/* <Image source={{uri: item.thumbnailImage}} style={styles.productImage} /> */}
-
                                 </TouchableOpacity>
 							</View>
 
                                 <View style={styles.offersLableLeftView}>
                                     <Text numberOfLines={1} style={styles.offersLables}> {item.Name}</Text>
                                     <Text numberOfLines={1} style={styles.offersLables}> {item.Description}</Text>
-                                    <Text numberOfLines={1} style={styles.offersLables}> {this.formatNumberWithComma(item.Amount)}</Text>
-                                    <Text numberOfLines={1} style={styles.offersLables}> {this.formatNumberWithComma(item.PalaceHolderTwo)}</Text>
+                                    <Text numberOfLines={1} style={styles.offersLables}> {formatNumberWithComma(item.Amount)}</Text>
+                                    <Text numberOfLines={1} style={styles.offersLables}> {formatNumberWithComma(item.PalaceHolderTwo)}</Text>
 
                                 </View>
                         </View>
@@ -193,8 +129,7 @@ render() {
 								<Text style = {styles.btnText} >{item.PalaceHolderOne}</Text>
 							</TouchableOpacity>
 
-
-							<TouchableOpacity style={styles.offersorderbtn} onPress={()=>this.addtocart(i)} >
+							<TouchableOpacity style={styles.offersorderbtn} onPress={()=>addItemsToCart(index,this.state.cartItems)} >
 								<Text style = {styles.btnText}> Add to cart </Text>
 							</TouchableOpacity>
 						</View>
@@ -203,7 +138,7 @@ render() {
                     ))}
 					<View style={{alignItems: "center"}}>
 						<TouchableOpacity style={styles.offersProcedbtn} >
-							<Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >PROCED</Text>
+							<Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >Proceed To Cart</Text>
 						</TouchableOpacity>
 					</View>
                 </ScrollView>
@@ -240,14 +175,14 @@ render() {
                     </TouchableOpacity>
                     <View style={{width:25}} ></View>
 
-                    <TouchableOpacity style={styles.offersorderbtn} onPress={()=>this.addtocart(ItemIndex)} >
+                    <TouchableOpacity style={styles.offersorderbtn} onPress={()=>addItemsToCart(ItemIndex,this.state.cartItems)} >
                         <Text style = {styles.btnText}> Add to cart </Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{height:20}}></View>
                 <View style={{alignItems: "center"}}>
                     <TouchableOpacity style={styles.offersProcedbtn} >
-                        <Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >PROCED</Text>
+                        <Text style = {styles.nextbtnText} onPress={()=>this.props.navigation.navigate('Cart')} >Proceed To Cart</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{height:20}}></View>

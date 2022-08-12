@@ -1,17 +1,31 @@
 
 import React from 'react';
-import { Text, View,Image, TouchableOpacity,Alert,FlatList, ScrollView} from 'react-native';
+import { Text, View,Image, TouchableOpacity,Alert, ScrollView} from 'react-native';
 import {Ionicons,FontAwesome } from '@expo/vector-icons';
 import axios from "axios";
 import styles from "./stylesheet";
 import { COLORS } from './Colours';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {APIHomeProducts,APISlider, imageurl} from './DataFileApis';
+import { FlatList } from 'react-native-gesture-handler';
 import { SliderBox } from "react-native-image-slider-box";
 
-import { formatData,numColums,
-        addItemsToCart,formatNumberWithComma
-        } from './Functions';
+const numColums = 2;
+const formatData = (data,numColums) =>
+{
+    const numberOfFullRows = Math.floor(data.length / numColums);
+
+    let numberOfElementsLastRow = data.length - (numberOfFullRows * numColums);
+    while (numberOfElementsLastRow !== numColums && numberOfElementsLastRow !==0)
+    {
+        data.push({key:`blank-${numberOfElementsLastRow}`,empty:true});
+        numberOfElementsLastRow = numberOfElementsLastRow +1;
+    }
+    return data;
+}
+
+
 
 
 export default class Home extends React.Component {
@@ -73,7 +87,7 @@ componentDidMount()
     // .catch(err=>{Alert.alert("Error","\n\n"+err+"\n\n Can Not Load Products\n\n Open App Again With \n\n Network Connection");})
 
 
-    // setInterval(this.getNumberOfItems,1000);
+    setInterval(this.getNumberOfItems,1000);
 }
 
 setModalVisible = (visible) => {this.setState({ modalVisible: visible });}
@@ -92,19 +106,72 @@ displayItemDetailsScreen = (index) =>
 {
     console.log(index);
     this.setState({ItemIndex:index})
-    setTimeout(this.showItemDetailsScreen,1000)
+
+    setTimeout(this.showItemDetailsScreen,2000)
 
 }
-
 getNumberOfItems = () => 
 {
-    console.log("geting data")
     try 
     {   AsyncStorage.getItem ('NumberOfItems')
         .then(value =>{if (value != null){ this.setState({NumberOfItems:value})}})
     }catch (error) { console.log(error)}
 };
+addtocart = (index) => 
+{
+    const newItems = [...this.state.cartItems]; // clone the array
 
+    let product = newItems[index];
+    let id = index;
+    let name = product.Name;
+    let status = product.Description;
+    let amount = product.Amount;
+    // let image = JSON.stringify(product.thumbnailImage);
+    let image = product.image;
+    let qty = 1;
+    let itemcart={ id: id, name: name, status: status, amount: amount, qty:qty,image:image}
+    // console.log("====="+JSON.stringify(itemcart))
+
+    AsyncStorage.getItem('cartItems').then((datacart)=>{
+            if (datacart !== null) 
+            {
+                // We have data!!
+                const cart = JSON.parse(datacart)
+                cart.push(itemcart)
+                AsyncStorage.setItem('cartItems',JSON.stringify(cart));
+                alert("Item Added To Cart")
+            }
+            else{
+                const cart  = []
+                cart.push(itemcart)
+                AsyncStorage.setItem('cartItems',JSON.stringify(cart));
+                alert("Item Added To Cart");
+            }
+        })
+        .catch((err)=>{alert(err)})
+
+        // NumberOfItems
+        AsyncStorage.getItem('NumberOfItems').then((number)=>{
+            if (number !== null) 
+            {
+                // We have data!!
+                const value = JSON.parse(number)
+                let newnumber = parseInt(value) + 1;
+                AsyncStorage.setItem('NumberOfItems',JSON.stringify(newnumber));
+            }
+            else{
+                let newnumber = 1;
+                AsyncStorage.setItem('NumberOfItems',JSON.stringify(newnumber));
+            }
+        })
+        .catch((err)=>{alert(err)})
+}
+
+formatNumberWithComma(numb) {
+    let str = numb.toString().split(".");
+    str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return str.join(".");
+}
 renderItem = ({item,index}) => 
     {
         if (item.empty === true)
@@ -112,18 +179,18 @@ renderItem = ({item,index}) =>
         return (
             <View style={styles.homeCardView2}>
                 <TouchableOpacity onPress={()=>this.displayItemDetailsScreen(index)}>
-                    <Image source={{uri: imageurl+item.image}} style={styles.productImage} />
+                    <Image source={{uri: imageurl+item.image}} style={styles.homeproductImage} />
                 </TouchableOpacity>
 
                 <View style={styles.productTextView}>
                     <Text numberOfLines={1} style={styles.producttext}> {item.Name}</Text>
                     <Text numberOfLines={1} style={styles.producttext}> {item.Description}</Text>
-                    <Text numberOfLines={1} style={styles.producttext}> {formatNumberWithComma(item.Amount)}</Text>
+                    <Text numberOfLines={1} style={styles.producttext}> {this.formatNumberWithComma(item.Amount)}</Text>
                 </View>
 
                 <View style={styles.homeOrderbtnView}>
                     <View style={[styles.centerElement, styles.homeOrderBtn]}>
-                        <TouchableOpacity style={styles.homeordersbtn} onPress={()=>addItemsToCart(index,this.state.cartItems)} >
+                        <TouchableOpacity style={styles.homeordersbtn} onPress={()=>this.addtocart(index)} >
                             <Text style = { styles.homeorderstxt}> Add to cart </Text>
                         </TouchableOpacity>
                     </View>
@@ -165,14 +232,17 @@ render() {
                 
             </View>
             
-            {DoNotShowDisplayScreen ?<></> : (<>
+            {DoNotShowDisplayScreen ?<></> : (
+                <>
+                <ScrollView>
                     <View style={styles.mainViewTopSpace} ></View>
                     <View style={styles.homeNavigationView}>
-                        <View style={styles.HomeImageSliderView}>
+
+                        <View style={styles.ImageSliderView}>
                             <View style={{height:20}}></View>
-                            <SliderBox style={styles.HomeImageSliderView}
+                            <SliderBox style={styles.ImageSliderView}
                                 images={this.state.images}
-                                sliderBoxHeight={240}
+                                sliderBoxHeight={200}
                                 dotColor= {COLORS.white} inactiveDotColor={COLORS.colourNumberOne}
                                 paginationBoxVerticalPadding={10}
                                 autoplay circleLoop resizeMethod={'resize'} resizeMode={'cover'}
@@ -182,16 +252,16 @@ render() {
                                 imageLoadingColor={COLORS.colourNumberOne}
                                 /> 
                         </View> 
+                        
                     </View>
-                    
-                    <View style={{ height:1, marginTop:-29}}></View>
+                    {/* <View style={styles.homespaceView}></View> */}
                     <FlatList
                     data={ formatData(cartItems,numColums)}
                     renderItem={this.renderItem}
                     numColumns={numColums}
                     />
-                    
-                    {/* <View style={styles.blankSpaceView}></View> */}
+                    <View style={styles.blankSpaceView}></View>
+                </ScrollView>
                 </>
             )}
 
@@ -226,7 +296,7 @@ render() {
                     </TouchableOpacity>
                     <View style={{width:25}} ></View>
 
-                    <TouchableOpacity style={styles.offersorderbtn} onPress={()=>addItemsToCart(ItemIndex,this.state.cartItems)} >
+                    <TouchableOpacity style={styles.offersorderbtn} onPress={()=>this.addtocart(ItemIndex)} >
                         <Text style = {styles.btnText}> Add to cart </Text>
                     </TouchableOpacity>
                 </View>
