@@ -7,26 +7,31 @@
     "icon": "./assets/icon.png",
     "splash": {
       "resizeMode": "contain",
-      "backgroundColor": "#6495ED"
+      "backgroundColor": "#800080"
     },
     "updates": {
-    
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-  
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {"backgroundColor": "#6495ED"},
+      "adaptiveIcon": {
+        "backgroundColor": "#800080"
+      },
       "package": "com.mogahenze.kambeddings",
-      "versionCode": 3
+      "versionCode": 5
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "03eb1b8c-7831-4029-9a3b-d9f009a48a6e"
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 
 
 
-var baseurl = "http://176.58.115.77:8787";
+var baseurl = "http://mogahenze.com:8787";
 
 // var baseurl = "http://192.168.0.157:8000";
 

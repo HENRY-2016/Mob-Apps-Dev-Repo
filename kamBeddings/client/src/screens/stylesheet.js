@@ -20,9 +20,9 @@ export default StyleSheet.create(
 
 	
 	mainViewSplah: {
-		paddingTop: 23,
+		// paddingTop: 23,
 		flex:1,
-		backgroundColor:COLORS.origincolour,
+		backgroundColor:COLORS.colourNumberFour,
 	},
 
 	mainViewSignin: {
@@ -345,6 +345,7 @@ export default StyleSheet.create(
 		width:160,height:150,
 		borderRadius:20,
 	},
+	
 	offersLables:
 	{
 		paddingLeft:40,paddingTop:20,
@@ -812,9 +813,9 @@ export default StyleSheet.create(
 	//Home
 	homeNavigationView:
 	{
-		backgroundColor: COLORS.colourNumberZero,
+		// backgroundColor: COLORS.colourNumberZero,
 		height: 260,
-		marginBottom:30,
+		marginBottom:10,
 	},
 	homeNavigationButtonMainView:
 	{
@@ -941,50 +942,74 @@ export default StyleSheet.create(
 	{
 		marginLeft:'30%', fontSize:20, color:COLORS.white,
 	},
-	activityIdicaterView: 
-	{
-		flex: 1,
-		justifyContent: 'center',
-		},
+	activityIdicaterView:{justifyContent: 'center',},
 	activityIdicatercontainer: 
 	{
 		flexDirection: 'column',
 		justifyContent: 'space-around',
-		marginLeft:20,
+		marginLeft:-18,
 		// padding: 20,
 	},
 	// splash screen
 	splashScreenView:
 	{
-		marginTop:'35%',
-		flexDirection:'column',
-		// backgroundColor: '#BDB76B',
-		justifyContent: 'center',
-		alignContent:'center',
-		width:'100%',
-	},
-	splashScreenImage:
-	{
 		marginLeft:20,
-		// marginRight:'20%'
-		width: '80%',
-		height: 200,
-		resizeMode: 'stretch',
-	},
-	splashScreenTextView:
-	{
-		flexDirection: 'row',
-		justifyContent:'center',
-		marginLeft:30,
-		// marginRight:'20%'
-	},
-	splashScreenText:
-	{
 		marginTop:30,
-		fontSize:30,
+		flexDirection:'column',
+		width:'90%',height:390,
+	},
+splashScreenImage:
+{ 
+	borderColor:COLORS.colourNumberSix,
+	borderWidth:8, borderRadius:50,
+	width: '100%', height: '100%',
+},
+splashScreenTextView:
+{
+	flexDirection: 'row',
+	justifyContent:'center',
+	marginLeft:20, marginRight:20, marginTop:'15%', 
+	height:100,
+	borderRadius:25,
+	backgroundColor:COLORS.colourNumberSix,
+},
+splashScreenTextView1:{height:50,},
+splashScreenTextView2:{height:100,},
+splashScreenText:
+{
+	fontSize:25,paddingTop:10,
+	fontWeight: 'bold',
+	color:COLORS.white,
+},
+
+	// Drawer items.......
+	drawerUserView:
+	{
+		
+		width: 100, 
+		marginLeft:60,
+		height: 100,
+	},
+	draweUserIcones:
+	{
 		color:COLORS.white,
 	},
-
+	drawerUserName:
+	{
+		marginLeft:60,fontSize:18,
+		marginBottom:10,marginTop:10,
+		color:COLORS.white
+	},
+	// About 
+	aboutMainView:
+	{
+		flexDirection: 'row',
+		// justifyContent: 'center',
+		marginLeft:10,
+		marginRight:10,
+		// backgroundColor: '#BDB76B',
+	},
+	
 	// Drawer items.......
 	drawerUserView:
 	{
@@ -1134,4 +1159,51 @@ export default StyleSheet.create(
 		color:COLORS.white,fontWeight: "bold",
 		textAlign: "center"
 	},
+
+
+
+/// ===================== modal =================================
+centeredView: 
+{
+	flex: 1,
+	justifyContent: "center",
+	alignItems: "center",
+	marginTop: 22,
+},
+modalView: 
+{
+	margin: 10,
+	backgroundColor: COLORS.colourNumberFive,
+	borderRadius: 20,
+	padding: 10,
+	alignItems: "center",
+	shadowColor: "#000",
+	shadowOffset: {width: 0,height: 2},
+	shadowOpacity: 0.25,shadowRadius: 4,elevation: 5
+},
+modalCloseBtnView:
+{
+	borderRadius:30,width:200, 
+	marginTop: 1,
+	backgroundColor:COLORS.newColor,
+	paddingTop: 15,
+	height: 40,
+	borderRadius: 50,
+	justifyContent: "center",
+	marginLeft:5,
+},
+modalCloseTextLabels:
+{
+	flexDirection: 'row',fontSize:18,
+	paddingBottom:5,marginTop:-10,
+	color:COLORS.white,fontWeight: "bold",
+	textAlign: "center"
+},
+popUpImage:
+	{
+		// marginLeft:2,marginTop:2,marginBottom:10,
+		width:300,height:300,
+		borderRadius:20,
+	},
+
 });

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Text,Image, View, TouchableOpacity,Alert, ScrollView} from 'react-native';
+import { Text,Image, View, TouchableOpacity,Alert,Modal, ScrollView} from 'react-native';
 import {FontAwesome,Ionicons } from '@expo/vector-icons';
 import axios from "axios";
 import styles from "./stylesheet";
@@ -24,6 +24,8 @@ constructor(props){
     super(props);
     this.state = {
         cartItemsIsLoading: false,
+            modalVisible: false,
+            ImageName:'',
             cartItems:[],
             NumberOfItems:'',
 
@@ -86,11 +88,11 @@ componentDidMount() {
 
 getNumberOfItems = () => 
 {
-    console.log("geting data")
+    // console.log("geting data")
     try 
     {   AsyncStorage.getItem ('NumberOfItems')
         .then(value =>{if (value != null){ this.setState({NumberOfItems:value})}})
-        console.log("===== geting NumberOfItems")
+        // console.log("===== geting NumberOfItems")
     }catch (error) { console.log(error)}
 };
 
@@ -318,6 +320,9 @@ formatNumberWithComma(numb) {
     str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return str.join(".");
 }
+setModalVisible = (visible) => {this.setState({ modalVisible: visible });}
+showImage = (Name) =>{this.setState({ImageName:Name});this.setModalVisible(true)}
+
 viewRobsScreen = (props) => {
         return (
                 <>
@@ -436,7 +441,7 @@ viewDoorMatsScreen = (props) => {
 
 render() {
     
-    const { cartItems, NumberOfItems} = this.state;
+    const { cartItems, ImageName,modalVisible,NumberOfItems} = this.state;
     const {showRobsScreen, showTowelsScreen,showShowerCurtainsScreen,showBlanketsScreen,showDoorMatsScreen} = this.state;
     const {BathRoomBathRobsProducts,BathRoomTowelsProducts,BathRoomDoorMatsProducts,BathRoomCurtainsProducts} = this.state;
     return (
@@ -473,10 +478,11 @@ render() {
                     <ScrollView>
                     {BathRoomBathRobsProducts && BathRoomBathRobsProducts.map((item, i) => (
 						<>
-						<View key={i} style={styles.offersMainContainerView}>
+                        <View key={i} >
+						<View  style={styles.offersMainContainerView}>
 
                             <View style={styles.offersimageRightView}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.showImage (item.image)}>
                                     <Image source={{uri: imageurl+item.image}} style={styles.productImage} />
                                 </TouchableOpacity>
 							</View>
@@ -492,6 +498,7 @@ render() {
 								<Text style = {styles.btnText}> Add to cart </Text>
 							</TouchableOpacity>
 						</View>
+                        </View>
 					</>
                     ))}
                         <View style={styles.blankSpaceView}></View>
@@ -508,10 +515,11 @@ render() {
                     <ScrollView>
                     {BathRoomTowelsProducts && BathRoomTowelsProducts.map((item, i) => (
 						<>
-						<View key={i} style={styles.offersMainContainerView}>
+                        <View key={i} >
+						<View  style={styles.offersMainContainerView}>
 
                             <View style={styles.offersimageRightView}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.showImage (item.image)}>
                                     <Image source={{uri: imageurl+item.image}} style={styles.productImage} />
                                 </TouchableOpacity>
 							</View>
@@ -527,6 +535,7 @@ render() {
 								<Text style = {styles.btnText}> Add to cart </Text>
 							</TouchableOpacity>
 						</View>
+                        </View>
 					</>
                     ))}
                         <View style={styles.blankSpaceView}></View>
@@ -543,10 +552,11 @@ render() {
                     <ScrollView>
                     {BathRoomCurtainsProducts && BathRoomCurtainsProducts .map((item, i) => (
 						<>
-						<View key={i} style={styles.offersMainContainerView}>
+                        <View key={i}>
+						<View  style={styles.offersMainContainerView}>
 
                             <View style={styles.offersimageRightView}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.showImage (item.image)}>
                                     <Image source={{uri: imageurl+item.image}} style={styles.productImage} />
                                 </TouchableOpacity>
 							</View>
@@ -562,6 +572,7 @@ render() {
 								<Text style = {styles.btnText}> Add to cart </Text>
 							</TouchableOpacity>
 						</View>
+                        </View>
 					</>
                     ))}
                         <View style={styles.blankSpaceView}></View>
@@ -578,10 +589,11 @@ render() {
                     <ScrollView>
                     {cartItems && cartItems.map((item, i) => (
 						<>
-						<View key={i} style={styles.offersMainContainerView}>
+                        <View key={i}>
+						<View  style={styles.offersMainContainerView}>
 
                             <View style={styles.offersimageRightView}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.showImage (item.image)}>
                                     <Image source={{uri: imageurl+item.image}} style={styles.productImage} />
                                 </TouchableOpacity>
 							</View>
@@ -597,6 +609,7 @@ render() {
 								<Text style = {styles.btnText}> Add to cart </Text>
 							</TouchableOpacity>
 						</View>
+                        </View>
 					</>
                     ))}
                         <View style={styles.blankSpaceView}></View>
@@ -613,10 +626,11 @@ render() {
                     <ScrollView>
                         {BathRoomDoorMatsProducts && BathRoomDoorMatsProducts.map((item, i) => (
                             <>
-                            <View key={i} style={styles.offersMainContainerView}>
+                            <View key={i}>
+                            <View  style={styles.offersMainContainerView}>
 
                                 <View style={styles.offersimageRightView}>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => this.showImage (item.image)}>
                                         <Image source={{uri: imageurl+item.image}} style={styles.productImage} />
                                     </TouchableOpacity>
                                 </View>
@@ -632,6 +646,7 @@ render() {
                                     <Text style = {styles.btnText}> Add to cart </Text>
                                 </TouchableOpacity>
                             </View>
+                            </View>
                         </>
                         ))}
                         <View style={styles.blankSpaceView}></View>
@@ -640,6 +655,27 @@ render() {
                 )
             }
 
+            <View style={styles.centeredView}>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    >
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            
+                        <Image source={{uri: imageurl+ImageName}} style={styles.popUpImage} />
+
+                            <View style={{height:15}}></View>
+                            <View style={styles.modalCloseBtnView}>
+                            <TouchableOpacity onPress={() => this.setModalVisible(!modalVisible)}>
+                                <Text style={styles.modalCloseTextLabels}>Close</Text>
+                            </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+            </View>
             <View style={styles.subMenuNaviLinksTabView}>
                 <View style={styles.subMenuNaviLinksTabSpaceView}></View>
                 <ScrollView horizontal={true} >

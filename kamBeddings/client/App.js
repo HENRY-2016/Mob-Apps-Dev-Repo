@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, {useState, useEffect} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import {View,Image,ActivityIndicator,Text} from "react-native";
+import {View,Image,Text,ImageBackground,ActivityIndicator} from "react-native";
 
 import {
   createDrawerNavigator,
@@ -22,9 +22,7 @@ import BedRoomThree from './src/screens/BedRoomThree';
 import LivingRoom from './src/screens/LivingRoom';
 import BathRoom from './src/screens/BathRoom';
 import Cart from './src/screens/Cart';
-import Offers from './src/screens/Offers';
 import MyOrders from './src/screens/MyOrders';
-import BlackFriday from './src/screens/BlackFriday';
 import FeedBack from './src/screens/FeedBack';
 
 
@@ -56,7 +54,7 @@ function DrawerNavigetion() {
 
       screenOptions={{
         drawerStyle: {backgroundColor: '#1F75FE',width: 240},
-        drawerActiveBackgroundColor:'#0530ad',
+        drawerActiveBackgroundColor:'#af4035',
         drawerInactiveTintColor:'#fff',
         drawerActiveTintColor:'#fff',
         drawerLabelStyle:{fontSize: 17,marginLeft:-20}
@@ -136,24 +134,29 @@ export default function App() {
         showSplashScreen ? 
         (
           <>
-            <View style={styles.mainView} >
-                  <View style={styles.mainViewSplah} >
+            <View style={styles.mainViewSplah} >
+                  <View style={[styles.splashScreenTextView,styles.splashScreenTextView1]}>
+                        <Text style={styles.splashScreenText}>Hello Welcome To </Text>
+                    </View>
 
-                      <View style={styles.splashScreenView} >
-                          <Image style={styles.splashScreenImage} source={require('./assets/logo.png')}/>
-                      </View>
+                    <View style={styles.splashScreenView} >
+                        <Image
+                        style={styles.splashScreenImage}
+                        source={require('./assets/bg-1.png')}
+                        />
+                    </View>
 
-                      <View style={{height:30}}></View>
-                      <View style={styles.splashScreenTextView}>
+                      <View style={[styles.splashScreenTextView,styles.splashScreenTextView2]}>
                           <Text style={styles.splashScreenText}>Kam Beddings</Text>
                       </View>
 
-                      {/* <View style={styles.activityIdicaterView}>
+                      <View style={styles.activityIdicaterView}>
                           <View style={styles.activityIdicatercontainer}>
-                              <ActivityIndicator size="large" color="#fff" />
+                          <ActivityIndicator size="large" style={{marginTop:-50}} color="#fff" />
+
                           </View>
-                      </View> */}
-                  </View>
+                      </View>
+                  
               </View>
           </>
         )

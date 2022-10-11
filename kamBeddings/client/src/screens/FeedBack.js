@@ -43,7 +43,6 @@ getNumberOfItems = () =>
     try 
     {   AsyncStorage.getItem ('NumberOfItems')
         .then(value =>{if (value != null){ this.setState({NumberOfItems:value})}})
-        console.log("===== geting NumberOfItems")
     }catch (error) { console.log(error)}
 };
 

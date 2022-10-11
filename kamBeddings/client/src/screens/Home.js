@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Text, View,Image, TouchableOpacity,Alert, ScrollView} from 'react-native';
+import { Text, View,Image, TouchableOpacity,Modal,Alert, ScrollView} from 'react-native';
 
 import {Ionicons,FontAwesome } from '@expo/vector-icons';
 import axios from "axios";
@@ -18,7 +18,9 @@ constructor(props){
     
     super(props);
     this.state = {
-        cartItemsIsLoading: false,
+            cartItemsIsLoading: false,
+            modalVisible: false,
+            ImageName:'',
             cartItems:[],
             images:[],
             NumberOfItems:'',
@@ -117,38 +119,13 @@ formatNumberWithComma(numb) {
     str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return str.join(".");
 }
-renderItem = ({item,index}) => 
-    {
-        if (item.empty === true)
-            { return <View style={[styles.ItemInvisible]}></View> }
-        return (
-            <View style={styles.homeCardView2}>
-                <TouchableOpacity>
-                    <Image source={{uri: imageurl+item.image}} style={styles.homeproductImage} />
-                </TouchableOpacity>
-
-                <View style={styles.productTextView}>
-                    <Text numberOfLines={1} style={styles.producttext}> {item.Name}</Text>
-                    <Text numberOfLines={1} style={styles.producttext}> {item.Description}</Text>
-                    <Text numberOfLines={1} style={styles.producttext}> {this.formatNumberWithComma(item.Amount)}</Text>
-                </View>
-
-                <View style={styles.homeOrderbtnView}>
-                    <View style={[styles.centerElement, styles.homeOrderBtn]}>
-                        <TouchableOpacity style={styles.homeordersbtn} onPress={()=>this.addtocart(index)} >
-                            <Text style = { styles.homeorderstxt}> Add to cart </Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View>
-            
-        )
-    }
+setModalVisible = (visible) => {this.setState({ modalVisible: visible });}
+showImage = (Name) =>{this.setState({ImageName:Name});this.setModalVisible(true)}
 
 
 render() {
     
-    const { cartItems,NumberOfItems, cartItemsIsLoading} = this.state;
+    const { cartItems,NumberOfItems,ImageName,modalVisible, cartItemsIsLoading} = this.state;
 
     return (
         
@@ -178,7 +155,7 @@ render() {
             
             {cartItemsIsLoading ? (<></>) : (
                 <>
-                <ScrollView>
+                
                     <View style={styles.mainViewTopSpace} ></View>
                     <View style={styles.homeNavigationView}>
 
@@ -214,14 +191,16 @@ render() {
                         </View> 
                         
                     </View>
+                    <ScrollView  showsVerticalScrollIndicator={false}>
                     {cartItemsIsLoading ? (<></>) : (
                     <>
                     {cartItems && cartItems.map((item, i) => (
 						<>
-						<View key={i} style={styles.offersMainContainerView}>
+                        <View key={i} >
+						<View style={styles.offersMainContainerView}>
 
                             <View style={styles.offersimageRightView}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.showImage (item.image)}>
                                     <Image source={{uri: imageurl+item.image}} style={styles.productImage} />
                                 </TouchableOpacity>
 							</View>
@@ -237,17 +216,37 @@ render() {
 								<Text style = {styles.btnText}> Add to cart </Text>
 							</TouchableOpacity>
 						</View>
-						
+						</View>
 					</>
                     ))}
                 </>
             )}
-
-
                     <View style={styles.blankSpaceView}></View>
                 </ScrollView>
                 </>
             )}
+
+        <View style={styles.centeredView}>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    >
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            
+                        <Image source={{uri: imageurl+ImageName}} style={styles.popUpImage} />
+
+                            <View style={{height:15}}></View>
+                            <View style={styles.modalCloseBtnView}>
+                            <TouchableOpacity onPress={() => this.setModalVisible(!modalVisible)}>
+                                <Text style={styles.modalCloseTextLabels}>Close</Text>
+                            </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+            </View>
         </View>
     );
 }
