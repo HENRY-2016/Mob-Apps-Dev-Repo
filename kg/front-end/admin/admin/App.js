@@ -24,7 +24,6 @@ import PaymentsCleared from './src/screens/PaymentsCleared';
 import PaymentsPending from './src/screens/PaymentsPending';
 
 import Icon1 from "./src/imgs/dashboard/1.png";
-import Icon2 from "./src/imgs/dashboard/2.png";
 import Icon3 from "./src/imgs/dashboard/3.png";
 import Icon4 from "./src/imgs/dashboard/4.png";
 import Icon5 from "./src/imgs/dashboard/5.png";
@@ -75,38 +74,38 @@ function DrawerNavigetion() {
         }} />
         <Drawer.Screen name="OrdersNew"  component={OrdersNew} options={{headerShown: false,swipeEnabled: false,
         title: 'Orders New',unmountOnBlur: true,
-        drawerIcon:() => (<NavigationIcon Image={Icon1} />),
+        drawerIcon:() => (<NavigationIcon image={Icon1} />),
         }}/>
       
         <Drawer.Screen name="OrdersCleared" component={OrdersCleared} options={{headerShown: false,swipeEnabled: false,
         title: 'Orders Cleared',unmountOnBlur: true,
-        drawerIcon:() => (<NavigationIcon Image={Icon4} />),
+        drawerIcon:() => (<NavigationIcon image={Icon4} />),
         }} />
 
         <Drawer.Screen name="OrdersPending"  component={OrdersPending} options={{headerShown: false,swipeEnabled: false,
         title: 'Orders Pending',unmountOnBlur: true,
-        drawerIcon:() => (<NavigationIcon Image={Icon3} />),
+        drawerIcon:() => (<NavigationIcon image={Icon3} />),
         }}/>
         <Drawer.Screen name="PaymentsNew" component={PaymentsNew} options={{headerShown: false,swipeEnabled: false,
         title: 'Payments New',unmountOnBlur: true,
-        drawerIcon:() => (<NavigationIcon Image={Icon5} />),
+        drawerIcon:() => (<NavigationIcon image={Icon5} />),
         }} />
         
         <Drawer.Screen name="PaymentsFull" component={PaymentsFull} options={{headerShown: false,swipeEnabled: false,
         title: 'Payments Full',unmountOnBlur: true,
-        drawerIcon:() => (<NavigationIcon Image={Icon8} />),
+        drawerIcon:() => (<NavigationIcon image={Icon8} />),
         }} />
         <Drawer.Screen name="PaymentsHalf" component={PaymentsHalf} options={{headerShown: false,swipeEnabled: false,
         title: 'Payments  Half',unmountOnBlur: true,
-        drawerIcon:() => (<NavigationIcon Image={Icon8} />),
+        drawerIcon:() => (<NavigationIcon image={Icon8} />),
         }} />
         <Drawer.Screen name="PaymentsPending" component={PaymentsPending} options={{headerShown: false,swipeEnabled: false,
         title: 'Payments Pending',unmountOnBlur: true,
-        drawerIcon:() => (<NavigationIcon Image={Icon7} />),
+        drawerIcon:() => (<NavigationIcon image={Icon7} />),
         }} />
         <Drawer.Screen name="PaymentsCleared" component={PaymentsCleared} options={{headerShown: false,swipeEnabled: false,
         title: 'Payments Cleared',unmountOnBlur: true,
-        drawerIcon:() => (<NavigationIcon Image={Icon6} />),
+        drawerIcon:() => (<NavigationIcon image={Icon6} />),
         }} />
         
     </Drawer.Navigator>

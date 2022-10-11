@@ -742,8 +742,8 @@ export default StyleSheet.create(
 	
 	ordersDetailsBtnView:
 	{
-		flexDirection: 'row', justifyContent: 'center', marginTop:5,
-		height: 32, paddingRight: 10, alignItems: 'center'
+		flexDirection: 'row', justifyContent: 'center',
+		height: 30, marginTop:8, alignItems: 'center'
 	},
 
 
@@ -772,19 +772,19 @@ export default StyleSheet.create(
 	},
 
 	//Home
-	homeNavigationView:
-	{
-		backgroundColor: COLORS.colourNumberZero,
-		height: 260,
-		marginBottom:30,
-	},
-	homeNavigationButtonMainView:
-	{
-		flexDirection:'row',
-		backgroundColor: COLORS.mainBgColour,
-		justifyContent: 'center',
-		alignContent:'center',
-	},
+	// homeNavigationView:
+	// {
+	// 	backgroundColor: COLORS.colourNumberZero,
+	// 	height: 260,
+	// 	marginBottom:30,
+	// },
+	// homeNavigationButtonMainView:
+	// {
+	// 	flexDirection:'row',
+	// 	backgroundColor: COLORS.mainBgColour,
+	// 	justifyContent: 'center',
+	// 	alignContent:'center',
+	// },
 	homeorderstxt:
 	{
 	
@@ -804,11 +804,7 @@ export default StyleSheet.create(
 			backgroundColor: COLORS.subLinkNaviColour
 		},
 
-	// subMenuRightArrowView:
-	// {
-	// 	width:30,
-	// 	backgroundColor: COLORS.white,
-	// },
+
 	subMenuNaviLinksMainIcones:
 	{
 		width: 30,height: 30,
@@ -976,10 +972,9 @@ export default StyleSheet.create(
 	orderListView:
 	{
 		flexDirection: 'column', 
-		// flexGrow: 1,
-		// marginLeft:-10,
-		width:'100%',
-		// backgroundColor: '#eeeeee',
+		borderRadius:15, marginLeft:20,marginRight:20,
+		// width:'100%',
+		backgroundColor:COLORS.colourNumberOne,
 		color:COLORS.profileColour,
 	},
 	orderListLables:
@@ -991,26 +986,26 @@ export default StyleSheet.create(
 	},
 
 	orderdetailsBtn: {
-		width: '50%',
-		marginTop: 10, marginBottom:10,
+		width: 180,
+		// marginTop: 10, marginBottom:10,
 
-		backgroundColor:COLORS.colourNumberOne,
-		padding: 15,height: 50,
+		backgroundColor:COLORS.colourNumberSix,
+		height: 45,
 		borderRadius: 50,
-		// justifyContent: "center",
 		
 	},
 	orderdetailsBtnText:
 	{
 		color:COLORS.white,
 		fontSize:OTHERS.bigbtnfontsize,
-		marginLeft:35, marginTop:-5,
+		marginLeft:30, marginTop:10,
+		
 	},
 	ordersMainContainerView:
 	{
 
 		flexDirection: 'row',
-		backgroundColor:COLORS.colourNumberSix,
+		backgroundColor:COLORS.colourNumberOne,
 		marginLeft:10,marginRight:10, marginTop: 10,
 		// borderTopEndRadius:15,borderTopLeftRadius:15,
 		borderRadius:15,
@@ -1095,6 +1090,7 @@ export default StyleSheet.create(
 		textAlign: "center",
 		borderBottomColor:COLORS.colourNumberTwo,
 		borderBottomWidth:2,
+		height:65,
 	},
 	mainTableView:
 	{
@@ -1111,25 +1107,33 @@ export default StyleSheet.create(
 	trTdText:
 	{
 		flexDirection: 'row',fontSize:18,
-		paddingBottom:5,paddingTop:5, 
+		paddingBottom:5,marginTop:8, 
 		paddingLeft:15, paddingRight:15,
 		color:COLORS.white,
 	},
 
-	mainSpaceView:
-	{
-		height:2,
-		marginTop:-290,
-		backgroundColor:COLORS.white,
-	},
-	mainSpaceView0:
-	{
-		height:2,
-		backgroundColor:COLORS.white,
-	},
-	mainSpaceView1:{marginTop:-250},
 
+	BackToTableBtnView:
+	{
+		flexDirection: 'row', justifyContent: 'center', marginTop:5,
+		height: 32, paddingRight: 10, alignItems: 'center'
+	},
+	backBtn: {
+		width: '50%',
+		marginTop: 10, marginBottom:10,
 
+		backgroundColor:COLORS.colourNumberOne,
+		padding: 15,height: 50,
+		borderRadius: 50,
+		// justifyContent: "center",
+		
+	},
+	backBtnText:
+	{
+		color:COLORS.white,
+		fontSize:OTHERS.bigbtnfontsize,
+		marginLeft:35, marginTop:-5,
+	},
 
 
 });
