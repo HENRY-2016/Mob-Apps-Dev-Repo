@@ -1,61 +1,37 @@
 
 
 
-var baseurl = "http://176.58.115.77:5050";
-// var baseurl = "http://192.168.0.157:8000";
+var baseUrl = "http://mogahenze.com:8787";
 
+// var baseUrl = "http://192.168.0.157:8000";
 
-export const imageurl = baseurl+"/images/";
+export const imageurl = baseUrl+"/images/";
 
-// Customer 
-export const APIpostCustomerOrder = baseurl+"/api/customer/order/post";
-export const APIpostCustomerRegister = baseurl+"/api/accounts/register";
-export const APIListAllCustomerOrders  = baseurl+"/api/orders/list/all/customer/orders/by/phone/";
-export const APIListCustomerOrderListArray  = baseurl+"/api/orders/list/customer/order/list/array/by/id/";
+// // dashboard orders
+export const APIListDashboardAppStatics = baseUrl+"/api/app/googl/play/list/app/statics";
+export const APIListDashboardClearedPayments = baseUrl+"/api/dashboard/list/all/cleared/order/payments";
+export const APIListDashboardNotClearedPayments = baseUrl+"/api/dashboard/list/all/not/cleared/order/payments";
+export const APIListDashboardNewOrders = baseUrl+"/api/dashboard/list/all/new/orders";
+export const APIListDashboardTotalOrders = baseUrl+"/api/dashboard/list/all/total/orders";
+// // dashboard payments
+export const APIListDashboardNewPayments = baseUrl+"/api/dashboard/list/all/new/payments";
+export const APIListDashboardPendingPayments = baseUrl+"/api/dashboard/list/all/pending/payments";
+export const APIListDashboardHalfPayments = baseUrl+"/api/dashboard/list/all/half/payments";
+export const APIListDashboardFullPayments = baseUrl+"/api/dashboard/list/all/full/payments";
+export const APIListDashboardTotalPayments = baseUrl+"/api/dashboard/list/all/total/payments";
 
-// Products 
-export const APIAbout = baseurl+"/api/listAllAbout";
-export const APISlider = baseurl+"/api/listAllSlider";
-export const APIBabies = baseurl+"/api/listAllBabies";
-export const APIHomeProducts = baseurl+"/api/listAllHomeProducts";
-export const APIlistAllBlackFridayProducts = baseurl+"/api/listAllBlackFridayProducts";
-export const APIlistAllOffersProducts = baseurl+"/api/listAllOffersProducts";
+// Others
+export const APIListNewOrders =  baseUrl+"/api/orders/list/all/new/orders";
+export const APIListPendingOrders =  baseUrl+"/api/orders/list/all/pending/orders";
+export const APIListClearedOrders =  baseUrl+"/api/orders/list/all/cleared/orders";
+export const APIListAllCustomerOrders  = baseUrl+"/api/orders/list/all/customer/orders/by/phone/";
 
-// Bed Room
-export const APIBedRoomBedsProducts = baseurl+"/api/listAllBedRoomBedsProducts"; ///
-export const APIBedRoomNetsProducts = baseurl+"/api/listAllBedRoomNetsProducts"; //
-export const APIBedRoomBedCoversProducts = baseurl+"/api/listAllBedRoomBedCoversProducts";
-export const APIBedRoomPillowsProducts = baseurl+"/api/listAllBedRoomPillowsProducts"; // 
-export const APIBedRoomClosetProducts = baseurl+"/api/listAllBedRoomClosetProducts"; //
-export const APIBedRoomCussionsProducts = baseurl+"/api/listAllBedRoomCussionsProducts"; //
-export const APIBedRoomShoeRackProducts = baseurl+"/api/listAllBedRoomShoeRackProducts";
-export const APIBedRoomBedSheetsProducts = baseurl+"/api/listAllBedRoomBedSheetsProducts";//
-export const APIBedRoomBlanketsProducts = baseurl+"/api/listAllBedRoomBlanketsProducts";
-export const APIBedRoomMattressProducts = baseurl+"/api/listAllBedRoomMattressProducts";
-export const APIBedRoomSandalsProducts = baseurl+"/api/listAllBedRoomSandalsProducts"; //
-export const APIBedRoomBedSidesProducts = baseurl+"/api/listAllBedRoomBedSidesProducts";//
-export const APIBedRoomMirrorsProducts = baseurl+"/api/listAllBedRoomMirrorsProducts"; //
-export const APIBedRoomNightWareProducts = baseurl+"/api/listAllBedRoomNightWareProducts"; //
-export const APIBedRoomMattressProtectorsProducts = baseurl+"/api/listAllBedRoomMattressProtectorsProducts";
+// // payments 
+export const APIListClearedPayments =  baseUrl+"/api/payments/list/all/cleared";
+export const APIListNotClearedPayments =  baseUrl+"/api/payments/list/all/not/cleared";
+export const APIListNewPayments =  baseUrl+"/api/payments/list/all/new/payment";
+export const APIListFullPayments =  baseUrl+"/api/payments/list/all/full/payment";
+export const APIListHalfPayments =  baseUrl+"/api/payments/list/all/half/payment";
 
-// Living Room
-export const APILivingRoomCurtainsProducts = baseurl+"/api/listAllLivingRoomCurtainsProducts";
-export const APILivingRoomSeatsProducts = baseurl+"/api/listAllLivingRoomSeatsProducts";
-export const APILivingRoomSideBoardsProducts = baseurl+"/api/listAllLivingRoomSideBoardsProducts";
-export const APILivingRoomTablesProducts = baseurl+"/api/listAllLivingRoomTablesProducts";
-export const APILivingRoomCarpetsProducts = baseurl+"/api/listAllLivingRoomCarpetsProducts";
-export const APILivingRoomIroningBoardProducts = baseurl+"/api/listAllLivingRoomIroningBoardProducts";
-
-// BathRoom
-export const APIBathRoomBathRobsProducts = baseurl+"/api/listAllBathRoomBathRobsProducts";
-export const APIBathRoomTowelsProducts = baseurl+"/api/listAllBathRoomTowelsProducts";
-export const  APIBathRoomDoorMatsProducts = baseurl+"/api/listAllBathRoomDoorMatsProducts";
-export const  APIBathRoomCurtainsProducts = baseurl+"/api/listAllBathRoomCurtainsProducts";
-
-// Search
-export const APIBabiesNames = baseurl+"/api/listAllBabiesNames";
-export const APIBathRoomNames = baseurl+"/api/listAllBathRoomNames";
-export const APIBedRoomNames = baseurl+"/api/listAllBedRoomNames";
-export const APILivingRoomNames = baseurl+"/api/listAllLivingRoomNames";
-export const APISearchName = baseurl+"/api/listSearchResults/by/name/";
-
+//
+export const APIListCustomerOrderListArray  = baseUrl+"/api/orders/list/customer/order/list/array/by/id/";

@@ -6,7 +6,6 @@ import {COLORS, OTHERS} from './Colours';
 
 export default StyleSheet.create(
 {
-	ItemInvisible:{backgroundColor:'transparent'},
 	mainView: {
 		flex:1,
 		backgroundColor:COLORS.colourNumberFour,
@@ -20,9 +19,8 @@ export default StyleSheet.create(
 
 	
 	mainViewSplah: {
-		paddingTop: 23,
 		flex:1,
-		backgroundColor:COLORS.origincolour,
+		backgroundColor:COLORS.colourNumberFour,
 	},
 
 	mainViewSignin: {
@@ -46,54 +44,7 @@ export default StyleSheet.create(
 		fontSize: 26,
 		fontFamily: 'normal'
 	},
-	input: {
-		margin: 15,
-		height: 40,
-		color:COLORS.white,
-		fontSize:18,
-		width:'90%',
-		textAlign:'center',
-		borderWidth: 3,
-		borderRadius: 50,
-		borderColor:COLORS.colourNumberTwo,
 	
-	},
-	pickerSelectionInputView: {
-		margin: 15, flex: 1,
-		height: 40,
-		// color:COLORS.white,
-		// fontSize:18,
-		width:'90%',
-		textAlign:'center',
-		borderWidth: 3,
-		borderRadius: 50,
-		borderColor:COLORS.colourNumberTwo,
-	},
-	pickerSelectioninputs:
-	{
-		marginTop: -5,marginLeft:10,
-		height: 40,color:COLORS.white,
-		fontSize:18,width:'90%',
-
-	},
-	submitButton: {
-		backgroundColor: '#7a42f4',
-		padding: 50,
-
-		margin: 15,
-		height: 20,
-	},
-	button: {
-		width: 300,
-		marginTop: 20,
-		backgroundColor: "#8A2BE2",
-		padding: 15,
-		height: 50,
-		borderRadius: 50,
-		justifyContent: "center",
-	},
-
-
 	btnText: {
 		color: "white",
 		fontSize: 18,
@@ -529,11 +480,21 @@ export default StyleSheet.create(
 		fontSize:16,
 		color:'#000000',
 	},
-	
-	// homeImageSlidingImgs:
-	// {
-	// 	width:'100%',
-	// },
+	homeImageSlider:
+	{
+		// justifyContent: 'center',
+		// alignContent:'center',
+		// backgroundColor: '#eeeeee',
+		height:230, width:'95%',
+		borderRadius:15,
+
+		marginLeft:5,
+		marginBottom:20,
+	},
+	homeImageSlidingImgs:
+	{
+		width:'100%',
+	},
 	ordersText:
 	{
 		marginLeft:50,
@@ -545,16 +506,15 @@ export default StyleSheet.create(
 		height:40,
 
 	},
+	// homeCardView:
+	// {
+	// 	flexDirection: 'row', 
+	// 	backgroundColor: COLORS.cardBgColour,
+	// 	borderRadius:20, width:'90%', height: 150, 
+	// 	marginLeft:10,marginRight:10, 
+	// 	marginTop:10, 
+	// },
 	
-	homeCardView2:
-	{
-		flex: 1, 
-		backgroundColor: COLORS.cardColor,
-		borderRadius:20,
-		height: 280,
-		marginLeft:10,marginRight:10,marginTop:8,marginBottom:40, 
-		// height:Dimensions.get('window').width/ 2,
-	},
 
 	homeOrderBtn:
 	{
@@ -583,7 +543,6 @@ export default StyleSheet.create(
 		
 		height:50,width:'100%', 
 		backgroundColor:COLORS.colourNumberOne,
-		// backgroundColor:COLORS.colourNumberSeven,
 		borderBottomEndRadius:15,borderBottomLeftRadius:15,
 		alignItems: 'center', justifyContent: 'center',
 		
@@ -782,8 +741,8 @@ export default StyleSheet.create(
 	
 	ordersDetailsBtnView:
 	{
-		flexDirection: 'row', justifyContent: 'center', marginTop:5,
-		height: 32, paddingRight: 10, alignItems: 'center'
+		flexDirection: 'row', justifyContent: 'center',
+		height: 30, marginTop:8, alignItems: 'center'
 	},
 
 
@@ -812,20 +771,19 @@ export default StyleSheet.create(
 	},
 
 	//Home
-	homeNavigationView:
-	{
-		backgroundColor: COLORS.colourNumberZero,
-		// backgroundColor: COLORS.white,
-		height: 238,
-		marginBottom:30,
-	},
-	homeNavigationButtonMainView:
-	{
-		flexDirection:'row',
-		backgroundColor: COLORS.mainBgColour,
-		justifyContent: 'center',
-		alignContent:'center',
-	},
+	// homeNavigationView:
+	// {
+	// 	backgroundColor: COLORS.colourNumberZero,
+	// 	height: 260,
+	// 	marginBottom:30,
+	// },
+	// homeNavigationButtonMainView:
+	// {
+	// 	flexDirection:'row',
+	// 	backgroundColor: COLORS.mainBgColour,
+	// 	justifyContent: 'center',
+	// 	alignContent:'center',
+	// },
 	homeorderstxt:
 	{
 	
@@ -845,11 +803,7 @@ export default StyleSheet.create(
 			backgroundColor: COLORS.subLinkNaviColour
 		},
 
-	// subMenuRightArrowView:
-	// {
-	// 	width:30,
-	// 	backgroundColor: COLORS.white,
-	// },
+
 	subMenuNaviLinksMainIcones:
 	{
 		width: 30,height: 30,
@@ -941,52 +895,38 @@ export default StyleSheet.create(
 		backgroundColor:COLORS.colourNumberTwo,
 		
 	},
-	mainCartNumberTxt:
-	{
-		marginLeft:1, fontSize:20,color:COLORS.white,
-	},
-	sublinksTitleTxt:
-	{
-		marginLeft:'30%', fontSize:20, color:COLORS.white,
-	},
-	activityIdicaterView: 
-	{
-		flex: 1,
-		justifyContent: 'center',
-		},
+
+	activityIdicaterView: {justifyContent: 'center',},
 	activityIdicatercontainer: 
 	{
 		flexDirection: 'column',
 		justifyContent: 'space-around',
-		marginLeft:20,
-		// padding: 20,
+		marginLeft:-18,
 	},
 	// splash screen
 	splashScreenView:
 	{
-		marginTop:'35%',
+		marginLeft:20,
+		marginTop:30,
 		flexDirection:'column',
-		// backgroundColor: '#BDB76B',
-		justifyContent: 'center',
-		alignContent:'center',
-		width:'100%',
+		width:'90%',height:390,
 	},
-	splashScreenImage:
-	{
-		marginLeft:'20%',
-		marginRight:'20%'
-	},
-	splashScreenTextView:
-	{
-		flexDirection: 'row',
-		justifyContent:'center',
-		marginLeft:30,
-		// marginRight:'20%'
-	},
+splashScreenImage:{width: '100%', height: '100%',},
+splashScreenTextView:
+{
+	flexDirection: 'row',
+	justifyContent:'center',
+	marginLeft:20, marginRight:20, marginTop:20, 
+	height:100,
+	borderRadius:25,
+	backgroundColor:COLORS.colourNumberSix,
+},
+splashScreenTextView1:{height:50,},
+splashScreenTextView2:{height:100,},
 	splashScreenText:
 	{
-		marginTop:30,
 		fontSize:30,
+		fontWeight: 'bold',
 		color:COLORS.white,
 	},
 
@@ -1017,37 +957,16 @@ export default StyleSheet.create(
 		marginRight:10,
 		// backgroundColor: '#BDB76B',
 	},
-	aboutMainSpaceView:
-	{
-		// backgroundColor: '#BDB76B',
-		height:20,
-
-	},
-	aboutTextLabels:
-	{
-		marginLeft:1, fontSize:17,color:COLORS.white,
-	},
-	customerOrderDetailsLablesTitles:
-	{
-		paddingLeft:40,paddingTop:10,
-		fontSize:OTHERS.producttextfontsize,
-		color:COLORS.white,
-	},
-	customerOrderDetailsLables:
-	{
-		paddingLeft:50,paddingTop:8,
-		fontSize:OTHERS.producttextfontsize,
-		color:COLORS.white,
-	},
+	
+	
 	// orders view
 	
 	orderListView:
 	{
 		flexDirection: 'column', 
-		// flexGrow: 1,
-		// marginLeft:-10,
-		width:'100%',
-		// backgroundColor: '#eeeeee',
+		borderRadius:15, marginLeft:20,marginRight:20,
+		// width:'100%',
+		backgroundColor:COLORS.colourNumberOne,
 		color:COLORS.profileColour,
 	},
 	orderListLables:
@@ -1059,6 +978,139 @@ export default StyleSheet.create(
 	},
 
 	orderdetailsBtn: {
+		width: 180,
+		// marginTop: 10, marginBottom:10,
+
+		backgroundColor:COLORS.colourNumberSix,
+		height: 45,
+		borderRadius: 50,
+		
+	},
+	orderdetailsBtnText:
+	{
+		color:COLORS.white,
+		fontSize:OTHERS.bigbtnfontsize,
+		marginLeft:30, marginTop:10,
+		
+	},
+	ordersMainContainerView:
+	{
+
+		flexDirection: 'row',
+		backgroundColor:COLORS.colourNumberOne,
+		marginLeft:10,marginRight:10, marginTop: 10,
+		// borderTopEndRadius:15,borderTopLeftRadius:15,
+		borderRadius:15,
+
+	},
+
+
+
+	///////////////////////////////////////////////////////////////////////
+	DashboardCardRowView:
+	{
+		flex: 1, flexDirection:'row',
+		// backgroundColor: COLORS.colourNumberSix,
+		borderRadius:28, height: 245,
+		marginLeft:10,marginRight:10, 
+	},
+	DashboardSpaceCard:{width:10,height: 180,},
+	DashboardCard:
+	{
+		backgroundColor: COLORS.colourNumberSix,
+		borderRadius:20,
+		width:155,height: 225,
+		marginTop:10,
+	},
+	GooglePlayCard:
+	{
+		backgroundColor: COLORS.colourNumberOne,
+		borderRadius:20,
+		width:'95%',height: 140,
+		marginTop:10,
+	},
+	CardImageView:{marginLeft:35, marginTop:5,},
+	CardImage:{width:60, height:60,},
+	CardTextNumberView:{marginLeft:50, marginTop:8,},
+	CardTextAmountView:{marginLeft:25, marginTop:8,},
+	CardTextGooglePlay:{marginLeft:15, marginTop:8,},
+	CardTextGooglePlay2:{marginLeft:5, marginTop:8,},
+	CardTextLabelView:{marginLeft:10, marginTop:0,},
+	CardTextLabelInnerView1:{marginLeft:30, marginTop:5,},
+	CardTextLabelInnerView11:{marginLeft:20, marginTop:5,},
+	CardTextLabelInnerView2:{marginLeft:20, marginTop:5,},
+	
+	DashboardInnerCard:
+	{
+		// backgroundColor: COLORS.black,
+		borderRadius:20,
+		width:'90%',height: 165,
+		marginTop:8,marginLeft:8,
+		marginRight:8,marginBottom:8,
+	},
+
+	TopTitleNameView:
+	{
+		flexDirection: 'row',
+		justifyContent: 'center', 
+		alignItems: 'center',
+		marginLeft:'5%',
+	},
+	TopTitleName:
+	{
+		fontSize: OTHERS.fontsize20,
+		color:COLORS.white,
+	},
+	TextLables:
+	{
+		fontSize: 18,
+		color:COLORS.white,
+	},
+
+	// table =========================
+
+	tableHeaderView:
+	{
+		flexDirection:'row',
+		height:60,
+		backgroundColor:COLORS.colourNumberOne,
+		
+	},
+	tableTrView:
+	{
+		paddingBottom: 8, paddingTop:8,
+		textAlign: "center",
+		borderBottomColor:COLORS.colourNumberTwo,
+		borderBottomWidth:2,
+		height:65,
+	},
+	mainTableView:
+	{
+		flexDirection:'row',
+		backgroundColor: COLORS.colourNumberOne,
+	},
+
+	trThText:
+	{
+		flexDirection: 'row',fontSize:18,
+		paddingLeft:15, paddingRight:15,
+		color:COLORS.white,
+	},
+	trTdText:
+	{
+		flexDirection: 'row',fontSize:18,
+		paddingBottom:5,marginTop:8, 
+		paddingLeft:15, paddingRight:15,
+		color:COLORS.white,
+	},
+
+
+	BackToTableBtnView:
+	{
+		flexDirection: 'row', justifyContent: 'center', marginTop:5,
+		height: 32, paddingRight: 10, alignItems: 'center'
+	},
+	backBtn: {
 		width: '50%',
 		marginTop: 10, marginBottom:10,
 
@@ -1068,202 +1120,12 @@ export default StyleSheet.create(
 		// justifyContent: "center",
 		
 	},
-	orderdetailsBtnText:
+	backBtnText:
 	{
 		color:COLORS.white,
 		fontSize:OTHERS.bigbtnfontsize,
 		marginLeft:35, marginTop:-5,
 	},
-	ordersMainContainerView:
-	{
-
-		flexDirection: 'row',
-		backgroundColor:COLORS.colourNumberSix,
-		marginLeft:10,marginRight:10, marginTop: 10,
-		// borderTopEndRadius:15,borderTopLeftRadius:15,
-		borderRadius:15,
-
-	},
 
 
-
-	// ====================================================== Slider
-	// ====================================================== Slider
-// Silder 
-HomeImageSliderView:
-{
-	height:210, width:'94%', 
-	marginLeft:5,marginBottom:20,
-},
-ImageSliderView:
-{
-	height:250, width:'94%', 
-	marginLeft:5,marginBottom:20,
-},
-ImagePaginationBoxStyle:
-{
-	position: "absolute",
-	bottom: 0,padding: 0,
-	alignItems: "center",
-	alignSelf: "center",
-	justifyContent: "center",
-},
-ImageSliderDotStyle:
-{
-	width: 10,height: 10,
-	borderRadius: 5,marginHorizontal: 0,
-	padding: 0,margin: 0,
-	backgroundColor: COLORS.colourNumberOne,
-},
-
-ImageSliderImageComponentStyle:{width: 400, marginLeft:0, marginTop: 5},
-/// ================================================ ================Video
-/// ================================================ ================ Video
-
-VideoView:{flexDirection:"row", marginTop:-25,},
-video: {alignSelf: 'center',width: 330,height: 300,},
-
-
-
-
-/// ================================================ ================Item Details screen
-/// ================================================ ================Item Details screen
-
-MainTextDetailsView:
-{
-
-	flexDirection:'column',
-	backgroundColor:COLORS.colourNumberSix,
-	marginLeft:10,marginRight:10, marginTop: 10,
-	borderTopEndRadius:15,borderTopLeftRadius:15,
-
-},
-TextDetailsView:{height:190,},
-TextDetails:
-{
-	paddingLeft:40, paddingTop:20,
-	fontSize:OTHERS.producttextfontsize,
-	color:COLORS.white,
-},
-
-	/// ================================================ ================modal
-	/// ================================================ ================modal
-	centeredView: 
-	{
-		flex: 1,
-		justifyContent: "center",
-		alignItems: "center",
-		marginTop: 22,
-	},
-	modalView: 
-	{
-		margin: 20,
-		// backgroundColor: COLORS.cardColor,
-		backgroundColor: COLORS.black,
-		borderRadius: 20,
-		padding: 35,
-		alignItems: "center",
-		shadowColor: "#000",
-		shadowOffset: {width: 0,height: 2},
-		shadowOpacity: 0.25,
-		shadowRadius: 4,
-		elevation: 5
-	},
-
-	modalText: {
-	marginBottom: 15,
-	textAlign: "center"
-	},
-	modalOptionsBtnView:
-	{
-		borderRadius:30,marginLeft:10,
-		backgroundColor:COLORS.colourNumberFour,
-	},
-	modalTextLabels:
-	{
-		flexDirection: 'row',fontSize:18,
-		marginLeft:18, marginRight:18, paddingBottom:5,paddingTop:5,
-		color:COLORS.colourNumberTwo,
-		
-	},
-	modalCloseBtnView:
-	{
-		borderRadius:30,width:200, 
-		backgroundColor:COLORS.modalCloseCOlour,
-	},
-	modalCloseTextLabels:
-	{
-		flexDirection: 'row',fontSize:18,
-		paddingBottom:5,paddingTop:5,
-		color:COLORS.white,fontWeight: "bold",
-		textAlign: "center"
-	},
-
-	searchMainView:{margin: 15,width:'90%',},
-
-
-// changes == 30/07/2022
-MainCardRowView:
-{
-	flexDirection:'row'
-},
-MainCardView:
-{
-	flexDirection:'column', 
-	backgroundColor: COLORS.cardColor,
-	borderRadius:20, width:165, height: 298, 
-	marginLeft:5,marginRight:5,marginTop:10, 
-},
-productImage:
-{
-	marginLeft:7,marginTop:7,
-	// ,marginRight:2, marginTop:8,marginBottom:8,
-	height: 160,width: 150,  borderRadius:15,
-	backgroundColor: COLORS.mainBgColour,
-},
-
-// search screen
-searchBar:
-{
-	flexDirection:'row',
-	backgroundColor:COLORS.black,
-	height:80,
-},
-searchBarLeftView:
-{
-	width:270,height:60, 
-	marginTop:10,marginLeft:10,
-
-},
-searchBarRightView:
-{
-	width:300,
-},
-searchPickerSelectionInputView: {
-	margin: 5, flex: 1,
-	height: 10,
-	width:'90%',
-	textAlign:'left',
-	borderWidth: 3,
-	borderRadius: 50,
-	borderColor:COLORS.colourNumberOne,
-	backgroundColor:COLORS.white,
-},
-searchPickerSelectioninputs:
-{
-	marginTop: -5,marginLeft:10,
-	height: 40,color:COLORS.black,
-	fontSize:18,width:'90%',
-
-},
-searchBtn: {
-	width: 60,height: 60,
-	marginTop: 10, marginBottom:10,
-
-	backgroundColor:COLORS.colourNumberOne,
-	padding: 15,
-	borderRadius: 50,
-	justifyContent: "center",
-	
-},
 });
