@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "Triple Care",
+    "slug": "triplecare",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#8f33ff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#8f33ff"
+      },
+      "package": "com.mogahenze.triplecare",
+      "versionCode": 9
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b314f819-b691-4b67-8054-c61676be3545"
+      }
+    }
+  }
+}
