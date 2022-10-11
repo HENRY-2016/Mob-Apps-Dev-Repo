@@ -36,6 +36,8 @@ export default StyleSheet.create(
 	MainNavigationBtn: 
 	{
 		backgroundColor:COLORS.colorNumberOne,
+		// backgroundColor:COLORS.orangeColor,
+		// color:COLORS.white,
 		paddingTop: 15,height: 43,
 		borderRadius: 10,
 		justifyContent: "center",
@@ -48,35 +50,22 @@ export default StyleSheet.create(
 
 	TextLabels:
 	{
-		fontSize:FONTSIZES.TextFontSize19, 
-		color:COLORS.white,
+		fontSize:18, 
 		paddingLeft:15,paddingBottom:10,paddingTop:10,paddingRight:20,
 	},
 
-	TextLabels2:
-	{
-		fontSize:FONTSIZES.TextFontSize19, 
-		paddingLeft:15,paddingBottom:10,paddingTop:10,paddingRight:20,
-	},
-	TextLabels3:{color:COLORS.red},
-	TextLabels4:{
-		fontSize:FONTSIZES.TextFontSize19, 
-		color:COLORS.black,
-		paddingLeft:15,paddingBottom:10,paddingTop:10,paddingRight:20,
-		},
+	TextLabels1:{color:COLORS.orangeColor,},
+	TextLabels2:{color:COLORS.darkBlack},
+	TextLabels3:{color:COLORS.orangeColor},
+	TextLabels4:{color:COLORS.black,},
 
 	btnText: {
-		color: COLORS.white,
 		fontSize: OTHERS.bigbtnfontsize,
 		marginTop:-20,
 		justifyContent: "center",textAlign: "center",
 	},
-	LogInBtnText: {
-		color: COLORS.white,
-		fontSize: OTHERS.bigbtnfontsize,
-		marginTop:-20,
-		justifyContent: "center",textAlign: "center",
-	},
+	btnText1: {color: COLORS.darkBlack,},
+	
 	
 
 	input: {
@@ -86,7 +75,7 @@ export default StyleSheet.create(
 		fontSize:19,
 		width:'90%',
 		textAlign:'left',
-		borderBottomColor:COLORS.black,
+		borderBottomColor:COLORS.orangeColor,
 		borderBottomWidth:3,
 	
 	},
@@ -99,7 +88,7 @@ export default StyleSheet.create(
 		fontSize:18,
 		textAlign:'left',
 		borderBottomWidth:3,
-		borderBottomColor:COLORS.black,
+		borderBottomColor:COLORS.orangeColor,
 	
 	},
 	phoneInput1: {marginLeft:10,width:'20%',},
@@ -130,36 +119,45 @@ MainHorizontalCardView:
 {
 	flexDirection:'row',
 	marginLeft:10,marginRight:10,
-	backgroundColor:COLORS.red,
+	backgroundColor:COLORS.white,
 },
 LeftHorizontalCardView:
 {
 	width:30,
-	backgroundColor:COLORS.red,
+	backgroundColor:COLORS.white,
 },
 SeparatorHorizontalCardView:
 {
 	width:8,
 	marginTop:10,marginBottom:10,
-	backgroundColor:COLORS.white,
+	backgroundColor:COLORS.homeBtnColor,
 },
 RightHorizontalCardView:
 {
 	width:'89%',
-	backgroundColor:COLORS.red,
+	backgroundColor:COLORS.white,
 },
 HorizontalCardBtn:
 {
 	width:93,height:40,
-	marginLeft:205,marginTop:8,
+	marginLeft:205,marginTop:-39,
 	borderBottomLeftRadius:20,
 	borderTopLeftRadius:20,
-	backgroundColor:COLORS.colorNumberOne,
+	backgroundColor:COLORS.homeBtnColor,
 },
+HorizontalCardBtn2:
+{
+	width:130,height:40,
+	marginLeft:10,marginTop:9,
+	borderBottomRightRadius:20,
+	borderTopRightRadius:20,
+	backgroundColor:COLORS.homeBtnColor,
+},
+
 HorizontalCardBtnText:
 	{
 		fontSize:FONTSIZES.TextFontSize19, 
-		color:COLORS.white,marginTop:-5,
+		color:COLORS.red,marginTop:-5,
 		paddingLeft:15,paddingBottom:10,paddingTop:10,paddingRight:20,
 	},
 // ================================================================
@@ -184,11 +182,11 @@ NameTitleDescriptionView:
 ImageCardView:
 {
 	marginLeft:10,
-	backgroundColor:COLORS.red,
+	backgroundColor:COLORS.simCircleColor,
 	borderTopRightRadius:10,borderTopLeftRadius:10,
 },
 ImageCardView1:{width:138,height:70,borderBottomRightRadius:60,borderBottomLeftRadius:60,},
-ImageCardView2:{width:320,height:200,borderBottomRightRadius:20,borderBottomLeftRadius:20,},
+ImageCardView2:{width:315,height:195,borderBottomRightRadius:20,borderBottomLeftRadius:20,},
 
 ImageImage:
 {
@@ -209,9 +207,16 @@ DetailsCard:
 	borderRadius:20,
 	// borderBottomRightRadius:20,
 	// borderBottomLeftRadius:20,
-	backgroundColor:COLORS.colorCardColor
+	
+	backgroundColor:COLORS.white
 },
-
+SliderCaptionCard:
+{
+	marginLeft:10,marginRight:10, marginBottom:10,
+	borderRadius:20,
+	backgroundColor:COLORS.white,
+	borderColor:COLORS.orangeColor,borderWidth: 4
+},
 // ================================================================
 // ================================================================
 	// Partners  screen
@@ -435,5 +440,86 @@ PhoneInput:
 {
 	flexDirection:'row',
 },
+
+
+MainBtnView:{flexDirection:'row'},
+LogInBtnText: {
+	color: COLORS.white,
+	fontSize: OTHERS.bigbtnfontsize,
+	marginTop:-18, 
+	justifyContent: "center",textAlign: "center",
+},
+
+
+
+
+
+// ============================= table
+mainTableOuterView:
+{
+	marginRight:10,marginLeft:10,
+},
+mainTableTitleHandleView:
+{
+	backgroundColor:COLORS.colourNumberThree,
+	borderRadius:0,
+	borderBottomColor:COLORS.colourNumberTwo,
+	borderBottomWidth:2,
+	width:150,height: 45,
+	marginLeft:10,
+},
+
+mainTableTitleHandleView2:
+{
+	backgroundColor:COLORS.colourNumberThree,
+	borderRadius:0,
+	borderBottomColor:COLORS.colourNumberTwo,
+	borderBottomWidth:2,
+	height: 45,
+	marginLeft:10,
+},
+mainTableTitleHandleView3:{width:220},
+tableTitleHandleText: {
+	color: COLORS.white,
+	fontSize: 20,marginTop:8,
+	justifyContent: "center",textAlign: "center",
+},
+mainTableView:
+{
+	flexDirection:'row',
+	// backgroundColor: COLORS.colourNumberThree,
+},
+
+tableTrView:
+{
+	paddingBottom: 8, paddingTop:8,
+	textAlign: "center",
+	borderBottomColor:COLORS.orangeColor,
+	borderBottomWidth:2,
+	height:65,
+},
+
+trTdText:
+{
+	flexDirection: 'row',fontSize:18,
+	paddingBottom:5,marginTop:8, 
+	paddingLeft:10, paddingRight:10,
+	color:COLORS.colourNumberThree,
+},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 });

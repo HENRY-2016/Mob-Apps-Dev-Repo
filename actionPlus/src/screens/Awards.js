@@ -4,7 +4,8 @@ import {Text, View,TouchableOpacity,Image, ScrollView} from 'react-native';
 import styles from "./stylesheet";
 import { MaterialCommunityIcons,AntDesign } from '@expo/vector-icons';
 import axios from "axios";
-import {APIListAllAwards, ImageUrl} from './DataFileApis';
+import {APIListAllAwards, APIListNewNotification,ImageUrl} from './DataFileApis';
+import { LoadingError } from './Functions';
 
 
 export default class Awards extends React.Component {
@@ -17,22 +18,27 @@ constructor(props){
     
 }
 
-componentDidMount() {
-
+UNSAFE_componentWillMount() {
+    axios.get(APIListNewNotification)
+    .then(res => {
+        let results = res; 
+        this.setState({TodaysNotifications:results.data})})
+    .catch(err=>{})
+    
     axios.get(APIListAllAwards)
     .then(res => {
         let results =JSON.stringify(res.data); 
         this.setState({AwardsData:[...JSON.parse(results)]})
         // console.log(this.state)
         })
-    .catch(err=>{Alert.alert("Error","\n\nCan Not Load Products");})
+    .catch(err=>{Alert.alert("Error",LoadingError);})
 
 }
 
 
 render() {
     
-    const {AwardsData} = this.state;
+    const {AwardsData,TodaysNotifications} = this.state;
 
     return (
         
@@ -51,13 +57,10 @@ render() {
                 </View> */}
 
             <View style={styles.mainChatView}>
-
-                <TouchableOpacity style={styles.openChatBtn} onPress={() => this.props.navigation.navigate('Notifications')}>
-                    
-                        <Text  style={styles.mainCartNumberTxt}>3</Text>
-
+                <TouchableOpacity style={styles.openChatBtn} onPress={() => this.props.navigation.navigate('Home')}>
+                    <Text  style={styles.mainCartNumberTxt}>{TodaysNotifications}</Text>
                     <AntDesign name="notification" size={35} style={styles.NotificationIcon} />
-                </TouchableOpacity>
+                </TouchableOpacity>                
             </View>
             </View>
 
@@ -72,8 +75,8 @@ render() {
                                 <Image style={styles.ImageImage2} source={{uri: ImageUrl+item.Image}}/>
                             </View>
 
-                            <Text style={[styles.TextLabels,styles.TextLabels4]} >{item.Title} </Text>
-                            <Text style={[styles.TextLabels ,styles.TextLabels4]} >{item.Description} </Text>
+                            {/* <Text style={[styles.TextLabels,styles.TextLabels4]} >{item.Title} </Text> */}
+                            <Text style={[styles.TextLabels ,styles.TextLabels1]} >{item.Description} </Text>
 
                         </View>
                         <View style={{height:80}}></View>

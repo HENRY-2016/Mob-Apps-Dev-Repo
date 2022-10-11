@@ -1,10 +1,8 @@
-// https://www.w3schools.com/colors/colors_picker.asp
-// bg color:: #8f33ff
+// https://www.w3schools.com/colors/colors_shades.asp
+// https://www.color-meanings.com/shades-of-gray-color-names-html-hex-rgb-codes/
 
-// new
-// https://www.w3schools.com/colors/colors_hex.asp
 export const COLORS = {
-  IconBgColor:'#FFFFFF',
+  IconBgColor:'#91A3B0',
   // black: "#000",
   black: "#1b1e22",
   white: "#fff",
@@ -17,15 +15,17 @@ export const COLORS = {
   // colorCard2Color:"#ffac80",
   colorCard2Color:"#e8e8e8",
   colorCardColor:"#e8e8e8",
-  // colorBodyColor:"#1b1e22",
-  colorBodyColor:"#ffa666",
-  // colourMainNavigationColor:"#E9E5D6",
-  // mainNavigetionBtnColor:"#d7cec5",
+  // colorBodyColor:"#E8E8E8", 27/09/2022
+  colorBodyColor:"#D6D2C4",
   mainNavigetionBtnColor:"#ffba66",
 
-  colorNumberOne:"#FF8C00",
+  homeBtnColor:"#BEBEBE",
+  orangeColor:"#FF8C00",
+  // colorNumberOne:"#91A3B0", 27/09/2022
+  colorNumberOne:"#c46210",
+//  simCircleColor:"#C0C0C0",
+  simCircleColor:"#FF8C00",
 
-  // colorNumberOne:"#ffe404",
 
 
 

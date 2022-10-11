@@ -5,7 +5,8 @@ import styles from "./stylesheet";
 import { MaterialCommunityIcons,AntDesign } from '@expo/vector-icons';
 
 import axios from "axios";
-import {APIListAllFounder, ImageUrl} from './DataFileApis';
+import {APIListAllFounder,APIListNewNotification, ImageUrl} from './DataFileApis';
+import { LoadingError } from './Functions';
 
 
 export default class Founder extends React.Component {
@@ -19,8 +20,13 @@ constructor(props){
     
 }
 
-componentDidMount() {
-
+UNSAFE_componentWillMount() {
+    axios.get(APIListNewNotification)
+    .then(res => {
+        let results = res; 
+        this.setState({TodaysNotifications:results.data})})
+    .catch(err=>{})
+    
     axios.get(APIListAllFounder)
     .then(res => {
         let results =JSON.stringify(res.data); 
@@ -33,13 +39,13 @@ componentDidMount() {
         this.setState({FounderData:[...Data]})
         // console.log(this.state)
         })
-    .catch(err=>{Alert.alert("Error","\n\nCan Not Load App Data");})
+    .catch(err=>{Alert.alert("Error",LoadingError);})
 
 }
 
 render() {
     
-    const {FounderData,FounderOthers} = this.state;
+    const {FounderData,FounderOthers,TodaysNotifications} = this.state;
 
     return (
         
@@ -58,11 +64,8 @@ render() {
                 </View> */}
 
             <View style={styles.mainChatView}>
-
-                <TouchableOpacity style={styles.openChatBtn} onPress={() => this.props.navigation.navigate('Notifications')}>
-                    
-                        <Text  style={styles.mainCartNumberTxt}>3</Text>
-
+                <TouchableOpacity style={styles.openChatBtn} onPress={() => this.props.navigation.navigate('Home')}>
+                    <Text  style={styles.mainCartNumberTxt}>{TodaysNotifications}</Text>
                     <AntDesign name="notification" size={35} style={styles.NotificationIcon} />
                 </TouchableOpacity>
             </View>
@@ -80,18 +83,18 @@ render() {
                                 <Image style={styles.ImageImage} source={{uri: ImageUrl+item.Image}}/>
                             </View>
                             <View style={styles.NameTitleDescriptionView} >
-                                <Text style={[styles.TextLabels2 ,styles.TextLabels3]} >{item.Name}</Text>
+                                <Text style={[styles.TextLabels ,styles.TextLabels3]} >{item.Name}</Text>
                             </View>
                         </View>
 
-                            <Text style={[styles.TextLabels2 ,styles.TextLabels3]} >{item.p1}</Text>
-                            <Text style={styles.TextLabels4} >{item.p2}</Text>
-                            <Text style={styles.TextLabels4} >{item.p3}</Text>
-                            <Text style={styles.TextLabels4} >{item.p4}</Text>
-                            <Text style={styles.TextLabels4} >{item.p5}</Text>
-                            <Text style={styles.TextLabels4} >{item.p6}</Text>
-                            <Text style={styles.TextLabels4} >{item.p7}</Text>
-                            <Text style={styles.TextLabels4} >{item.p8}</Text>
+                            <Text style={[styles.TextLabels ,styles.TextLabels3]} >{item.p1}</Text>
+                            <Text style={[styles.TextLabels,styles.TextLabels4]} >{item.p2}</Text>
+                            <Text style={[styles.TextLabels,styles.TextLabels4]} >{item.p3}</Text>
+                            <Text style={[styles.TextLabels,styles.TextLabels4]} >{item.p4}</Text>
+                            <Text style={[styles.TextLabels,styles.TextLabels4]} >{item.p5}</Text>
+                            <Text style={[styles.TextLabels,styles.TextLabels4]} >{item.p6}</Text>
+                            <Text style={[styles.TextLabels,styles.TextLabels4]} >{item.p7}</Text>
+                            <Text style={[styles.TextLabels,styles.TextLabels4]} >{item.p8}</Text>
 
                         </View>
                         <View style={{height:80}}></View>

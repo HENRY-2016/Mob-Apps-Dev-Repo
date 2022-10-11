@@ -18,10 +18,10 @@ import Partners from './src/screens/Partners';
 import Team from './src/screens/Team';
 import Branches from './src/screens/Branches';
 import Awards from './src/screens/Awards';
-import Notifications from './src/screens/Notifications';
+// import Notifications from './src/screens/Notifications';
 import Sponsors from './src/screens/Sponsors';
 import Profile from './src/screens/Profile';
-import FeedBacks from './src/screens/FeedBacks';
+// import FeedBacks from './src/screens/FeedBacks';
 
 
 function CustomDrawerContent(props) {
@@ -59,9 +59,9 @@ return (
 
         screenOptions={{
         drawerStyle: {backgroundColor: '#F7F7EE',width: 228},
-        drawerActiveBackgroundColor:'#FF8C00',
-        drawerInactiveTintColor:'#000000',
-        drawerActiveTintColor:'#DA0037',
+        drawerActiveBackgroundColor:'#c46210',
+        drawerInactiveTintColor:'#c46210',
+        drawerActiveTintColor:'#fff',
         drawerLabelStyle:{fontSize: 18,marginLeft:20}
         }}
     >
@@ -95,9 +95,9 @@ return (
         title: 'Our Branches',unmountOnBlur: true,
         }} />
 
-        <Drawer.Screen name="Notifications"   component={Notifications} options={{headerShown: false,swipeEnabled: false,
+        {/* <Drawer.Screen name="Notifications"   component={Notifications} options={{headerShown: false,swipeEnabled: false,
         title: 'Notifications',unmountOnBlur: true,
-        }} />
+        }} /> */}
 
 
         <Drawer.Screen name="Profile"   component={Profile} options={{headerShown: false,swipeEnabled: false,

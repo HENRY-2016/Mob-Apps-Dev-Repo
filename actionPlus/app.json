@@ -7,7 +7,7 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "backgroundColor": "#ffba66"
+      "backgroundColor": "#D6D2C4"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -19,12 +19,19 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {"backgroundColor": "#ffba66"},
+      "adaptiveIcon": {
+        "backgroundColor": "#D6D2C4"
+      },
       "package": "com.mogahenze.actionPlusFoundation",
-        "versionCode": 4
+      "versionCode": 6
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c90d0b76-d76a-4542-9272-35121e707d05"
+      }
     }
   }
 }

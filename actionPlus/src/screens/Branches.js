@@ -5,7 +5,8 @@ import styles from "./stylesheet";
 import { MaterialCommunityIcons,AntDesign } from '@expo/vector-icons';
 
 import axios from "axios";
-import {APIListAllBranches, ImageUrl} from './DataFileApis';
+import {APIListAllBranches,APIListNewNotification, ImageUrl} from './DataFileApis';
+import { LoadingError } from './Functions';
 
 
 export default class Branches extends React.Component {
@@ -18,14 +19,20 @@ constructor(props){
     
 }
 
-componentDidMount() {
+UNSAFE_componentWillMount() {
+    axios.get(APIListNewNotification)
+    .then(res => {
+        let results = res; 
+        this.setState({TodaysNotifications:results.data})})
+    .catch(err=>{})
+    
     axios.get(APIListAllBranches)
     .then(res => {
         let results =JSON.stringify(res.data); 
         this.setState({BranchesData:[...JSON.parse(results)]})
         // console.log(this.state)
         })
-    .catch(err=>{Alert.alert("Error","\n\nCan Not Load Products");})
+    .catch(err=>{Alert.alert("Error",LoadingError);})
 
 
 }
@@ -34,7 +41,7 @@ componentDidMount() {
 
 render() {
     
-        const {BranchesData} = this.state;
+        const {BranchesData,TodaysNotifications} = this.state;
     return (
         
         <View style={styles.mainView}>
@@ -52,11 +59,8 @@ render() {
                 </View> */}
 
             <View style={styles.mainChatView}>
-
-                <TouchableOpacity style={styles.openChatBtn} onPress={() => this.props.navigation.navigate('Notifications')}>
-                    
-                        <Text  style={styles.mainCartNumberTxt}>3</Text>
-
+                <TouchableOpacity style={styles.openChatBtn} onPress={() => this.props.navigation.navigate('Home')}>
+                    <Text  style={styles.mainCartNumberTxt}>{TodaysNotifications}</Text>
                     <AntDesign name="notification" size={35} style={styles.NotificationIcon} />
                 </TouchableOpacity>
             </View>
@@ -71,9 +75,9 @@ render() {
                             <View style={[styles.ImageCardView,styles.ImageCardView2]} >
                                 <Image style={styles.ImageImage2} source={{uri: ImageUrl+item.Image}}/>
                             </View>
-                            <Text style={[styles.TextLabels2 ,styles.TextLabels3]} >{item.Name}</Text>
-                            <Text style={[styles.TextLabels2 ,styles.TextLabels3]} >{item.p1}</Text>
-                            <Text style={[styles.TextLabels2 ,styles.TextLabels4]} >{item.p2} </Text>
+                            <Text style={[styles.TextLabels ,styles.TextLabels3]} >{item.Name}</Text>
+                            <Text style={[styles.TextLabels ,styles.TextLabels3]} >{item.p1}</Text>
+                            <Text style={[styles.TextLabels ,styles.TextLabels4]} >{item.p2} </Text>
                             <Text style={[styles.TextLabels ,styles.TextLabels4]} >{item.p3} </Text>
                             <Text style={[styles.TextLabels ,styles.TextLabels4]} >{item.p4} </Text>
                             <Text style={[styles.TextLabels ,styles.TextLabels4]} >{item.p5} </Text>

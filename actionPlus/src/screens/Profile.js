@@ -2,14 +2,13 @@
 import React from 'react';
 import { Text, View,TextInput,Alert,TouchableOpacity, ScrollView} from 'react-native';
 import styles from "./stylesheet";
-import { MaterialCommunityIcons,AntDesign } from '@expo/vector-icons';
+import { MaterialCommunityIcons,AntDesign,EvilIcons } from '@expo/vector-icons';
 import {Picker} from '@react-native-picker/picker';
 import { COLORS } from './Colours';
-import { EvilIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import axios from "axios";
-import {APIListAllCountries,APIMemberCreate,APIMemberLogIn} from './DataFileApis';
+import {APIListAllCountries,APIMemberCreate,APIListNewNotification,APIMemberLogIn} from './DataFileApis';
+import { LoadingError } from './Functions';
 
 
 export default class Profile extends React.Component {
@@ -51,15 +50,20 @@ constructor(props){
     
 }
 
-componentDidMount() 
+UNSAFE_componentWillMount() 
 {
+    axios.get(APIListNewNotification)
+    .then(res => {
+        let results = res; 
+        this.setState({TodaysNotifications:results.data})})
+    .catch(err=>{})
     this.initializeAccountDetails();
     axios.get(APIListAllCountries)
     .then(res => {
         let results =JSON.stringify(res.data); 
         this.setState({Countries:[...JSON.parse(results)]})
         })
-    .catch(err=>{Alert.alert("Error","\n\nCan Not Load App Data"+"\n\n"+"Connect To Internet And Open App Again");})
+    .catch(err=>{Alert.alert("Error",LoadingError);})
     
 }
 initializeAccountDetails = () => 
@@ -282,7 +286,7 @@ updateUserPassword = async () =>
 
 render() {
     
-    const {DoNotShowSignInScreen,DoNotShowSignUpScreen,DoNotShowProfileScreen,IsMemberLogeIn } = this.state;
+    const {DoNotShowSignInScreen,DoNotShowSignUpScreen,TodaysNotifications,DoNotShowProfileScreen,IsMemberLogeIn } = this.state;
     const {DoNotShowProfileDetailsScreen,DoNotShowProfileSettingsScreen} = this.state;
     const {Countries,CountrySelectedValue,CountrySelected,PhoneCountryCode} = this.state;
     const {AccountCountry,AccountPhone,AccountEmail,AccountName} = this.state;
@@ -304,11 +308,8 @@ render() {
                 </View> */}
 
             <View style={styles.mainChatView}>
-
-                <TouchableOpacity style={styles.openChatBtn} onPress={() => this.props.navigation.navigate('Notifications')}>
-                    
-                        <Text  style={styles.mainCartNumberTxt}>3</Text>
-
+                <TouchableOpacity style={styles.openChatBtn} onPress={() => this.props.navigation.navigate('Home')}>
+                    <Text  style={styles.mainCartNumberTxt}>{TodaysNotifications}</Text>
                     <AntDesign name="notification" size={35} style={styles.NotificationIcon} />
                 </TouchableOpacity>
             </View>
@@ -321,6 +322,8 @@ render() {
                         { DoNotShowSignInScreen ?<></>:(<>
                         <View style={{alignItems:'center'}} >
                         <Text style={styles.TextLabels}>Welcome Back</Text>
+                        <Text style={styles.TextLabels}>Actionplus</Text>
+                        <Text style={styles.TextLabels}>Foundation</Text>
                         <Text style={styles.TextLabels}>Sign In And Continue</Text>
                         </View>
 
@@ -331,13 +334,13 @@ render() {
 
 
                         <View style={styles.pickerSelectionInputView}>
-                            <Picker style={styles.pickerSelectioninputs} dropdownIconColor= {COLORS.black}
+                            <Picker style={styles.pickerSelectioninputs} dropdownIconColor= {COLORS.orangeColor}
                                 selectedValue={CountrySelectedValue}
                                 
                                 onValueChange={(itemValue) =>this.setCountrySelectedValue(itemValue)}>
                                     <Picker.Item label="Your Country"/> 
-                                    {Countries && Countries.map((iteam,Index ) => (
-                                    <Picker.Item label={iteam.countryName} value={iteam.countryName+':'+Index} /> 
+                                    {Countries && Countries.map((item,index ) => (
+                                    <Picker.Item label={item.countryName} value={item.countryName+':'+index} key={index} /> 
                                     ))}
                             </Picker>
                         </View>
@@ -345,53 +348,68 @@ render() {
                         <View style={styles.PhoneInput} >
                         {CountrySelected && CountrySelected =="UK" ?(<>
                         <TextInput style={[styles.phoneInput,styles.phoneInput1]}  editable = {false}  defaultValue={PhoneCountryCode} 
-                        placeholderTextColor = {COLORS.black} />
+                        placeholderTextColor = {COLORS.orangeColor} />
                         <TextInput style={[styles.phoneInput,styles.phoneInput2]} placeholder="Number 10 digits" onChangeText={text => this.setSignInNumber(text)}
-                        placeholderTextColor = {COLORS.black} maxLength={10} keyboardType="numeric" />
+                        placeholderTextColor = {COLORS.orangeColor} maxLength={10} keyboardType="numeric" />
                         </>):<></>}
                         {CountrySelected && CountrySelected =="Ghana" ?(<>
                         <TextInput style={[styles.phoneInput,styles.phoneInput1]}  editable = {false}  defaultValue={PhoneCountryCode} placeholder="Code" 
-                        placeholderTextColor = {COLORS.black}/>
+                        placeholderTextColor = {COLORS.orangeColor}/>
                         <TextInput style={[styles.phoneInput,styles.phoneInput2]} placeholder="Number 9 digits" onChangeText={text => this.setSignInNumber(text)}
-                        placeholderTextColor = {COLORS.black} maxLength={9} keyboardType="numeric" />
+                        placeholderTextColor = {COLORS.orangeColor} maxLength={9} keyboardType="numeric" />
                         </>):<></>}
                         </View>
 
                         <TextInput style={[styles.input]} placeholder="Password" secureTextEntry  
-                        placeholderTextColor = {COLORS.black}  onChangeText={text => this.setSignInPassword(text)}
+                        placeholderTextColor = {COLORS.orangeColor}  onChangeText={text => this.setSignInPassword(text)}
                         />
 
                         <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn4]} onPress={this.signInUser} >
-                            <Text style = {styles.LogInBtnText}> Sign In  </Text>
+                            <View style={styles.MainBtnView} >
+                                <View style={{marginLeft:70}}>
+                                <Text style = {styles.LogInBtnText}> Sign In  </Text>
+                                </View>
+                                <View style={{marginLeft:60}}>
+                                <AntDesign style={{marginTop:-15}} name="arrowright" size={30} color="white" />
+                                </View>
+                            </View>
                         </TouchableOpacity>
                         <View style={{alignItems:'center'}} >
                             <Text style={styles.TextLabels}>OR</Text>
                         </View>
                         <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn4]} onPress={this.showSignUpScreen} >
-                            <Text style = {styles.LogInBtnText}> Sign Up Now   </Text>
+                            <View style={styles.MainBtnView} >
+                                <View style={{marginLeft:70}}>
+                                {/* <AntDesign style={{marginTop:-15}} name="arrowleft" size={24} color="black" /> */}
+                                </View>
+                                <View style={{marginLeft:20}}>
+                                <Text style = {styles.LogInBtnText}> Sign Up Now   </Text>
+                                </View>
+                            </View>
                         </TouchableOpacity>
                     </>)}
 
 
                     { DoNotShowSignUpScreen ?<></>:(<>
+                    <View style={{marginTop:'10%'}} ></View>
                         <View style={{alignItems:'center'}} >
                             <Text style={styles.TextLabels}>Welcome Back</Text>
-                            <Text style={styles.TextLabels}>Sign Up For An Account</Text>
+                            <Text style={styles.TextLabels}>Sign Up For  </Text>
+                            <Text style={styles.TextLabels}>Actionplus Foundation</Text>
+                            <Text style={styles.TextLabels}> Free An Account</Text>
                         </View>
 
                         <View style={{height:20}} ></View>
 
-                        <TextInput style={[styles.input]} placeholder="Full Name"  
-                        placeholderTextColor = {COLORS.black}  onChangeText={text => this.setSignUpFullName(text)}/>
                         
                         <View style={styles.pickerSelectionInputView}>
-                            <Picker style={styles.pickerSelectioninputs} dropdownIconColor= {COLORS.black}
+                            <Picker style={styles.pickerSelectioninputs} dropdownIconColor= {COLORS.orangeColor}
                                 selectedValue={CountrySelectedValue}
                                 
                                 onValueChange={(itemValue) =>this.setCountrySelectedValue(itemValue)}>
-                                    <Picker.Item label="Your Country"/> 
-                                    {Countries && Countries.map((iteam,Index ) => (
-                                    <Picker.Item label={iteam.countryName} value={iteam.countryName+':'+Index} /> 
+                                    <Picker.Item label="Select Your Country"/> 
+                                    {Countries && Countries.map((item,index ) => (
+                                    <Picker.Item label={item.countryName} value={item.countryName+':'+index} key={index} /> 
                                     ))}
                             </Picker>
                         </View>
@@ -402,35 +420,47 @@ render() {
                         <View style={styles.PhoneInput} >
                             {CountrySelected && CountrySelected =="UK" ?(<>
                             <TextInput style={[styles.phoneInput,styles.phoneInput1]}  editable = {false}  defaultValue={PhoneCountryCode} 
-                            placeholderTextColor = {COLORS.black} />
+                            placeholderTextColor = {COLORS.orangeColor} />
                             <TextInput style={[styles.phoneInput,styles.phoneInput2]} placeholder="Number 10 digits" onChangeText={text => this.setSignUpPhone(text)}
-                            placeholderTextColor = {COLORS.black} maxLength={10} keyboardType="numeric" />
+                            placeholderTextColor = {COLORS.orangeColor} maxLength={10} keyboardType="numeric" />
                             </>):<></>}
                             {CountrySelected && CountrySelected =="Ghana" ?(<>
                             <TextInput style={[styles.phoneInput,styles.phoneInput1]}  editable = {false}  defaultValue={PhoneCountryCode} placeholder="Code" 
                             placeholderTextColor = {COLORS.black}/>
                             <TextInput style={[styles.phoneInput,styles.phoneInput2]} placeholder="Number 9 digits" onChangeText={text => this.setSignUpPhone(text)}
-                            placeholderTextColor = {COLORS.black} maxLength={9} keyboardType="numeric" />
+                            placeholderTextColor = {COLORS.orangeColor} maxLength={9} keyboardType="numeric" />
                             </>):<></>}
                         </View>
 
                         {CountrySelected ?(<>
+                        <TextInput style={[styles.input]} placeholder="Full Name"  
+                        placeholderTextColor = {COLORS.orangeColor}  onChangeText={text => this.setSignUpFullName(text)}/>
+                        </>):<></>}
+
+                        {CountrySelected ?(<>
                         <TextInput style={[styles.input]} placeholder="Area"  
-                        placeholderTextColor = {COLORS.black}  onChangeText={text => this.setSignUpArea(text)}/>
+                        placeholderTextColor = {COLORS.orangeColor}  onChangeText={text => this.setSignUpArea(text)}/>
                         </>):<></>}
 
                         {CountrySelected ?(<>
                         <TextInput style={[styles.input]} placeholder="Password"  
-                        placeholderTextColor = {COLORS.black}  onChangeText={text => this.setSignUpPassword(text)}/>
+                        placeholderTextColor = {COLORS.orangeColor}  onChangeText={text => this.setSignUpPassword(text)}/>
                         </>):<></>}
 
                         {CountrySelected ?(<>
                         <TextInput style={[styles.input]} placeholder="Email" 
-                        placeholderTextColor = {COLORS.black}  onChangeText={text => this.setSignUpEmail(text)}/>
+                        placeholderTextColor = {COLORS.orangeColor}  onChangeText={text => this.setSignUpEmail(text)}/>
                         </>):<></>}
 
                         <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn4]} onPress={this.postSignUpDetails} >
-                            <Text style = {styles.LogInBtnText}> Sign Up  </Text>
+                            <View style={styles.MainBtnView}>
+                                <View style={{marginLeft:70}}>
+                                <Text style = {styles.LogInBtnText}> Sign Up  </Text>
+                                </View>
+                                <View style={{marginLeft:60}}>
+                                <AntDesign style={{marginTop:-15}} name="arrowright" size={30} color="white" />
+                                </View>
+                            </View>
                         </TouchableOpacity>
                         <View style={{alignItems:'center'}} >
                             <Text style={styles.TextLabels}>OR</Text>

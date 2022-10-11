@@ -1,119 +1,87 @@
 
 import React from 'react';
-import { Text, View,TouchableOpacity,Alert, ScrollView} from 'react-native';
+import { Text, View,TextInput,TouchableOpacity,Alert, ScrollView} from 'react-native';
 import styles from "./stylesheet";
 import { MaterialCommunityIcons,AntDesign } from '@expo/vector-icons';
-
+import { COLORS } from './Colours';
+import CustomSlider from './CustomSlider'
 import axios from "axios";
-import {APIListAllEvents} from './DataFileApis';
+import {APIListNewNotification,ImageUrl,
+        APIListAllSlider,APIListAllNotification,
+        } from './DataFileApis';
+
+import 
+    { 
+        LoadingError} from './Functions';
 
 
 export default class Home extends React.Component {
 constructor(props){
     super(props);
     this.state = {
-        
-        UpcomingEvents:[],
-        
-        // Major Screens
-        DoNotShowActivitiesScreen:true,
-        DoNotShowEventsScreen:true,
-        DoNotShowUpcomingEventsScreen:false,
-        DoNotShowAdvertiseScreen:true,
-
-        DoNotShowMainNavBtnScreen:false, // shoud be false always
-        DoNotShowChatScreen:true,
-        DoNotShowChatWindowScreen:true,
-        DoNotShowChatLogInScreen:false,
+        Countries:[],
+        images:[],
+        data:[],
+        Notifications:[],
+    
 
         // Inner Screens
-        DoNotShowUpcomingEventsInfoScreen:false,
-        DoNotShowUpcomingEventsDetailsScreen:true,
     
         // customer
+        TodaysNotifications:'',
+
+
     }
     
 }
 
-componentDidMount() {
+UNSAFE_componentWillMount() {
 
-    axios.get(APIListAllEvents)
+
+
+    axios.get(APIListNewNotification)
+    .then(res => {
+        let results = res; 
+        this.setState({TodaysNotifications:results.data})})
+    .catch(err=>{})
+
+    axios.get(APIListAllSlider)
     .then(res => {
         let results =JSON.stringify(res.data); 
-        this.setState({UpcomingEvents:[...JSON.parse(results)]})
-        // console.log(this.state)
+        let jsonresults =JSON.parse(results); 
+        let imageSliders = [];
+        let titleSliders = [];
+        let subtitleSliders = [];
+        for (i=0; i<jsonresults.length; i++)
+            {
+                
+                let  image = ImageUrl+jsonresults[i].Image;
+                let  title = jsonresults[i].Title;
+                let  subtitle = jsonresults[i].Holder1;
+                imageSliders.push(image)
+                titleSliders.push(title)
+                subtitleSliders.push(subtitle)
+
+            }
+        this.setState({images:[...imageSliders]})
+        this.setState({data:[...jsonresults]})
+
         })
-    .catch(err=>{Alert.alert("Error","\n\nCan Not Load Products");})
+    .catch(err=>{console.log(err)})
 
-
-}
-
-// Major Screens
-
-showChatScreen = () =>
-{
-    this.setState({DoNotShowUpcomingEventsScreen:true})
-    this.setState({DoNotShowActivitiesScreen:true})
-    this.setState({DoNotShowAdvertiseScreen:true})
-    this.setState({DoNotShowEventsScreen:true})
-    this.setState({DoNotShowMainNavBtnScreen:true})
-    this.setState({DoNotShowChatScreen:false})
-}
-closeChatScreen = () =>
-{
-    this.setState({DoNotShowMainNavBtnScreen:false})
-    this.setState({DoNotShowChatScreen:true})
-    this.setState({DoNotShowActivitiesScreen:false})
-}
-showInnerChatLogInScreen = () =>
-{
-    this.setState({DoNotShowChatWindowScreen:true})
-    this.setState({DoNotShowChatLogInScreen:false})
-}
-showInnerChatWindowScreen = () =>
-{
-    this.setState({DoNotShowChatLogInScreen:true})
-    this.setState({DoNotShowChatWindowScreen:false})
-
-}
-
-showEventsScreen= () =>
-{
-    this.setState({DoNotShowUpcomingEventsScreen:true})
-    this.setState({DoNotShowActivitiesScreen:true})
-    this.setState({DoNotShowEventsScreen:false})
-}
-
-ShowUpcomingEventsScreen = () =>
-{
-    this.setState({DoNotShowEventsScreen:true})
-    this.setState({DoNotShowActivitiesScreen:true})
-    this.setState({DoNotShowUpcomingEventsScreen:false})
-}
-
-showBackToUpcomingEventsDetailsScreen = () =>
-{
-    this.setState({DoNotShowUpcomingEventsDetailsScreen:true})
-    this.setState({DoNotShowUpcomingEventsInfoScreen:false})
-}
-showUpcomingEventsDetailsScreen = () =>
-{
-    this.setState({DoNotShowUpcomingEventsInfoScreen:true})
-    this.setState({DoNotShowUpcomingEventsDetailsScreen:false})
-}
-showActivitiesScreen = () =>
-{
-    this.setState({DoNotShowEventsScreen:true})
-    this.setState({DoNotShowUpcomingEventsScreen:true})
-    this.setState({DoNotShowActivitiesScreen:false})
+    axios.get(APIListAllNotification)
+    .then(res => {
+        let results =JSON.stringify(res.data); 
+        this.setState({Notifications:[...JSON.parse(results)]})
+        })
+    .catch(err=>{Alert.alert("Error",LoadingError);})
 }
 
 
 render() {
     
-    const {DoNotShowEventsScreen,DoNotShowUpcomingEventsScreen,DoNotShowActivitiesScreen} = this.state;
-    const {DoNotShowUpcomingEventsDetailsScreen,DoNotShowUpcomingEventsInfoScreen}= this.state;
-    const { UpcomingEvents}=this.state
+    const {TodaysNotifications,images, data }= this.state;
+
     return (
         
         <View style={styles.mainView}>
@@ -132,111 +100,27 @@ render() {
 
             <View style={styles.mainChatView}>
 
-                <TouchableOpacity style={styles.openChatBtn} onPress={() => this.props.navigation.navigate('Notifications')}>
-                    
-                        <Text  style={styles.mainCartNumberTxt}>3</Text>
-
+                <TouchableOpacity style={styles.openChatBtn} onPress={() => this.props.navigation.navigate('Home')}>
+                    <Text  style={styles.mainCartNumberTxt}>{TodaysNotifications}</Text>
                     <AntDesign name="notification" size={35} style={styles.NotificationIcon} />
                 </TouchableOpacity>
             </View>
             </View>
+            <CustomSlider images={images} />
 
-            <ScrollView showsVerticalScrollIndicator={false}>
-                
-            <View>
-                <View style={{height:20}}></View>
-                <View style={styles.MainNavigationBtnView}>
-                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                
-
-                    <View style={styles.MainNavigationBtnSpaceView} ></View>
-                    <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn3]}  onPress={this.ShowUpcomingEventsScreen} >
-                        <Text style = {styles.btnText}> Upcoming Events</Text>
-                    </TouchableOpacity>
-
-                    <View style={styles.MainNavigationBtnSpaceView} ></View>
-                    {/* <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn1]} onPress={this.showEventsScreen} > */}
-                    <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn3]}  onPress={this.ShowUpcomingEventsScreen} >
-                        <Text style = {styles.btnText}> All Events</Text>
-                    </TouchableOpacity>
-                    
-                    {/* <View style={styles.MainNavigationBtnSpaceView} ></View>
-                    <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn1]} onPress={this.showActivitiesScreen} >
-                        <Text style = {styles.btnText}> Activities </Text>
-                    </TouchableOpacity> */}
-
-                    <View style={styles.MainNavigationBtnSpaceView} ></View>
-                </ScrollView>
-            </View> 
-            </View>
+                <ScrollView showsVerticalScrollIndicator={false}>
             
-        
-
-            {DoNotShowActivitiesScreen ? <></>:(<>
-                    
-                    <View style={{height:20}}></View>
-                    <Text style={styles.TextLabels} >All Activities will be listed here </Text>
-            </>)}
-            
-        
-
-            {DoNotShowUpcomingEventsScreen ?<></>:(<>
-                <View style={{height:15}} ></View>
-                {DoNotShowUpcomingEventsInfoScreen ?<></>:(<>
-                    {UpcomingEvents && UpcomingEvents.map((item,index)=> (
-                        <View key={index} >
-                            <View style={styles.MainHorizontalCardView}>
-                                <View style={styles.LeftHorizontalCardView} ></View>
-                                <View style={styles.SeparatorHorizontalCardView} ></View>
-                                <View style={styles.RightHorizontalCardView} >
-                                    <TouchableOpacity style={styles.HorizontalCardBtn} onPress={this.showUpcomingEventsDetailsScreen}>
-                                        <Text style={styles.HorizontalCardBtnText} >Details </Text>
-                                    </TouchableOpacity>
-                                    <Text style={styles.TextLabels} >{item.Name}</Text>
-                                    <Text style={styles.TextLabels} >{item.Title}</Text>
-                                </View>
-                            </View>
+                <View  style={styles.SliderCaptionCard}>
+                    {data && data.map((item,index) =>(
+                        <View key={index}>
+                            <Text  style={[styles.TextLabels, styles.TextLabels1]}>{item.Title}</Text>
+                            <Text  style={[styles.TextLabels, styles.TextLabels4]}>{item.Holder1}</Text>
                         </View>
                     ))}
-                </>)}
+                </View>
 
-                {DoNotShowUpcomingEventsDetailsScreen ?<></>:(<>
-                    {UpcomingEvents && UpcomingEvents.map((item,index)=> (
-                        <View key={index} >
-                            <View style={styles.MainHorizontalCardView}>
-                                <View style={styles.LeftHorizontalCardView} ></View>
-                                {/* <View style={styles.SeparatorHorizontalCardView} ></View> */}
-                                <View style={styles.RightHorizontalCardView} >
-                                    <TouchableOpacity style={styles.HorizontalCardBtn} onPress={this.showBackToUpcomingEventsDetailsScreen} >
-                                        <Text style={styles.HorizontalCardBtnText} >Back </Text>
-                                    </TouchableOpacity>
-                                    <Text style={styles.TextLabels} >{item.p1}</Text>
-                                    <Text style={styles.TextLabels} >{item.p2}</Text>
-                                    <Text style={styles.TextLabels} >{item.p3}</Text>
-                                    <Text style={styles.TextLabels} >{item.p4}</Text>
-                                    <Text style={styles.TextLabels} >{item.p5}</Text>
-                                    <Text style={styles.TextLabels} >{item.p6}</Text>
-                                    <Text style={styles.TextLabels} >{item.p7}</Text>
-                                    <Text style={styles.TextLabels} >{item.p8}</Text>
-                                    <Text style={styles.TextLabels} >{item.p9}</Text>
-                                    <Text style={styles.TextLabels} >{item.p10}</Text>
-                                </View>
-                            </View>
-                        </View>
-                    ))}
-                </>)}
-                <View style={{height:15}} ></View>
-            </>)}
-
-            {DoNotShowEventsScreen?<></>:(<>
-                <View style={{height:15}} ></View>
-                <Text style={styles.TextLabels} >All Events will be listed here </Text>
-            </>)}
-
-            
-
-                <View style={styles.MainBottomSpaceView}></View>
-                </ScrollView>
+            <View style={styles.MainBottomSpaceView}></View>
+            </ScrollView>
             </View>
 
     );

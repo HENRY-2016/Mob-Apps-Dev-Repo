@@ -5,7 +5,7 @@ import styles from "./stylesheet";
 import { MaterialCommunityIcons,AntDesign } from '@expo/vector-icons';
 
 import axios from "axios";
-import {APIHomeProducts, ImageUrl} from './DataFileApis';
+import {APIHomeProducts,APIListNewNotification, ImageUrl} from './DataFileApis';
 
 
 
@@ -29,7 +29,7 @@ componentDidMount() {
 
 render() {
     
-    const {cartItems} = this.state;
+    const {TodaysNotifications} = this.state;
 
     return (
         
@@ -48,11 +48,8 @@ render() {
                 </View> */}
 
             <View style={styles.mainChatView}>
-
-                <TouchableOpacity style={styles.openChatBtn} onPress={() => this.props.navigation.navigate('Notifications')}>
-                    
-                        <Text  style={styles.mainCartNumberTxt}>3</Text>
-
+                <TouchableOpacity style={styles.openChatBtn} onPress={() => this.props.navigation.navigate('Home')}>
+                    <Text  style={styles.mainCartNumberTxt}>{TodaysNotifications}</Text>
                     <AntDesign name="notification" size={35} style={styles.NotificationIcon} />
                 </TouchableOpacity>
             </View>

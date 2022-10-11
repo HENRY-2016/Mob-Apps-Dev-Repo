@@ -5,7 +5,8 @@ import styles from "./stylesheet";
 import { MaterialCommunityIcons,AntDesign } from '@expo/vector-icons';
 
 import axios from "axios";
-import {APIListAllSponsors, ImageUrl} from './DataFileApis';
+import {APIListAllSponsors,APIListNewNotification, ImageUrl} from './DataFileApis';
+import { LoadingError } from './Functions';
 
 
 
@@ -21,22 +22,27 @@ constructor(props){
     
 }
 
-componentDidMount() {
+UNSAFE_componentWillMount() {
 
+    axios.get(APIListNewNotification)
+    .then(res => {
+        let results = res; 
+        this.setState({TodaysNotifications:results.data})})
+    .catch(err=>{})
     axios.get(APIListAllSponsors)
     .then(res => {
         let results =JSON.stringify(res.data); 
         this.setState({SponsorsData:[...JSON.parse(results)]})
         // console.log(this.state)
         })
-    .catch(err=>{Alert.alert("Error","\n\n"+err+"\n\nCan Not Load Products");})
+    .catch(err=>{Alert.alert("Error",LoadingError);})
 
 }
 
 
 render() {
     
-    const {SponsorsData} = this.state;
+    const {SponsorsData,TodaysNotifications} = this.state;
 
     return (
         
@@ -55,11 +61,8 @@ render() {
                 </View> */}
 
             <View style={styles.mainChatView}>
-
-                <TouchableOpacity style={styles.openChatBtn} onPress={() => this.props.navigation.navigate('Notifications')}>
-                    
-                        <Text  style={styles.mainCartNumberTxt}>3</Text>
-
+                <TouchableOpacity style={styles.openChatBtn} onPress={() => this.props.navigation.navigate('Home')}>
+                    <Text  style={styles.mainCartNumberTxt}>{TodaysNotifications}</Text>
                     <AntDesign name="notification" size={35} style={styles.NotificationIcon} />
                 </TouchableOpacity>
             </View>
@@ -69,7 +72,7 @@ render() {
             <View style={{height:20}}></View>
 
             <View style={styles.HeadingsView}>
-                <Text style={styles.TextLabels4}>
+                <Text style={[styles.TextLabels,styles.TextLabels4]}>
                 Funding from the Coronavirus Community Support Fund, distributed by The National Lottery Community Fund, has helped us to build this new website for our organisation. Thanks to the Government for making this possible. Our African HIV Project is funded by Richard King Bequest
                 </Text>
             </View>
