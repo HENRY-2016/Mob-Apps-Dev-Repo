@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "Safari Uganda",
+    "slug": "safariUganda",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#8a9a5b"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#8a9a5b"
+      },
+      "package": "com.mogahenze.safariUganda",
+      "versionCode": 3
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d758f77d-4207-4aa9-b083-74c7bd516281"
+      }
+    }
+  }
+}
