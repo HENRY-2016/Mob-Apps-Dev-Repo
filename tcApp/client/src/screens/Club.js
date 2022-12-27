@@ -10,7 +10,8 @@ import { COLORS } from './Colours';
 import {
         APILogInClubMemberByCardNo,APIClubMemberApplication,APIListAllCountries,
         APIClubMemberAllRenewals,APIPostImg,APIClubMemberAllReferrals,
-        APIUpdateClubMemberPassword,APIAccountStatusByCardNo, 
+        APIClubMemberCredit,
+        APIUpdateClubMemberPassword,APIAccountStatusByCardNo 
     } from './DataFileApis';
 import {
         getBackgroundColor,mainNavigationBtnStyle,getPlainColor,tableTrView,
@@ -19,7 +20,8 @@ import {
         getBorderBottomColor,
         mainNavigationBtnWidth4,mainTableTitleHandleViewCredit,userProfileView,
     } from './StatusFunctions'
-import { convertToUpperCase,convertToLowerCase } from './Functions';
+import { convertToUpperCase,convertToLowerCase,LOGOUT_MSG, LOGIN_ERROR} from './Functions';
+
 export default class Club extends React.Component {
 constructor(props){
     super(props);
@@ -33,6 +35,7 @@ constructor(props){
         DoNotShowApplyMembershipScreen:true,
         DoNotShowMemberCategoryScreen:true,
         DoNotShowUserAccountScreen:true,
+        ClubMemberCredit:'',
 
         // On chat
         DoNotShowMainNavBtnScreen:false, // should be false always
@@ -123,7 +126,8 @@ initializeClubUserName = () =>
             this.setState({ClubMemberId:Id});
             this.setState({IsMemberLogeIn:true});
             this.getAllClubMemberRenewals(CardNo);
-            this.getAccountStatus(CardNo)
+            this.getAccountStatus(CardNo);
+            this.getAccountCredit(CardNo);
 
         }
         else {this.setState({IsMemberLogeIn:false})}
@@ -132,6 +136,18 @@ initializeClubUserName = () =>
 
 }
 
+getAccountCredit = (CardNo) =>
+{
+    axios.get(APIClubMemberCredit+CardNo)
+    .then(res => {
+        let results =JSON.stringify(res.data);
+        let jsonResults =JSON.parse(results); 
+        let AccStatus = jsonResults[0].Credit;
+        this.setState({ClubMemberCredit:AccStatus})
+        })
+    .catch(err=>{console.log(err);})
+    
+}
 getAccountStatus = (CardNo) =>
 {
     // let cardNo = this.state.ClubMemberCardNo;
@@ -269,7 +285,7 @@ logOutUser = async () =>
     {   
         await AsyncStorage.removeItem ('ClubMemberDetails');
         this.setState({IsMemberLogeIn:false});
-        Alert.alert("Warning","\n\n You Have Logged Out")
+        Alert.alert("Information",LOGOUT_MSG)
 
     }catch (error) { console.log(error)}
 }
@@ -411,6 +427,7 @@ logInUser = async () =>
                     this.getAllClubMemberRenewals (CardNo)
                     this.showUserAccountScreen();
                     this.getAccountStatus(CardNo)
+                    this.getAccountCredit(CardNo);
                 }
             }
 
@@ -418,7 +435,7 @@ logInUser = async () =>
 
         catch (error)
             {
-                Alert.alert("An Error","Host Not Found Or\n\n  Check Your Network Connections\n")
+                Alert.alert("An Error",LOGIN_ERROR)
             };
     }
 }
@@ -448,7 +465,7 @@ updateUserPassword = async () =>
 render() {
 
     const {DoNotShowProfileDetailsScreen,DoNotShowProfileSettingsScreen,AccountStatus} = this.state;
-    const { DoNotShowUserAccountScreen,DoNotShowMemberCategoryScreen} = this.state;
+    const { DoNotShowUserAccountScreen,DoNotShowMemberCategoryScreen,ClubMemberCredit} = this.state;
     const { DoNotShowHomeScreen,DoNotShowBenefitsScreen,DoNotShowLogInScreen,DoNotShowApplyMembershipScreen} = this.state;
 
     const {ClubMemberName,ClubMemberAllReferrals,ClubMemberCategory,IsMemberLogeIn} = this.state;
@@ -476,8 +493,9 @@ render() {
                     <View style={styles.MainTopHeaderView} >
                         <View style={styles.MainTopHeaderTextView}>
                             {/* <Text style={[styles.MainTopHeaderTextLabelClub]}> {AccountStatus} </Text> */}
-                            <Text style={[styles.MainTopHeaderTextLabelClub]}> {AccountStatus===''?"...Apply Now For...":AccountStatus} </Text>
-                            <Text style={styles.MainTopHeaderTextLabel}> Tc Club Member </Text>
+                            <Text style={styles.MainTopHeaderTextLabel}> Welcome To Tc Club </Text>
+
+                            <Text style={[styles.MainTopHeaderTextLabelClub]}> {AccountStatus===''?"...Apply Now...":AccountStatus} </Text>
 
                         </View>
                     </View>
@@ -820,7 +838,7 @@ render() {
                         {DoNotShowProfileDetailsScreen ?(<>
                         <View style={{height:20}} ></View>
                         <View style = {[mainTableTitleHandleViewCredit(),getBackgroundColor(AccountStatus)]} >
-                            <Text style = { styles.tableTitleHandleText}>Tc Credit :: 000 </Text>
+                            <Text style = { styles.tableTitleHandleText}>Tc Credit :: { ClubMemberCredit} </Text>
                         </View>
 
                         {/* <View style={styles.mainTableOuterView} >
@@ -857,7 +875,7 @@ render() {
                             ))}
                             </View> */}
 
-                            <View style={{height:20}} ></View>
+                        <View style={{height:20}} ></View>
                         <View style = {[mainTableTitleHandleView(),getBackgroundColor(AccountStatus)]} >
                             <Text style = { styles.tableTitleHandleText}> Referrals </Text>
                         </View>

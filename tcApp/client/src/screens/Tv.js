@@ -196,7 +196,7 @@ render() {
             <ScrollView>
                 <View style={styles.MainTopHeaderView} >
                     <View style={styles.MainTopHeaderTextView1}>
-                        <Text style={styles.MainTopHeaderTextLabel}> Tc Tv USA UK Uganda </Text>
+                        <Text style={styles.MainTopHeaderTextLabel}> Welcome To Tc </Text>
                     </View>
                 </View>
                 <View style={[styles.MainTopRadiusView,styles.MainTopRadiusView1]} ></View>

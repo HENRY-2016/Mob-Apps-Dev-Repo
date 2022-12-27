@@ -61,7 +61,7 @@ UNSAFE_componentWillMount()
     .then(res => {
         let results =JSON.stringify(res.data); 
         this.setState({DealsItems:[...JSON.parse(results)]})
-        console.log(this.state.DealsItems)
+        // console.log(this.state.DealsItems)
         })
     .catch(err=>{Alert.alert("Error","Can Not Load Products\n\n")})
 

@@ -228,8 +228,9 @@ render() {
             </View>
             <ScrollView showsVerticalScrollIndicator={false} >
                 <View style={styles.MainTopHeaderView} >
-                    <View style={styles.MainTopHeaderTextView}>
-                        <Text style={styles.MainTopHeaderTextLabel}> Tc Holiday Homes </Text>
+                    <View style={styles.MainTopHeaderTextView1}>
+                        <Text style={styles.MainTopHeaderTextLabel}> Welcome To Tc  </Text>
+                        <Text style={styles.MainTopHeaderTextLabel}> Holiday Homes </Text>
                     </View>
                 </View>
                 <View style={[styles.MainTopRadiusView,styles.MainTopRadiusView1]} ></View>

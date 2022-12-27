@@ -1,17 +1,12 @@
 
 import React from 'react';
-import {Picker} from '@react-native-picker/picker';
-import { Text, View, Alert,TextInput,TouchableOpacity, ScrollView, Image} from 'react-native';
+import { Text, View,TouchableOpacity, ScrollView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from "./stylesheet";
 import { AntDesign,FontAwesome,Ionicons } from '@expo/vector-icons';
 import axios from "axios";
-import TcNewsImg from "../imgs/tcnews.png";
-import { viewPdfFile,updateApp } from './Functions';
-import { COLORS } from './Colours';
-import {APIListAllNoticeBoard,APIListAllNews,
-    APIPostNewsOrder,APIListAllCountries,
-    APIPostLogIns,
+import { updateApp } from './Functions';
+import {APIListAllNoticeBoard,APIPostLogIns,
 } from './DataFileApis';
 
 
@@ -23,6 +18,9 @@ constructor(props){
     
         // data
         NoticeBoard:[],
+        LogInName:'',
+        LogInCardNo:'',
+        LogInCategory:'',
     
         
     }
@@ -31,6 +29,7 @@ constructor(props){
 
 UNSAFE_componentWillMount () {
 
+    this.getUserLogins();
     axios.get(APIListAllNoticeBoard)
     .then(res => {
         let results =JSON.stringify(res.data); 
@@ -39,7 +38,57 @@ UNSAFE_componentWillMount () {
     .catch()
 }
 
+componentDidMount(){ setTimeout(this.postUserLogins,5000);}
+getUserLogins =  () => 
+{
+    try 
+    {   
+        AsyncStorage.getItem('ClubMemberDetails').then((Details)=>{
+        if (Details !== null) {
+            // We have data!!
+            const jsonData = JSON.parse(Details)
+            let Name = jsonData[0].ClubUserName;
+            let CardNo = jsonData[0].ClubMemberCardNo;
+            let Category= jsonData[0].ClubMemberCategory;
 
+            this.setState({LogInName:Name});
+            this.setState({LogInCardNo:CardNo});
+            this.setState({LogInCategory:Category});
+            // console.log("Details are From Db :::"+Name+":::"+CardNo+":::"+Category)
+        }
+        else {console.log("No Details Found")}
+        })
+    }catch (error) { console.log(error)}
+}
+
+postUserLogins = async () =>
+{
+
+    let Name = this.state.LogInName
+    let CardNo = this.state.LogInCardNo
+    let Category = this.state.LogInCategory
+
+    // console.log("Posting LogIns Credentials"+Name+":::"+CardNo+":::"+Category)
+
+    if ((Name === '') || (CardNo === '') || (Category === ''))
+    {console.log("All Fields Are Empty")}
+    else
+    {
+        try
+        {
+            const postRequest = await axios.post(APIPostLogIns,
+                {
+                    "Name": Name,
+                    "Number":CardNo,
+                    "Type": Category
+                }
+            )
+            let result = postRequest.data.status;
+            // console.log("::::"+result)
+        }
+        catch (error){console.log("++++++++"+error);};
+    }
+}
 render() {
     
     const { NoticeBoard,DoNotShowMainNavBtnScreen} = this.state;

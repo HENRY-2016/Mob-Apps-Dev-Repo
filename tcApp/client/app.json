@@ -23,7 +23,7 @@
         "backgroundColor": "#8f33ff"
       },
       "package": "com.mogahenze.triplecare",
-      "versionCode": 9
+      "versionCode": 12
     },
     "web": {
       "favicon": "./assets/favicon.png"

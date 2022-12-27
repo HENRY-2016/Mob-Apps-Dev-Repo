@@ -15,7 +15,7 @@ export default StyleSheet.create(
 	MainTopHeaderView:
 	{
 		backgroundColor:COLORS.colourNumberThree,
-		height:200,
+		height:180,
 	},
 	MainTopRadiusView:
 	{
@@ -51,6 +51,13 @@ export default StyleSheet.create(
 		// marginTop: 1,
 		backgroundColor:COLORS.colourNumberOne,
 		paddingTop: 15,height: 43,borderRadius: 50,
+		justifyContent: "center",
+	},
+	MainNavigationBtnAgency: 
+	{
+		// marginTop: 1,
+		backgroundColor:COLORS.colourNumberOne,
+		paddingTop: 15,height: 43,borderRadius: 0,
 		justifyContent: "center",
 	},
 	MainNavigationBtnClub: 
@@ -115,14 +122,15 @@ export default StyleSheet.create(
 		// backgroundColor: '#eeeeee',
 	},
 	MainTopHeaderTextView:{marginTop:80,},
-	MainTopHeaderTextView1:{marginTop:43,},
+	MainTopHeaderTextView1:{marginTop:30,},
 	MainTopHeaderTextLabel:
 	{
+		marginTop:-30,
 		paddingLeft:40,
 		fontSize:FONTSIZES.moduleTitleTextFontSize,
 		color:COLORS.white,
 	},
-MainTopHeaderTextLabelClub:{paddingLeft:40,fontSize:25,color:COLORS.white, marginTop:-20,},
+MainTopHeaderTextLabelClub:{paddingLeft:40,fontSize:25,color:COLORS.white, marginTop:-10,},
 	textLabels:
 	{
 		paddingLeft:40,paddingTop:20,
@@ -140,6 +148,16 @@ MainTopHeaderTextLabelClub:{paddingLeft:40,fontSize:25,color:COLORS.white, margi
 		color: COLORS.colourNumberOne,
 		fontSize: OTHERS.bigbtnfontsize,
 		marginTop:-20,
+		justifyContent: "center",textAlign: "center",
+	},
+	btnText3: {
+		color: COLORS.colourNumberOne,
+		fontSize: OTHERS.bigbtnfontsize,
+		justifyContent: "center",textAlign: "center",
+	},
+	btnText4: {
+		color: COLORS.white,
+		fontSize: OTHERS.bigbtnfontsize,
 		justifyContent: "center",textAlign: "center",
 	},
 	
@@ -389,18 +407,83 @@ TcNewsIcon:
 		backgroundColor:COLORS.colourNumberTwo,
 		width:'100%',
 	},
-
-
-
+	ApplyCardView3:
+	{
+		backgroundColor:COLORS.colourNumberOne,
+		borderRadius:15,width:'95%', marginLeft:10,marginRight:15,
+	},
 
 	// ================================================================
 	// ================================================================
+
+		// Agency screen
+	// ================================================================
+	// ================================================================
+
+
+	checkInCardView:
+	{
+		flexDirection:'row',
+		// flexGrow: 1,
+	},
+	checkInCardLeftView:
+	{
+		height:30,
+	},
+	checkInCardLeftText:
+	{
+		color:COLORS.white,
+		fontSize:20,
+		marginLeft:25, marginTop:-5,
+	},
+	AgencyNameText: {
+		color: COLORS.white,
+		fontSize:20,
+		marginTop:-20, paddingRight:20,
+		justifyContent: "center",textAlign: "center",
+	},
+	AgencyImage:
+	{
+		marginLeft:1,marginTop:1,
+		// ,marginRight:2, marginTop:8,marginBottom:8,
+		height: 135,width: 135,  borderRadius:80,
+		backgroundColor: COLORS.mainBgColour,
+	},
+	checkInCardRightText:
+	{
+		color:COLORS.white,
+		fontSize:20,
+		marginLeft:25, marginTop:-5,
+	},
+	checkOutCardText:
+	{
+		color:COLORS.checkOutColor,
+		fontSize:20,
+		marginLeft:25, marginTop:-5,
+	},
+	checkInLineCardVieW:
+	{
+		backgroundColor:COLORS.colourNumberOne,
+		width:'95%',height:2,
+		marginLeft:10,marginRight:20,
+	},
+	NoUserFound: {
+		marginTop:10,
+		fontSize: 20,
+	},
+	AgencyIcon:{width:120, height:120,},
+	LogInTopHeaderView:
+	{
+		alignItems:'center',
+		flexDirection:'row',
+	},
+	ArrowMainViewLogIn:{marginLeft:250},
+	ArrowIconLogIn:{marginTop:-20,},
+
 	// ================================================================
 	// ================================================================
 
 		// Profile screen
-	// ================================================================
-	// ================================================================
 	// ================================================================
 	// ================================================================
 
@@ -428,12 +511,12 @@ TcNewsIcon:
 		marginTop:30,marginLeft:10,
 		
 	},
-	// DashBoardView:
-	// {
-	// 	flex: 1, flexDirection:'row',
-	// 	borderRadius:28, 
-	// 	marginLeft:10,marginRight:10, 
-	// },
+	NameBtnText:
+	{
+		color:COLORS.white,
+		fontSize:20,
+		marginLeft:10, marginRight:10,
+	},
 
 	// DashBoardMainCardsView:
 	// {
@@ -549,6 +632,12 @@ ratingChatBtnText:
 	color:COLORS.white,
 	fontSize:OTHERS.bigbtnfontsize,
 	marginLeft:30, marginTop:5,
+},
+ratingChatBtnText2:
+{
+	color:COLORS.white,
+	fontSize:OTHERS.bigbtnfontsize,
+	marginLeft:15, marginTop:5,
 },
 
 // ================================================================

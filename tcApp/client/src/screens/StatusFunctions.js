@@ -2,6 +2,8 @@
 
 export const mainNavigationBtnStyle = () =>
 {return{paddingTop: 15,height: 43,borderRadius: 50,justifyContent: "center",}}
+export const agencyUserDeleteBtn = () =>
+{return{height: 43,borderRadius: 50,width: 218,}}
 
 export const mainNavigationBtnWidth1 = () =>{return{width:140}}
 export const mainNavigationBtnWidth2 = () =>{return{width:170}}
@@ -10,10 +12,14 @@ export const mainNavigationBtnWidth4 = () =>{return{width:"90%", margin: 15,}}
 
 export const mainTableTitleHandleView = () =>
 {return{borderRadius:0,borderBottomWidth:2,width:150,height: 45,marginLeft:10,}}
+export const mainTableTitleHandleView2 = () =>
+{return{borderRadius:0,borderBottomWidth:2,width:200,height: 45,marginLeft:10,}}
 export const mainTableTitleHandleViewCredit = () =>
 {return{borderRadius:0,borderBottomWidth:2,height: 45,width:230,marginLeft:10,}}
 export const userProfileView = () =>
 {return{height:140,borderRadius:30,marginLeft:9,marginRight:9,flexDirection:"row"}}
+export const userProfileView2 = () =>
+{return{height:160,borderRadius:30,marginLeft:9,marginRight:9,flexDirection:"row"}}
 export const aboutText = () =>
 {return{fontSize:19, paddingLeft:30,paddingBottom:20,paddingRight:20,}}
 export const aboutTitleText = () =>
@@ -35,6 +41,9 @@ export const getPlainColor = (status) =>
     else if(status == "Not Active" ) {return {color:'#FF0000'}} 
     else {return{color:'#FF0000'}}
 }
+export const getAgencyStatusColor = () => {return {color:'#FF00BB'}}
+export const getAgencyAdminCheckOutColor = () => {return {color:'#8B0000'}}
+export const getAgencyUserCheckOutColor = () => {return {color:'#006600'}}
 export const getBorderBottomColor = (status) => 
 {
     if(status == "Active" ) {return {borderBottomColor:'#5800c4'}}

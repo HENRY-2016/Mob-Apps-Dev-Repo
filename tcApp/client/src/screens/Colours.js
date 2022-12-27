@@ -8,6 +8,8 @@ export const COLORS = {
   black: "#000",
   white: "#fff",
   colourBodyColor:"#F9F9F9",
+  statusColor:"#FF00BB",
+  checkOutColor:"#8B0000",
   // colourBodyColor:"#ADD8E6",
   colourMainNavigationColor:"#E9E5D6",
   colourNumberOne:"#5800c4",

@@ -22,8 +22,42 @@ export const convertToLowerCase = (word) => {
     // Capitalize the First Letter
     return word2.charAt(0).toUpperCase() + word2.slice(1);
 }
+export const  getTime =  () =>
 
+{
+    let today = new Date();
+    
 
+    let hours = today.getHours();
+    let minutes = today.getMinutes();
+    let secs = today.getSeconds();
+    let AMPM = hours >= 12 ? 'PM' : 'AM';
+    // hours = hours % 12;
+    // hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    let time = hours + ':' +minutes+':'+secs+' ' + AMPM;
+
+    // console.log(time);
+    return time;
+
+}
+export const  getDay =  () =>
+{
+    let today = new Date();
+    let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    let day = today.getDay();
+    // console.log(days[day])
+    return days[day];
+
+}
+export const  getDate =  () =>
+{
+    let today = new Date();
+    let date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear(); // add a zero
+    return date;
+    // console.log(date);
+
+}
 export const  clearNumberOfItemsFromStorage = async () =>
 {
     try {await AsyncStorage.removeItem ('NumberOfItems');}
@@ -88,3 +122,13 @@ export const addItemsToCart = (index,ProductsArray,StoreType) =>
         })
         .catch((err)=>{console.log(err)})
 }
+
+
+// ERRORS
+export const LOADING_ERROR = "Can Not Load App Data"+"\n\n"+"Connect To Internet And Open App Again";
+export const LOGIN_ERROR = "Un Able To Log In"+"\n\n"+"Check Your Network Connections\n";
+export const LOGOUT_MSG ="You Have Successfully Logged Out \n\n Thank You";
+export const POSTING_ERROR = "Network Error \n\n Un Able To Post Data\nCheck Your Network Connections\n";
+export const NO_USER_FOUND_ERROR = "No Records Found \n\n Check In And Try Again";
+export const HEALTH_NO_USER_FOUND_ERROR = "No Requests Records Found \n\n Your  Insurance Requests Will Be \n\n Listed Here After Submitting \n\nYour Request Thank You";
+export const EMPTY_INPUTS_ERROR = "Please \n\n UserName And Password Are Required \n\n Try Again";
