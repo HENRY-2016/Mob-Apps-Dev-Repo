@@ -994,6 +994,18 @@ export default StyleSheet.create(
 		borderRadius: 50,
 		
 	},
+	productNameListingBtn: {
+		width: '95%',height: 45,borderRadius: 50,
+		backgroundColor:COLORS.colourNumberOne,
+	},
+	productNameListingBtn2: {
+		width: '80%',height: 45,borderRadius: 10,
+		backgroundColor:COLORS.colourNumberOne,
+	},
+	orientationBtn: {
+		width: 220,height: 45,borderRadius: 10,
+		backgroundColor:COLORS.colourNumberOne,
+	},
 	orderdetailsBtnText:
 	{
 		color:COLORS.white,

@@ -113,63 +113,15 @@ render() {
                     </TouchableOpacity>
                 </View>
             </View>
-
-
             {/* =================================================== */}
-                {/* <View style={{height:30}} ></View>
-
-                    <ScrollView>
-                    { ClearedOrderDetails && ClearedOrderDetails.map((IteamKey, index) => (
-
-                        <ScrollView horizontal={true} >
-                        <View key={index}>
-                            <View style={styles.mainTableView}>
-                                <View style={styles.tableTrView} >
-                                    <Text  style={styles.trTdText}>{IteamKey.Phone}</Text>
-                                </View>
-                                <View style={styles.tableTrView} >
-                                    <Text  style={styles.trTdText}>{IteamKey.Amount}</Text>
-                                </View>
-                                <View style={styles.tableTrView} >
-                                    <Text  style={styles.trTdText}>{IteamKey.Reference}</Text>
-                                </View>
-
-                                <View style={styles.tableTrView} >
-                                    <Text  style={styles.trTdText}>{IteamKey.PalaceHolderOne}</Text>
-                                </View>
-                                <View style={styles.tableTrView}>
-                                    <View style={styles.ordersDetailsBtnView}>
-                                        <TouchableOpacity onPress={()=>{this.displayCustomerOrderListArrary(IteamKey.id)}} style={styles.orderdetailsBtn} >
-                                            <Text style={styles.orderdetailsBtnText} >Details</Text> 
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
-                                <View style={styles.tableTrView} >
-                                    <View style={{width:20}} ></View>
-                                </View>
-                            </View>
-                        </View>
-                        </ScrollView>
-                        ))
-                    }
-                    <View style={{height:15}}></View>
-                    </ScrollView> */}
-
-
-
-
-
-
-                        {/* =================================================== */}
         
                         {DoNotShowTableScreen ? <></> : (<>
             <View style={{height:30}} ></View>
 
                 <ScrollView>
                     {ClearedOrderDetails && ClearedOrderDetails.map((IteamKey, index) => (
-
-                        <ScrollView horizontal={true} >
                         <View key={index}>
+                        <ScrollView horizontal={true} >
                             <View style={styles.mainTableView}>
                                 <View style={styles.tableTrView} >
                                     <Text  style={styles.trTdText}>{IteamKey.Phone}</Text>
@@ -192,8 +144,8 @@ render() {
                                     <View style={{width:20}} ></View>
                                 </View>
                             </View>
-                        </View>
                         </ScrollView>
+                        </View>
                     ))}
                 <View style={{height:15}}></View>
                 </ScrollView>
@@ -220,7 +172,8 @@ render() {
                 <ScrollView>
                     {OrderListArrary && OrderListArrary.map((list, s) => (
                         <>
-                            <View key={s} style={styles.ordersMainContainerView}>
+                        <View key={s}>
+                            <View  style={styles.ordersMainContainerView}>
                                 <View style={styles.offersimageRightView}>
                                     <TouchableOpacity>
                                         <Image source={{uri: imageurl+list.image}} style={styles.productImage} />
@@ -234,6 +187,7 @@ render() {
                                         <Text  style={styles.orderListLables}>{formatNumberWithComma(list.amount)}</Text>
                                         <View style={{height:15}}></View>
                                     </View>
+                            </View>
                             </View>
                         </>
                     ))}

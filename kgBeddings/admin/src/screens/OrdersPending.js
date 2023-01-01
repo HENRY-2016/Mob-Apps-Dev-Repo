@@ -190,7 +190,8 @@ render() {
                 <ScrollView>
                     {OrderListArrary && OrderListArrary.map((list, s) => (
                         <>
-                            <View key={s} style={styles.ordersMainContainerView}>
+                            <View key={s}>
+                            <View  style={styles.ordersMainContainerView}>
                                 <View style={styles.offersimageRightView}>
                                     <TouchableOpacity>
                                         <Image source={{uri: imageurl+list.image}} style={styles.productImage} />
@@ -203,6 +204,7 @@ render() {
                                         <Text  style={styles.orderListLables}>{formatNumberWithComma(list.amount)}</Text>
                                         <View style={{height:15}}></View>
                                     </View>
+                            </View>
                             </View>
                         </>
                     ))}
