@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "Admin-II",
+    "slug": "admin",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#ff4d4d"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#ff4d4d"
+      },
+      "package": "com.mogahenze.drkgadmin2",
+      "versionCode": 1
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "617f7cea-5107-4f4a-91cc-349ff2e4632d"
+      }
+    }
+  }
+}
