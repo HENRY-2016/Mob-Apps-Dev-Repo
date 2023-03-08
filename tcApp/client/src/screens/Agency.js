@@ -778,9 +778,9 @@ render() {
                 </View>
             </View>
 
-            <ScrollView showsVerticalScrollIndicator={false} >
                 <View style={styles.MainTopHeaderView} >
                     <View style={styles.MainTopHeaderTextView1}>
+                    <View style={{height:10}} ></View>
                         <Text style={styles.MainTopHeaderTextLabel}>Welcome To Tc Agency  </Text>
                     </View>
                 </View>
@@ -799,7 +799,9 @@ render() {
                 ====================================================================
             */}
             {DoNotShowHomeScreen ? <></>:(<>
-                <View style={styles.MainNavigationBtnView}>
+                <ScrollView showsVerticalScrollIndicator={false} >
+                
+                    <View style={styles.MainNavigationBtnView}>
                     <View style={styles.MainNavigationBtnSpaceView} ></View>
                         <Text style = {styles.btnText3}>Select Log In Type  </Text>
                     </View>
@@ -878,8 +880,7 @@ render() {
                             </TouchableOpacity>
                         </>) :(<></>)}
                     </View>
-
-
+                </ScrollView>
                     
             </>)}
             
@@ -893,614 +894,617 @@ render() {
                 ====================================================================
             */}
 
-            {DoNotShowUserScreen ?<></>:(<>    
-                <View style={{height:15}} ></View>
-                <View style={styles.MainNavigationBtnView}>
-                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                    <View style={styles.MainNavigationBtnSpaceView} ></View>
-                        <View style={styles.ArrowMainView}>
-                            <AntDesign name="rightcircle" size={30} style={[getPlainColor(AccountStatus)]} />
+            {DoNotShowUserScreen ?<></>:(<> 
+                
+                    <View style={{height:15}} ></View>
+                    <View style={styles.MainNavigationBtnView}>
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                        <View style={styles.MainNavigationBtnSpaceView} ></View>
+                            <View style={styles.ArrowMainView}>
+                                <AntDesign name="rightcircle" size={30} style={[getPlainColor(AccountStatus)]} />
+                            </View>
+
+                            <View style={styles.MainNavigationBtnSpaceView} ></View>
+                                <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} 
+                                    onPress={this.showUserProfileScreen} >
+                                <Text style = {styles.btnText}> Profile  </Text>
+                            </TouchableOpacity>
+
+
+                            <View style={styles.MainNavigationBtnSpaceView} ></View>
+                                <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} 
+                                    onPress={this.showUserCheckInScreen} >
+                                <Text style = {styles.btnText}> Check In </Text>
+                            </TouchableOpacity>
+                            
+
+                            <View style={styles.MainNavigationBtnSpaceView} ></View>
+                                <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} 
+                                    onPress={this.showUserCheckOutScreen} >
+                                <Text style = {styles.btnText}> Check Out  </Text>
+                            </TouchableOpacity>
+
+                            <View style={styles.MainNavigationBtnSpaceView} ></View>
+                                <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} 
+                                    onPress={this.showUserJobsScreen} >
+                                <Text style = {styles.btnText}> Jobs  </Text>
+                            </TouchableOpacity>
+
+                            <View style={styles.MainNavigationBtnSpaceView} ></View>
+                                <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} 
+                                    onPress={this.showUserHelpScreen} >
+                                <Text style = {styles.btnText}> User Help  </Text>
+                            </TouchableOpacity>
+
+                            <View style={styles.MainNavigationBtnSpaceView} ></View>
+                            <View style={styles.ArrowMainView}>
+                                <AntDesign name="leftcircle" size={30} style={[getPlainColor(AccountStatus)]} />
+                            </View>
+                            <View style={styles.MainNavigationBtnSpaceView} ></View>
+                        </ScrollView>
+                    </View>
+                    <ScrollView showsVerticalScrollIndicator={false} >
+                    {DoNotShowUserProfileScreen ?(<></>):(<>
+                        <View style={{height:15}} ></View>
+                        <View style = {[userProfileView2(),getBackgroundColor(AccountStatus)]} >
+                            <View style = {[styles.UserProfileImageView]} >
+                                {/* <Entypo name="user" size={90} color="white" /> */}
+                                <Image source={{uri:ImageUrl+ClubMemberImage}} style={styles.AgencyImage} />
+                            </View>
+                            <View style = {[styles.UserProfileNameView]} >
+                                <Text style = {styles.btnText}>{ClubMemberName}</Text>
+                                
+                                <View style={{height:20}} ></View>
+                                <Text style = {styles.AgencyNameText}> {ClubMemberCardNo} </Text>
+                                
+                                {/* <View style={{height:20}} ></View>
+                                <Text style = {styles.AgencyNameText}> {UserProviderName} </Text> */}
+                                <View style={{height:20}} ></View>
+                                <Text style = {styles.AgencyNameText}> {UserProviderName} </Text>
+                            </View>
                         </View>
-
-                        <View style={styles.MainNavigationBtnSpaceView} ></View>
-                            <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} 
-                                onPress={this.showUserProfileScreen} >
-                            <Text style = {styles.btnText}> Profile  </Text>
-                        </TouchableOpacity>
-
-
-                        <View style={styles.MainNavigationBtnSpaceView} ></View>
-                            <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} 
-                                onPress={this.showUserCheckInScreen} >
-                            <Text style = {styles.btnText}> Check In </Text>
-                        </TouchableOpacity>
                         
-
-                        <View style={styles.MainNavigationBtnSpaceView} ></View>
-                            <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} 
-                                onPress={this.showUserCheckOutScreen} >
-                            <Text style = {styles.btnText}> Check Out  </Text>
-                        </TouchableOpacity>
-
-                        <View style={styles.MainNavigationBtnSpaceView} ></View>
-                            <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} 
-                                onPress={this.showUserJobsScreen} >
-                            <Text style = {styles.btnText}> Jobs  </Text>
-                        </TouchableOpacity>
-
-                        <View style={styles.MainNavigationBtnSpaceView} ></View>
-                            <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} 
-                                onPress={this.showUserHelpScreen} >
-                            <Text style = {styles.btnText}> User Help  </Text>
-                        </TouchableOpacity>
-
-                        <View style={styles.MainNavigationBtnSpaceView} ></View>
-                        <View style={styles.ArrowMainView}>
-                            <AntDesign name="leftcircle" size={30} style={[getPlainColor(AccountStatus)]} />
-                        </View>
-                        <View style={styles.MainNavigationBtnSpaceView} ></View>
-                    </ScrollView>
-                </View>
-                {DoNotShowUserProfileScreen ?(<></>):(<>
-                    <View style={{height:15}} ></View>
-                    <View style = {[userProfileView2(),getBackgroundColor(AccountStatus)]} >
-                        <View style = {[styles.UserProfileImageView]} >
-                            {/* <Entypo name="user" size={90} color="white" /> */}
-                            <Image source={{uri:ImageUrl+ClubMemberImage}} style={styles.AgencyImage} />
-                        </View>
-                        <View style = {[styles.UserProfileNameView]} >
-                            <Text style = {styles.btnText}>{ClubMemberName}</Text>
-                            
-                            <View style={{height:20}} ></View>
-                            <Text style = {styles.AgencyNameText}> {ClubMemberCardNo} </Text>
-                            
-                            {/* <View style={{height:20}} ></View>
-                            <Text style = {styles.AgencyNameText}> {UserProviderName} </Text> */}
-                            <View style={{height:20}} ></View>
-                            <Text style = {styles.AgencyNameText}> {UserProviderName} </Text>
-                        </View>
-                    </View>
-                    
-                    <View style={{height:20}} ></View>
-                    <View style = {[mainTableTitleHandleView2(),getBackgroundColor(AccountStatus)]} >
-                        <Text style = { styles.tableTitleHandleText}> Booked Jobs Details </Text>
-                    </View>
-                        {BookedJobsDetails && BookedJobsDetails.map((item, index) => ( 
-                            <View key={index}> 
-                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                                <View style={styles.mainTableView}>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.AgencyName}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.AgencyNumber}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Holder1}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Name}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getAgencyUserCheckOutColor()]}>{item.Area}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Amount}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getAgencyUserCheckOutColor()]}>{item.Hours}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Holder2}</Text>
-                                    </View>
-        
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <View style={{width:20}} ></View>
-                                    </View>
-                                </View>
-                            </ScrollView>
-                            </View>
-                            ))}
-
-                    <View style={{height:20}} ></View>
-                    <View style = {[mainTableTitleHandleView2(),getBackgroundColor(AccountStatus)]} >
-                        <Text style = { styles.tableTitleHandleText}> Checked In Details </Text>
-                    </View>
-                    <View style={styles.mainTableOuterView} >
-                        {AgencyUserCheckedInNoDetails === '' ?(<>
-                            {UserCheckedInDetails && UserCheckedInDetails.map((item, index) => ( 
-                            <View key={index}> 
-                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                                <View style={styles.mainTableView}>
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getAgencyStatusColor()]}>{item.Holder3}</Text>
-                                    </View>
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Name}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInDay}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getAgencyUserCheckOutColor()]}>{item.CheckOutDay}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInDate}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getAgencyUserCheckOutColor()]}>{item.CheckOutDate}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInTime}</Text>
-                                    </View>
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getAgencyUserCheckOutColor()]}>{item.CheckOutTime}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInLongitude}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInLatitude}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <TouchableOpacity onPress={()=>{this.deleteUserCheckInRecord(item.id)}} style={[agencyUserDeleteBtn(),getBackgroundColor(AccountStatus)]} >
-                                            <Text style={styles.ratingChatBtnText2} >Remove This Record</Text> 
-                                        </TouchableOpacity>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <View style={{width:20}} ></View>
-                                    </View>
-                                </View>
-                            </ScrollView>
-                            </View>
-                            ))}
-                            </>):
-                                (<><Text style = {[,getPlainColor(AccountStatus),styles.NoUserFound]}>{AgencyUserCheckedInNoDetails}  </Text></>)
-                            }
-                    </View>
-
-                    <View style={{height:20}} ></View>
-                    <View style = {[mainTableTitleHandleView2(),getBackgroundColor(AccountStatus)]} >
-                        <Text style = { styles.tableTitleHandleText}> Checked Out Details </Text>
-                    </View>
-                    <View style={styles.mainTableOuterView} >
-                            {UserCheckedOutDetails && UserCheckedOutDetails.map((item, index) => ( 
-                            <View key={index}> 
-                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                                <View style={styles.mainTableView}>
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getAgencyStatusColor()]}>{item.Holder3}</Text>
-                                    </View>
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Name}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInDay}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getAgencyUserCheckOutColor()]}>{item.CheckOutDay}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInDate}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getAgencyUserCheckOutColor()]}>{item.CheckOutDate}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInTime}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getAgencyUserCheckOutColor()]}>{item.CheckOutTime}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInLongitude}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInLatitude}</Text>
-                                    </View>
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <View style={{width:20}} ></View>
-                                    </View>
-                                </View>
-                            </ScrollView>
-                            </View>
-                            ))}
-                    </View>
-
-                    <View style={{height:20}} ></View>
-                    <View style={{alignItems:'center'}} >
-                        <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth4(),getBackgroundColor(AccountStatus)]} onPress={this.logOutUser} >
-                            <Text style = {styles.btnText}> Log Out  </Text>
-                        </TouchableOpacity>
-                    </View>
-                </>)}
-
-                {DoNotShowUserCheckInScreen ?(<></>):(<>
-                    {/* <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn4]} onPress={this.getUserLocation} >
-                        <Text style = {styles.btnText}> My Location  </Text>
-                    </TouchableOpacity> */}
-                    <View style={{height:15}} ></View>
-
-                    <View style={styles.ApplyCardView}>
-                    <View style={{height:5}} ></View>
-                    <TouchableOpacity style={[styles.MainNavigationBtnAgency, styles.MainNavigationBtn4]}  >
-                        <Text style = {styles.btnText}>Check In User Details  </Text>
-                    </TouchableOpacity>
-                    <View style={{height:10}} ></View>
-                    <View style={{alignItems:'center'}} >
-                        <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn3]} onPress={this.getUserLocation} >
-                            <Text style = {styles.btnText}> Find My Location  </Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{height:15}} ></View>
-
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInCardLeftView} >
-                            <Text style = {styles.checkInCardLeftText}> Name  </Text>
-                        </View>
-                        <View style = {styles.checkInCardRightView} >
-                            <Text style = {styles.checkInCardRightText}>  {ClubMemberName}  </Text>
-                        </View>
-                    </View>
-
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInLineCardVieW}></View>
                         <View style={{height:20}} ></View>
-                    </View>
-
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInCardLeftView} >
-                            <Text style = {styles.checkInCardLeftText}> Day  </Text>
+                        <View style = {[mainTableTitleHandleView2(),getBackgroundColor(AccountStatus)]} >
+                            <Text style = { styles.tableTitleHandleText}> Booked Jobs Details </Text>
                         </View>
-                        <View style = {styles.checkInCardRightView} >
-                            <Text style = {styles.checkInCardRightText}>  {CurrentDay}  </Text>
-                        </View>
-                    </View>
+                            {BookedJobsDetails && BookedJobsDetails.map((item, index) => ( 
+                                <View key={index}> 
+                                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                                    <View style={styles.mainTableView}>
 
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInLineCardVieW}></View>
-                        <View style={{height:20}} ></View>
-                    </View>
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInCardLeftView} >
-                            <Text style = {styles.checkInCardLeftText}> Date  </Text>
-                        </View>
-                        <View style = {styles.checkInCardRightView} >
-                            <Text style = {styles.checkInCardRightText}>  {CurrentDate}  </Text>
-                        </View>
-                    </View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.AgencyName}</Text>
+                                        </View>
 
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.AgencyNumber}</Text>
+                                        </View>
 
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInLineCardVieW}></View>
-                        <View style={{height:20}} ></View>
-                    </View>
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInCardLeftView} >
-                            <Text style = {styles.checkInCardLeftText}> Time  </Text>
-                        </View>
-                        <View style = {styles.checkInCardRightView} >
-                            <Text style = {styles.checkInCardRightText}> {CurrentTime}  </Text>
-                        </View>
-                    </View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Holder1}</Text>
+                                        </View>
 
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInLineCardVieW}></View>
-                        <View style={{height:20}} ></View>
-                    </View>
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInCardLeftView} >
-                            <Text style = {styles.checkInCardLeftText}> Longitude  </Text>
-                        </View>
-                        <View style = {styles.checkInCardRightView} >
-                            <Text style = {styles.checkInCardRightText}>  {CurrentLongitude}  </Text>
-                        </View>
-                    </View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Name}</Text>
+                                        </View>
 
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInLineCardVieW}></View>
-                        <View style={{height:20}} ></View>
-                    </View>
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInCardLeftView} >
-                            <Text style = {styles.checkInCardLeftText}> Latitude  </Text>
-                        </View>
-                        <View style = {styles.checkInCardRightView} >
-                            <Text style = {styles.checkInCardRightText}>  {CurrentLatitude}  </Text>
-                        </View>
-                    </View>
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInLineCardVieW}></View>
-                        <View style={{height:20}} ></View>
-                    </View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getAgencyUserCheckOutColor()]}>{item.Area}</Text>
+                                        </View>
 
-                
-                    {/* <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInCardLeftView} >
-                            <Text style = {styles.checkInCardLeftText}> Accuracy  </Text>
-                        </View>
-                        <View style = {styles.checkInCardRightView} >
-                            <Text style = {styles.checkInCardRightText}>  {CurrentAccuracy} </Text>
-                        </View>
-                    </View>
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInLineCardVieW}></View>
-                        <View style={{height:20}} ></View>
-                    </View>
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInCardLeftView} >
-                            <Text style = {styles.checkInCardLeftText}> Altitude  </Text>
-                        </View>
-                        <View style = {styles.checkInCardRightView} >
-                            <Text style = {styles.checkInCardRightText}>  {CurrentAltitude } </Text>
-                        </View>
-                    </View> 
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInLineCardVieW}></View>
-                        <View style={{height:20}} ></View>
-                    </View>*/}
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Amount}</Text>
+                                        </View>
 
-                    <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn4]} onPress={this.postUserCheckIn} >
-                        <Text style = {styles.btnText}> Check Me In Now  </Text>
-                    </TouchableOpacity>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getAgencyUserCheckOutColor()]}>{item.Hours}</Text>
+                                        </View>
 
-                </View>
-                    
-                    {/* <Text style={styles.AboutText} >{LocationText}</Text> */}
-                </>)}
-
-                {DoNotShowUserCheckOutScreen ?(<></>):(<>
-                    <View style={{height:15}} ></View>
-
-                    <View style={styles.ApplyCardView}>
-                    <View style={{height:5}} ></View>
-                    <TouchableOpacity style={[styles.MainNavigationBtnAgency, styles.MainNavigationBtn4]}  >
-                        <Text style = {styles.btnText}>Checked In User Details  </Text>
-                    </TouchableOpacity>
-                    <View style={{height:10}} ></View>
-                    
-                    {AgencyUserCheckedInNoDetails === '' ?(<>
-                        {UserCheckedInDetails && UserCheckedInDetails.map((item,index)=>(
-                            <View key={index}>
-                                <View style = {styles.checkInCardView} >
-                                    <View style = {styles.checkInCardLeftView} >
-                                        <Text style = {styles.checkInCardLeftText}> Name  </Text>
-                                    </View>
-                                    <View style = {styles.checkInCardRightView} >
-                                        <Text style = {styles.checkInCardRightText}>  {item.Name}  </Text>
-                                    </View>
-                                </View>
-
-                                <View style = {styles.checkInCardView} >
-                                    <View style = {styles.checkInLineCardVieW}></View>
-                                    <View style={{height:20}} ></View>
-                                </View>
-
-                                <View style = {styles.checkInCardView} >
-                                    <View style = {styles.checkInCardLeftView} >
-                                        <Text style = {styles.checkInCardLeftText}> Day  </Text>
-                                    </View>
-                                    <View style = {styles.checkInCardRightView} >
-                                        <Text style = {styles.checkInCardRightText}>  {item.CheckInDay}  </Text>
-                                    </View>
-                                </View>
-
-                                <View style = {styles.checkInCardView} >
-                                    <View style = {styles.checkInLineCardVieW}></View>
-                                    <View style={{height:20}} ></View>
-                                </View>
-                                <View style = {styles.checkInCardView} >
-                                    <View style = {styles.checkInCardLeftView} >
-                                        <Text style = {styles.checkInCardLeftText}> Date  </Text>
-                                    </View>
-                                    <View style = {styles.checkInCardRightView} >
-                                        <Text style = {styles.checkInCardRightText}>  {item.CheckInDate}  </Text>
-                                    </View>
-                                </View>
-
-
-                                <View style = {styles.checkInCardView} >
-                                    <View style = {styles.checkInLineCardVieW}></View>
-                                    <View style={{height:20}} ></View>
-                                </View>
-                                <View style = {styles.checkInCardView} >
-                                    <View style = {styles.checkInCardLeftView} >
-                                        <Text style = {styles.checkInCardLeftText}> Time  </Text>
-                                    </View>
-                                    <View style = {styles.checkInCardRightView} >
-                                        <Text style = {styles.checkInCardRightText}> {item.CheckInTime}  </Text>
-                                    </View>
-                                </View>
-                                <View style = {styles.checkInCardView} >
-                                    <View style = {styles.checkInLineCardVieW}></View>
-                                    <View style={{height:20}} ></View>
-                                </View>
-                                <View style = {styles.checkInCardView} >
-                                    <View style = {styles.checkInCardLeftView} >
-                                        <Text style = {styles.checkInCardLeftText}> Longitude  </Text>
-                                    </View>
-                                    <View style = {styles.checkInCardRightView} >
-                                        <Text style = {styles.checkInCardRightText}>  {item.CheckInLongitude}  </Text>
-                                    </View>
-                                </View>
-
-                                <View style = {styles.checkInCardView} >
-                                    <View style = {styles.checkInLineCardVieW}></View>
-                                    <View style={{height:20}} ></View>
-                                </View>
-                                <View style = {styles.checkInCardView} >
-                                    <View style = {styles.checkInCardLeftView} >
-                                        <Text style = {styles.checkInCardLeftText}> Latitude  </Text>
-                                    </View>
-                                    <View style = {styles.checkInCardRightView} >
-                                        <Text style = {styles.checkInCardRightText}>  {item.CheckInLatitude}  </Text>
-                                    </View>
-                                </View>
-                                <View style = {styles.checkInCardView} >
-                                    <View style = {styles.checkInLineCardVieW}></View>
-                                    <View style={{height:20}} ></View>
-                                </View>
-                            </View>
-                        ))}
-                    </>):
-                        (<><Text style = {styles.btnText}>{AgencyUserCheckedInNoDetails}  </Text></>)
-                    }
-                    <TouchableOpacity style={[styles.MainNavigationBtnAgency, styles.MainNavigationBtn4]}  >
-                        <Text style = {styles.btnText}>Check Out User Details  </Text>
-                    </TouchableOpacity>
-                    <View style={{height:10}} ></View>
-                    
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Holder2}</Text>
+                                        </View>
             
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInCardLeftView} >
-                            <Text style = {styles.checkInCardLeftText}> Day  </Text>
-                        </View>
-                        <View style = {styles.checkInCardRightView} >
-                            <Text style = {styles.checkInCardRightText}>  {CurrentDay}  </Text>
-                        </View>
-                    </View>
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInLineCardVieW}></View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <View style={{width:20}} ></View>
+                                        </View>
+                                    </View>
+                                </ScrollView>
+                                </View>
+                                ))}
+
                         <View style={{height:20}} ></View>
-                    </View>
-
-                
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInCardLeftView} >
-                            <Text style = {styles.checkInCardLeftText}> Date  </Text>
+                        <View style = {[mainTableTitleHandleView2(),getBackgroundColor(AccountStatus)]} >
+                            <Text style = { styles.tableTitleHandleText}> Checked In Details </Text>
                         </View>
-                        <View style = {styles.checkInCardRightView} >
-                            <Text style = {styles.checkInCardRightText}>  {CurrentDate} </Text>
-                        </View>
-                    </View>
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInLineCardVieW}></View>
-                        <View style={{height:20}} ></View>
-                    </View>
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInCardLeftView} >
-                            <Text style = {styles.checkInCardLeftText}> Time </Text>
-                        </View>
-                        <View style = {styles.checkInCardRightView} >
-                            <Text style = {styles.checkInCardRightText}>  {CurrentTime} </Text>
-                        </View>
-                    </View>
-                    <View style = {styles.checkInCardView} >
-                        <View style = {styles.checkInLineCardVieW}></View>
-                        <View style={{height:20}} ></View>
-                    </View>
+                        <View style={styles.mainTableOuterView} >
+                            {AgencyUserCheckedInNoDetails === '' ?(<>
+                                {UserCheckedInDetails && UserCheckedInDetails.map((item, index) => ( 
+                                <View key={index}> 
+                                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                                    <View style={styles.mainTableView}>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getAgencyStatusColor()]}>{item.Holder3}</Text>
+                                        </View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Name}</Text>
+                                        </View>
 
-                    <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn4]} onPress={this.postUserCheckOut} >
-                        <Text style = {styles.btnText}> Check Me Out Now </Text>
-                    </TouchableOpacity>
-                </View>
-                </>)}
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInDay}</Text>
+                                        </View>
 
-                {DoNotShowUserJobsScreen ?(<></>):(<>
-                    <View style={{height:15}} ></View>
-                    {AgencyJobsData[0] && AgencyJobsData[0].map((item,index)=>(
-                        <View key={index} >
-                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                                <View style={styles.mainTableView}>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getAgencyUserCheckOutColor()]}>{item.CheckOutDay}</Text>
+                                        </View>
 
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Holder1}</Text>
-                                    </View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInDate}</Text>
+                                        </View>
 
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getAgencyUserCheckOutColor()]}>{item.CheckOutDate}</Text>
+                                        </View>
 
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Name}</Text>
-                                    </View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInTime}</Text>
+                                        </View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getAgencyUserCheckOutColor()]}>{item.CheckOutTime}</Text>
+                                        </View>
 
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Area}</Text>
-                                    </View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInLongitude}</Text>
+                                        </View>
 
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Amount}</Text>
-                                    </View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInLatitude}</Text>
+                                        </View>
 
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Hours}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <View style={styles.ratingChatBtnView}>
-                                            <TouchableOpacity onPress={()=>{this.postUserJobBooked(item.id)}} style={styles.ratingChatBtn} >
-                                                <Text style={styles.ratingChatBtnText} >Book It Now</Text> 
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <TouchableOpacity onPress={()=>{this.deleteUserCheckInRecord(item.id)}} style={[agencyUserDeleteBtn(),getBackgroundColor(AccountStatus)]} >
+                                                <Text style={styles.ratingChatBtnText2} >Remove This Record</Text> 
                                             </TouchableOpacity>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <View style={{width:20}} ></View>
+                                        </View>
+                                    </View>
+                                </ScrollView>
+                                </View>
+                                ))}
+                                </>):
+                                    (<><Text style = {[,getPlainColor(AccountStatus),styles.NoUserFound]}>{AgencyUserCheckedInNoDetails}  </Text></>)
+                                }
+                        </View>
+
+                        <View style={{height:20}} ></View>
+                        <View style = {[mainTableTitleHandleView2(),getBackgroundColor(AccountStatus)]} >
+                            <Text style = { styles.tableTitleHandleText}> Checked Out Details </Text>
+                        </View>
+                        <View style={styles.mainTableOuterView} >
+                                {UserCheckedOutDetails && UserCheckedOutDetails.map((item, index) => ( 
+                                <View key={index}> 
+                                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                                    <View style={styles.mainTableView}>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getAgencyStatusColor()]}>{item.Holder3}</Text>
+                                        </View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Name}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInDay}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getAgencyUserCheckOutColor()]}>{item.CheckOutDay}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInDate}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getAgencyUserCheckOutColor()]}>{item.CheckOutDate}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInTime}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getAgencyUserCheckOutColor()]}>{item.CheckOutTime}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInLongitude}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.CheckInLatitude}</Text>
+                                        </View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <View style={{width:20}} ></View>
+                                        </View>
+                                    </View>
+                                </ScrollView>
+                                </View>
+                                ))}
+                        </View>
+
+                        <View style={{height:20}} ></View>
+                        <View style={{alignItems:'center'}} >
+                            <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth4(),getBackgroundColor(AccountStatus)]} onPress={this.logOutUser} >
+                                <Text style = {styles.btnText}> Log Out  </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </>)}
+
+                    {DoNotShowUserCheckInScreen ?(<></>):(<>
+                        {/* <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn4]} onPress={this.getUserLocation} >
+                            <Text style = {styles.btnText}> My Location  </Text>
+                        </TouchableOpacity> */}
+                        <View style={{height:15}} ></View>
+
+                        <View style={styles.ApplyCardView}>
+                        <View style={{height:5}} ></View>
+                        <TouchableOpacity style={[styles.MainNavigationBtnAgency, styles.MainNavigationBtn4]}  >
+                            <Text style = {styles.btnText}>Check In User Details  </Text>
+                        </TouchableOpacity>
+                        <View style={{height:10}} ></View>
+                        <View style={{alignItems:'center'}} >
+                            <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn3]} onPress={this.getUserLocation} >
+                                <Text style = {styles.btnText}> Find My Location  </Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{height:15}} ></View>
+
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInCardLeftView} >
+                                <Text style = {styles.checkInCardLeftText}> Name  </Text>
+                            </View>
+                            <View style = {styles.checkInCardRightView} >
+                                <Text style = {styles.checkInCardRightText}>  {ClubMemberName}  </Text>
+                            </View>
+                        </View>
+
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInLineCardVieW}></View>
+                            <View style={{height:20}} ></View>
+                        </View>
+
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInCardLeftView} >
+                                <Text style = {styles.checkInCardLeftText}> Day  </Text>
+                            </View>
+                            <View style = {styles.checkInCardRightView} >
+                                <Text style = {styles.checkInCardRightText}>  {CurrentDay}  </Text>
+                            </View>
+                        </View>
+
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInLineCardVieW}></View>
+                            <View style={{height:20}} ></View>
+                        </View>
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInCardLeftView} >
+                                <Text style = {styles.checkInCardLeftText}> Date  </Text>
+                            </View>
+                            <View style = {styles.checkInCardRightView} >
+                                <Text style = {styles.checkInCardRightText}>  {CurrentDate}  </Text>
+                            </View>
+                        </View>
+
+
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInLineCardVieW}></View>
+                            <View style={{height:20}} ></View>
+                        </View>
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInCardLeftView} >
+                                <Text style = {styles.checkInCardLeftText}> Time  </Text>
+                            </View>
+                            <View style = {styles.checkInCardRightView} >
+                                <Text style = {styles.checkInCardRightText}> {CurrentTime}  </Text>
+                            </View>
+                        </View>
+
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInLineCardVieW}></View>
+                            <View style={{height:20}} ></View>
+                        </View>
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInCardLeftView} >
+                                <Text style = {styles.checkInCardLeftText}> Longitude  </Text>
+                            </View>
+                            <View style = {styles.checkInCardRightView} >
+                                <Text style = {styles.checkInCardRightText}>  {CurrentLongitude}  </Text>
+                            </View>
+                        </View>
+
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInLineCardVieW}></View>
+                            <View style={{height:20}} ></View>
+                        </View>
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInCardLeftView} >
+                                <Text style = {styles.checkInCardLeftText}> Latitude  </Text>
+                            </View>
+                            <View style = {styles.checkInCardRightView} >
+                                <Text style = {styles.checkInCardRightText}>  {CurrentLatitude}  </Text>
+                            </View>
+                        </View>
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInLineCardVieW}></View>
+                            <View style={{height:20}} ></View>
+                        </View>
+
+                    
+                        {/* <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInCardLeftView} >
+                                <Text style = {styles.checkInCardLeftText}> Accuracy  </Text>
+                            </View>
+                            <View style = {styles.checkInCardRightView} >
+                                <Text style = {styles.checkInCardRightText}>  {CurrentAccuracy} </Text>
+                            </View>
+                        </View>
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInLineCardVieW}></View>
+                            <View style={{height:20}} ></View>
+                        </View>
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInCardLeftView} >
+                                <Text style = {styles.checkInCardLeftText}> Altitude  </Text>
+                            </View>
+                            <View style = {styles.checkInCardRightView} >
+                                <Text style = {styles.checkInCardRightText}>  {CurrentAltitude } </Text>
+                            </View>
+                        </View> 
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInLineCardVieW}></View>
+                            <View style={{height:20}} ></View>
+                        </View>*/}
+
+                        <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn4]} onPress={this.postUserCheckIn} >
+                            <Text style = {styles.btnText}> Check Me In Now  </Text>
+                        </TouchableOpacity>
+
+                    </View>
+                        
+                        {/* <Text style={styles.AboutText} >{LocationText}</Text> */}
+                    </>)}
+
+                    {DoNotShowUserCheckOutScreen ?(<></>):(<>
+                        <View style={{height:15}} ></View>
+
+                        <View style={styles.ApplyCardView}>
+                        <View style={{height:5}} ></View>
+                        <TouchableOpacity style={[styles.MainNavigationBtnAgency, styles.MainNavigationBtn4]}  >
+                            <Text style = {styles.btnText}>Checked In User Details  </Text>
+                        </TouchableOpacity>
+                        <View style={{height:10}} ></View>
+                        
+                        {AgencyUserCheckedInNoDetails === '' ?(<>
+                            {UserCheckedInDetails && UserCheckedInDetails.map((item,index)=>(
+                                <View key={index}>
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInCardLeftView} >
+                                            <Text style = {styles.checkInCardLeftText}> Name  </Text>
+                                        </View>
+                                        <View style = {styles.checkInCardRightView} >
+                                            <Text style = {styles.checkInCardRightText}>  {item.Name}  </Text>
                                         </View>
                                     </View>
 
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <View style={{width:20}} ></View>
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInLineCardVieW}></View>
+                                        <View style={{height:20}} ></View>
+                                    </View>
+
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInCardLeftView} >
+                                            <Text style = {styles.checkInCardLeftText}> Day  </Text>
+                                        </View>
+                                        <View style = {styles.checkInCardRightView} >
+                                            <Text style = {styles.checkInCardRightText}>  {item.CheckInDay}  </Text>
+                                        </View>
+                                    </View>
+
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInLineCardVieW}></View>
+                                        <View style={{height:20}} ></View>
+                                    </View>
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInCardLeftView} >
+                                            <Text style = {styles.checkInCardLeftText}> Date  </Text>
+                                        </View>
+                                        <View style = {styles.checkInCardRightView} >
+                                            <Text style = {styles.checkInCardRightText}>  {item.CheckInDate}  </Text>
+                                        </View>
+                                    </View>
+
+
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInLineCardVieW}></View>
+                                        <View style={{height:20}} ></View>
+                                    </View>
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInCardLeftView} >
+                                            <Text style = {styles.checkInCardLeftText}> Time  </Text>
+                                        </View>
+                                        <View style = {styles.checkInCardRightView} >
+                                            <Text style = {styles.checkInCardRightText}> {item.CheckInTime}  </Text>
+                                        </View>
+                                    </View>
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInLineCardVieW}></View>
+                                        <View style={{height:20}} ></View>
+                                    </View>
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInCardLeftView} >
+                                            <Text style = {styles.checkInCardLeftText}> Longitude  </Text>
+                                        </View>
+                                        <View style = {styles.checkInCardRightView} >
+                                            <Text style = {styles.checkInCardRightText}>  {item.CheckInLongitude}  </Text>
+                                        </View>
+                                    </View>
+
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInLineCardVieW}></View>
+                                        <View style={{height:20}} ></View>
+                                    </View>
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInCardLeftView} >
+                                            <Text style = {styles.checkInCardLeftText}> Latitude  </Text>
+                                        </View>
+                                        <View style = {styles.checkInCardRightView} >
+                                            <Text style = {styles.checkInCardRightText}>  {item.CheckInLatitude}  </Text>
+                                        </View>
+                                    </View>
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInLineCardVieW}></View>
+                                        <View style={{height:20}} ></View>
                                     </View>
                                 </View>
-                            </ScrollView>
+                            ))}
+                        </>):
+                            (<><Text style = {styles.btnText}>{AgencyUserCheckedInNoDetails}  </Text></>)
+                        }
+                        <TouchableOpacity style={[styles.MainNavigationBtnAgency, styles.MainNavigationBtn4]}  >
+                            <Text style = {styles.btnText}>Check Out User Details  </Text>
+                        </TouchableOpacity>
+                        <View style={{height:10}} ></View>
+                        
+                
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInCardLeftView} >
+                                <Text style = {styles.checkInCardLeftText}> Day  </Text>
+                            </View>
+                            <View style = {styles.checkInCardRightView} >
+                                <Text style = {styles.checkInCardRightText}>  {CurrentDay}  </Text>
+                            </View>
                         </View>
-                    ))}
-                </>)}
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInLineCardVieW}></View>
+                            <View style={{height:20}} ></View>
+                        </View>
 
-                {DoNotShowUserHelpScreen ?(<></>):(<>
-                    <View style={{height:15}} ></View>
+                    
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInCardLeftView} >
+                                <Text style = {styles.checkInCardLeftText}> Date  </Text>
+                            </View>
+                            <View style = {styles.checkInCardRightView} >
+                                <Text style = {styles.checkInCardRightText}>  {CurrentDate} </Text>
+                            </View>
+                        </View>
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInLineCardVieW}></View>
+                            <View style={{height:20}} ></View>
+                        </View>
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInCardLeftView} >
+                                <Text style = {styles.checkInCardLeftText}> Time </Text>
+                            </View>
+                            <View style = {styles.checkInCardRightView} >
+                                <Text style = {styles.checkInCardRightText}>  {CurrentTime} </Text>
+                            </View>
+                        </View>
+                        <View style = {styles.checkInCardView} >
+                            <View style = {styles.checkInLineCardVieW}></View>
+                            <View style={{height:20}} ></View>
+                        </View>
 
-                    <View  style={styles.MainInnerCardAboutView}>
-                        <Text style={[aboutTitleText(),getPlainColor(AccountStatus)]} >On Profile</Text>
-                        <Text style={[aboutText(),getPlainColor(AccountStatus)]} >1. Checked In Details</Text>
-                        <Text style={[aboutText(),getPlainColor(AccountStatus)]} >Shows The Current Checked In User Information</Text>
-                        <Text style={[aboutText(),getPlainColor(AccountStatus)]} >2. Checked Out Details</Text>
-                        <Text style={[aboutText(),getPlainColor(AccountStatus)]} >Shows All The Checked Out User Information</Text>
-                        <Text style={[aboutText(),getPlainColor(AccountStatus)]} >3. Remove This Record</Text>
-                        <Text style={[aboutText(),getPlainColor(AccountStatus)]} >Deletes A Record If A User Has Made A Double Check In </Text>
-                        <Text style={[aboutText(),getPlainColor(AccountStatus)]} >4. Pending</Text>
-                        <Text style={[aboutText(),getPlainColor(AccountStatus)]} >It Means That User Is Not Yet Approved By The Manager</Text>
-                        <Text style={[aboutText(),getPlainColor(AccountStatus)]} >5. Approved</Text>
-                        <Text style={[aboutText(),getPlainColor(AccountStatus)]} >It Means That User Was Approved By The Manager</Text>
-                        <Text style={[aboutText(),getPlainColor(AccountStatus)]} >6. Waiting...</Text>
-                        <Text style={[aboutText(),getPlainColor(AccountStatus)]} >It Shows The User Has Not Yet Check Out</Text>
-
-
-                        <View style={{height:30}}></View>
-                        <Text style={[aboutTitleText(),getPlainColor(AccountStatus)]} >How To Check In ?</Text>
-                        <Text style={[aboutText(),getPlainColor(AccountStatus)]} >1. First Turn On Your Location From Settings </Text>
-                        <Text style={[aboutText(),getPlainColor(AccountStatus)]} >2. Click In Find My Location Button To Get Longitude & Latitude</Text>
-                        <Text style={[aboutText(),getPlainColor(AccountStatus)]} >3. Click In Check Me In Now Button To Check In</Text>
-
-                        <View style={{height:30}}></View>
-                        <Text style={[aboutTitleText(),getPlainColor(AccountStatus)]} >How To Check Out ?</Text>
-                        <Text style={[aboutText(),getPlainColor(AccountStatus)]} >1. When You Have Checked In, </Text>
-                        <Text style={[aboutText(),getPlainColor(AccountStatus)]} >2. User Information Will Be Displayed On The Screen</Text>
-                        <Text style={[aboutText(),getPlainColor(AccountStatus)]} >3. Click In Check Me Out Now Button To Check Out</Text>
-
-
+                        <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn4]} onPress={this.postUserCheckOut} >
+                            <Text style = {styles.btnText}> Check Me Out Now </Text>
+                        </TouchableOpacity>
                     </View>
+                    </>)}
 
-                </>)}
+                    {DoNotShowUserJobsScreen ?(<></>):(<>
+                        <View style={{height:15}} ></View>
+                        {AgencyJobsData[0] && AgencyJobsData[0].map((item,index)=>(
+                            <View key={index} >
+                                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                                    <View style={styles.mainTableView}>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Holder1}</Text>
+                                        </View>
+
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Name}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Area}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Amount}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Hours}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <View style={styles.ratingChatBtnView}>
+                                                <TouchableOpacity onPress={()=>{this.postUserJobBooked(item.id)}} style={styles.ratingChatBtn} >
+                                                    <Text style={styles.ratingChatBtnText} >Book It Now</Text> 
+                                                </TouchableOpacity>
+                                            </View>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <View style={{width:20}} ></View>
+                                        </View>
+                                    </View>
+                                </ScrollView>
+                            </View>
+                        ))}
+                    </>)}
+
+                    {DoNotShowUserHelpScreen ?(<></>):(<>
+                        <View style={{height:15}} ></View>
+
+                        <View  style={styles.MainInnerCardAboutView}>
+                            <Text style={[aboutTitleText(),getPlainColor(AccountStatus)]} >On Profile</Text>
+                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >1. Checked In Details</Text>
+                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >Shows The Current Checked In User Information</Text>
+                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >2. Checked Out Details</Text>
+                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >Shows All The Checked Out User Information</Text>
+                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >3. Remove This Record</Text>
+                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >Deletes A Record If A User Has Made A Double Check In </Text>
+                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >4. Pending</Text>
+                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >It Means That User Is Not Yet Approved By The Manager</Text>
+                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >5. Approved</Text>
+                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >It Means That User Was Approved By The Manager</Text>
+                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >6. Waiting...</Text>
+                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >It Shows The User Has Not Yet Check Out</Text>
+
+
+                            <View style={{height:30}}></View>
+                            <Text style={[aboutTitleText(),getPlainColor(AccountStatus)]} >How To Check In ?</Text>
+                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >1. First Turn On Your Location From Settings </Text>
+                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >2. Click In Find My Location Button To Get Longitude & Latitude</Text>
+                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >3. Click In Check Me In Now Button To Check In</Text>
+
+                            <View style={{height:30}}></View>
+                            <Text style={[aboutTitleText(),getPlainColor(AccountStatus)]} >How To Check Out ?</Text>
+                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >1. When You Have Checked In, </Text>
+                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >2. User Information Will Be Displayed On The Screen</Text>
+                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >3. Click In Check Me Out Now Button To Check Out</Text>
+
+
+                        </View>
+
+                    </>)}
+                </ScrollView>
             </>)}
 
 
@@ -1516,429 +1520,160 @@ render() {
 
 
             {DoNotShowAdminScreen ?<></>:(<>
-                <View style={{height:15}} ></View>
-                <View style={styles.MainNavigationBtnView}>
-                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                    <View style={styles.MainNavigationBtnSpaceView} ></View>
-                        <View style={styles.ArrowMainView}>
-                            <AntDesign name="rightcircle" size={30} style={styles.ArrowIcon} />
-                        </View>
-                        <View style={styles.MainNavigationBtnSpaceView} ></View>
-                        <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn1]} onPress={this.showAdminProfileScreen} >
-                            <Text style = {styles.btnText}>Profile</Text>
-                        </TouchableOpacity>
-
-                        <View style={styles.MainNavigationBtnSpaceView} ></View>
-                        <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn1]} onPress={this.showAdminCheckInScreen} >
-                            <Text style = {styles.btnText}>Check Ins  </Text>
-                        </TouchableOpacity>
-
-                        <View style={styles.MainNavigationBtnSpaceView} ></View>
-                        <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn1]} onPress={this.showAdminCheckOutScreen} >
-                            <Text style = {styles.btnText}>Check Outs  </Text>
-                        </TouchableOpacity>
-
-                        <View style={styles.MainNavigationBtnSpaceView} ></View>
-                        <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn3]} onPress={this.showAdminPendingCheckInScreen} >
-                            <Text style = {styles.btnText}>Pending Check Ins  </Text>
-                        </TouchableOpacity>
-
-                        <View style={styles.MainNavigationBtnSpaceView} ></View>
-                        <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn1]} onPress={this.showAdminHelpScreen} >
-                            <Text style = {styles.btnText}>User Help  </Text>
-                        </TouchableOpacity>
-
-                        <View style={styles.MainNavigationBtnSpaceView}></View>
-                        <View style={styles.ArrowMainView}>
-                            <AntDesign name="leftcircle" size={30} style={styles.ArrowIcon} />
-                        </View>
-                        <View style={styles.MainNavigationBtnSpaceView} ></View>
-                    </ScrollView>
-                </View>
-
-                {DoNotShowAdminProfileScreen ?(<></>):(<>
+                <ScrollView showsVerticalScrollIndicator={false} >
                     <View style={{height:15}} ></View>
-                    <View style = {[userProfileView2(),getBackgroundColor(AdminAccountStatus)]} >
-                        <View style = {[styles.UserProfileImageView]} >
-                            <Entypo name="user" size={90} color="white" />
-                        </View>
-                            <View style = {[styles.UserProfileNameView]} >
-                            <Text style = {styles.btnText}>{ClubAdminArea}</Text>
-                            <View style={{height:20}} ></View>
-
-                            <Text style = {styles.btnText}>{ClubAdminName}</Text>
-                            <View style={{height:20}} ></View>
-                            <Text style = {styles.AgencyNameText}> {ClubAdminCardNo} </Text>
-                            
-                        </View>
-                    </View>
-                    <View style={{height:20}} ></View>
-                    <View style = {[mainTableTitleHandleView(),getBackgroundColor(AdminAccountStatus)]} >
-                        <Text style = { styles.tableTitleHandleText}>Workers List </Text>
-                    </View>
-                    <View style={{height:15}} ></View>
-
-                    {AdminViewUserDetails && AdminViewUserDetails.map((item, index) => ( 
-                        <View key={index}> 
-                            <View style = {[userProfileView2(),getBackgroundColor(AdminAccountStatus)]} >
-                                <View style = {[styles.UserProfileImageView]} >
-                                    <Image source={{uri:ImageUrl+item.image}} style={styles.AgencyImage} />
-                                </View>
-                                <View style = {[styles.UserProfileNameView]} >
-                                    <Text style = {styles.NameBtnText}>{item.Name}</Text>
-                                    <View style={{height:20}} ></View>
-                                    <Text style = {styles.AgencyNameText}> {item.AgencyNumber} </Text>
-                                </View>
+                    <View style={styles.MainNavigationBtnView}>
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                        <View style={styles.MainNavigationBtnSpaceView} ></View>
+                            <View style={styles.ArrowMainView}>
+                                <AntDesign name="rightcircle" size={30} style={styles.ArrowIcon} />
                             </View>
-                            <View style={{height:15}} ></View>
-                        </View>
-                    ))}
-
-
-                    <View style={{height:20}} ></View>
-                    <View style={{alignItems:'center'}} >
-                        <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth4(),getBackgroundColor(AdminAccountStatus)]} onPress={this.logOutAdmin} >
-                            <Text style = {styles.btnText}> Log Out  </Text>
-                        </TouchableOpacity>
-                    </View>
-                </>)}
-
-
-                {DoNotShowAdminCheckInScreen ?(<></>):(<>
-                    <View style={{height:20}} ></View>
-                    {DoNotShowAdminCheckInDetailsScreen ?(<></>):(<>
-                        <View style = {[mainTableTitleHandleView2(),getBackgroundColor(AdminAccountStatus)]} >
-                            <Text style = { styles.tableTitleHandleText}> Check In Details </Text>
-                        </View>
-                        <View style={styles.mainTableOuterView} >
-                                {AdminCheckedInDetails && AdminCheckedInDetails.map((item, index) => ( 
-                                <View key={index}> 
-                                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                                    <View style={styles.mainTableView}>
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getAgencyStatusColor()]}>{item.Holder3}</Text>
-                                        </View>
-
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.Name}</Text>
-                                        </View>
-
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInDay}</Text>
-                                        </View>
-
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getAgencyAdminCheckOutColor()]}>{item.CheckOutDay}</Text>
-                                        </View>
-
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInDate}</Text>
-                                        </View>
-
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getAgencyAdminCheckOutColor()]}>{item.CheckOutDate}</Text>
-                                        </View>
-
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInTime}</Text>
-                                        </View>
-
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getAgencyAdminCheckOutColor()]}>{item.CheckOutTime}</Text>
-                                        </View>
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInLongitude}</Text>
-                                        </View>
-
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInLatitude}</Text>
-                                        </View>
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <TouchableOpacity onPress={()=>{this.showAdminApproveCheckInScreen(item.id,item.Name,item.CheckInDay,item.CheckInDate,item.CheckInTime,item.CheckOutDay,item.CheckOutDate,item.CheckOutTime,item.CheckInLongitude,item.CheckInLatitude)}} style={styles.ratingChatBtn2} >
-                                            <Text style={styles.ratingChatBtnText} >Approve Worker</Text> 
-                                        </TouchableOpacity>
-                                        </View>
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <View style={{width:20}} ></View>
-                                        </View>
-                                    </View>
-                                </ScrollView>
-                                </View>
-                                ))}
-                        </View>
-                        </>)}
-                    
-                    {DoNotShowAdminApproveCheckInScreen?<></>:(<>
-                        <View style={{height:15}} ></View>
-                        <View style={styles.ApplyCardView}>
-                            <View style={{height:5}} ></View>
-                            
-                            <TouchableOpacity style={[styles.MainNavigationBtnAgency, styles.MainNavigationBtn4]}  >
-                                <Text style = {styles.btnText}>Checked In User Details  </Text>
+                            <View style={styles.MainNavigationBtnSpaceView} ></View>
+                            <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn1]} onPress={this.showAdminProfileScreen} >
+                                <Text style = {styles.btnText}>Profile</Text>
                             </TouchableOpacity>
-                            <View style={{height:10}} ></View>
 
-                            <View style = {styles.checkInCardView} >
-                                <View style = {styles.checkInCardLeftView} >
-                                    <Text style = {styles.checkInCardLeftText}> Name  </Text>
-                                </View>
-                                <View style = {styles.checkInCardRightView} >
-                                    <Text style = {styles.checkInCardRightText}>  {AdminApproveName}  </Text>
-                                </View>
+                            <View style={styles.MainNavigationBtnSpaceView} ></View>
+                            <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn1]} onPress={this.showAdminCheckInScreen} >
+                                <Text style = {styles.btnText}>Check Ins  </Text>
+                            </TouchableOpacity>
+
+                            <View style={styles.MainNavigationBtnSpaceView} ></View>
+                            <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn1]} onPress={this.showAdminCheckOutScreen} >
+                                <Text style = {styles.btnText}>Check Outs  </Text>
+                            </TouchableOpacity>
+
+                            <View style={styles.MainNavigationBtnSpaceView} ></View>
+                            <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn3]} onPress={this.showAdminPendingCheckInScreen} >
+                                <Text style = {styles.btnText}>Pending Check Ins  </Text>
+                            </TouchableOpacity>
+
+                            <View style={styles.MainNavigationBtnSpaceView} ></View>
+                            <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn1]} onPress={this.showAdminHelpScreen} >
+                                <Text style = {styles.btnText}>User Help  </Text>
+                            </TouchableOpacity>
+
+                            <View style={styles.MainNavigationBtnSpaceView}></View>
+                            <View style={styles.ArrowMainView}>
+                                <AntDesign name="leftcircle" size={30} style={styles.ArrowIcon} />
                             </View>
-                            <View style = {styles.checkInCardView} >
-                                <View style = {styles.checkInLineCardVieW}></View>
+                            <View style={styles.MainNavigationBtnSpaceView} ></View>
+                        </ScrollView>
+                    </View>
+
+                    {DoNotShowAdminProfileScreen ?(<></>):(<>
+                        <View style={{height:15}} ></View>
+                        <View style = {[userProfileView2(),getBackgroundColor(AdminAccountStatus)]} >
+                            <View style = {[styles.UserProfileImageView]} >
+                                <Entypo name="user" size={90} color="white" />
+                            </View>
+                                <View style = {[styles.UserProfileNameView]} >
+                                <Text style = {styles.btnText}>{ClubAdminArea}</Text>
                                 <View style={{height:20}} ></View>
-                            </View>
 
-                            <View style = {styles.checkInCardView} >
-                                <View style = {styles.checkInCardLeftView} >
-                                    <Text style = {styles.checkInCardLeftText}> Day-In  </Text>
-                                </View>
-                                <View style = {styles.checkInCardRightView} >
-                                    <Text style = {styles.checkInCardRightText}>  {AdminApproveCheckInDay}  </Text>
-                                </View>
-                            </View>
-
-                            <View style = {styles.checkInCardView} >
-                                <View style = {styles.checkInLineCardVieW}></View>
+                                <Text style = {styles.btnText}>{ClubAdminName}</Text>
                                 <View style={{height:20}} ></View>
+                                <Text style = {styles.AgencyNameText}> {ClubAdminCardNo} </Text>
+                                
                             </View>
+                        </View>
+                        <View style={{height:20}} ></View>
+                        <View style = {[mainTableTitleHandleView(),getBackgroundColor(AdminAccountStatus)]} >
+                            <Text style = { styles.tableTitleHandleText}>Workers List </Text>
+                        </View>
+                        <View style={{height:15}} ></View>
 
-                            <View style = {styles.checkInCardView} >
-                                <View style = {styles.checkInCardLeftView} >
-                                    <Text style = {styles.checkOutCardText}> Day-Out  </Text>
+                        {AdminViewUserDetails && AdminViewUserDetails.map((item, index) => ( 
+                            <View key={index}> 
+                                <View style = {[userProfileView2(),getBackgroundColor(AdminAccountStatus)]} >
+                                    <View style = {[styles.UserProfileImageView]} >
+                                        <Image source={{uri:ImageUrl+item.image}} style={styles.AgencyImage} />
+                                    </View>
+                                    <View style = {[styles.UserProfileNameView]} >
+                                        <Text style = {styles.NameBtnText}>{item.Name}</Text>
+                                        <View style={{height:20}} ></View>
+                                        <Text style = {styles.AgencyNameText}> {item.AgencyNumber} </Text>
+                                    </View>
                                 </View>
-                                <View style = {styles.checkInCardRightView} >
-                                    <Text style = {styles.checkOutCardText}>  {AdminApproveCheckOutDay}  </Text>
-                                </View>
+                                <View style={{height:15}} ></View>
                             </View>
-                            <View style = {styles.checkInCardView} >
-                                <View style = {styles.checkInLineCardVieW}></View>
-                                <View style={{height:20}} ></View>
-                            </View>
+                        ))}
 
 
-                            <View style = {styles.checkInCardView} >
-                                <View style = {styles.checkInCardLeftView} >
-                                    <Text style = {styles.checkInCardLeftText}> Date-In  </Text>
-                                </View>
-                                <View style = {styles.checkInCardRightView} >
-                                    <Text style = {styles.checkInCardRightText}>  {AdminApproveCheckInDate} </Text>
-                                </View>
-                            </View>
-                            <View style = {styles.checkInCardView} >
-                                <View style = {styles.checkInLineCardVieW}></View>
-                                <View style={{height:20}} ></View>
-                            </View>
-
-                            <View style = {styles.checkInCardView} >
-                                <View style = {styles.checkInCardLeftView} >
-                                    <Text style = {styles.checkOutCardText}> Date-Out  </Text>
-                                </View>
-                                <View style = {styles.checkInCardRightView} >
-                                    <Text style = {styles.checkOutCardText}>  {AdminApproveCheckOutDate}  </Text>
-                                </View>
-                            </View>
-                            <View style = {styles.checkInCardView} >
-                                <View style = {styles.checkInLineCardVieW}></View>
-                                <View style={{height:20}} ></View>
-                            </View>
-
-                            <View style = {styles.checkInCardView} >
-                                <View style = {styles.checkInCardLeftView} >
-                                    <Text style = {styles.checkInCardLeftText}> Time-In </Text>
-                                </View>
-                                <View style = {styles.checkInCardRightView} >
-                                    <Text style = {styles.checkInCardRightText}>  {AdminApproveCheckInTime} </Text>
-                                </View>
-                            </View>
-
-                            <View style = {styles.checkInCardView} >
-                                <View style = {styles.checkInLineCardVieW}></View>
-                                <View style={{height:20}} ></View>
-                            </View>
-
-                            <View style = {styles.checkInCardView} >
-                                <View style = {styles.checkInCardLeftView} >
-                                    <Text style = {styles.checkOutCardText}> Time-Out </Text>
-                                </View>
-                                <View style = {styles.checkInCardRightView} >
-                                    <Text style = {styles.checkOutCardText}>  {AdminApproveCheckOutTime}  </Text>
-                                </View>
-                            </View>
-                            <View style = {styles.checkInCardView} >
-                                <View style = {styles.checkInLineCardVieW}></View>
-                                <View style={{height:20}} ></View>
-                            </View>
-
-                            <View style = {styles.checkInCardView} >
-                                <View style = {styles.checkInCardLeftView} >
-                                    <Text style = {styles.checkInCardLeftText}> Latitude-In </Text>
-                                </View>
-                                <View style = {styles.checkInCardRightView} >
-                                    <Text style = {styles.checkInCardRightText}>  {AdminApproveCheckInLatitude} </Text>
-                                </View>
-                            </View>
-                            <View style = {styles.checkInCardView} >
-                                <View style = {styles.checkInLineCardVieW}></View>
-                                <View style={{height:20}} ></View>
-                            </View>
-
-                            <View style = {styles.checkInCardView} >
-                                <View style = {styles.checkInCardLeftView} >
-                                    <Text style = {styles.checkInCardLeftText}> Longitude-In </Text>
-                                </View>
-                                <View style = {styles.checkInCardRightView} >
-                                    <Text style = {styles.checkInCardRightText}>  {AdminApproveCheckInLongitude} </Text>
-                                </View>
-                            </View>
-                            <View style = {styles.checkInCardView} >
-                                <View style = {styles.checkInLineCardVieW}></View>
-                                <View style={{height:20}} ></View>
-                            </View>
-
-                            
-
-                            <View style={{alignItems:'center', marginTop:20}} >
-                                <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn1]} onPress={this.postAdminApproval} >
-                                    <Text style = {styles.btnText}> Approve </Text>
-                                </TouchableOpacity>
-                                <View style={{height:20}} ></View>
-                                <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn3]} onPress={()=>{this.showAdminCheckInDetailsScreen()}}  >
-                                    <Text style = {styles.btnText}> Cancel  </Text>
-                                </TouchableOpacity>
-                                <View style={{height:20}}></View>
-                            </View>
+                        <View style={{height:20}} ></View>
+                        <View style={{alignItems:'center'}} >
+                            <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth4(),getBackgroundColor(AdminAccountStatus)]} onPress={this.logOutAdmin} >
+                                <Text style = {styles.btnText}> Log Out  </Text>
+                            </TouchableOpacity>
                         </View>
                     </>)}
-                </>)}
 
-                {DoNotShowAdminCheckOutScreen ?(<></>):(<>
-                    <View style={{height:20}} ></View>
-                    <View style = {[mainTableTitleHandleView2(),getBackgroundColor(AdminAccountStatus)]} >
-                        <Text style = { styles.tableTitleHandleText}>Checked Out Details </Text>
-                    </View>
-                    <View style={styles.mainTableOuterView} >
-                            {AdminCheckedOutDetails && AdminCheckedOutDetails.map((item, index) => ( 
-                            <View key={index}> 
-                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                                <View style={styles.mainTableView}>
-                                <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                        <Text  style={[trTdText(),getAgencyStatusColor()]}>{item.Holder3}</Text>
-                                    </View>
 
-                                    <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.Name}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInDay}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                        <Text  style={[trTdText(),getAgencyAdminCheckOutColor()]}>{item.CheckOutDay}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInDate}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                        <Text  style={[trTdText(),getAgencyAdminCheckOutColor()]}>{item.CheckOutDate}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInTime}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                        <Text  style={[trTdText(),getAgencyAdminCheckOutColor()]}>{item.CheckOutTime}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInLongitude}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInLatitude}</Text>
-                                    </View>
-                                    <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                        <View style={{width:20}} ></View>
-                                    </View>
-                                </View>
-                            </ScrollView>
+                    {DoNotShowAdminCheckInScreen ?(<></>):(<>
+                        <View style={{height:20}} ></View>
+                        {DoNotShowAdminCheckInDetailsScreen ?(<></>):(<>
+                            <View style = {[mainTableTitleHandleView2(),getBackgroundColor(AdminAccountStatus)]} >
+                                <Text style = { styles.tableTitleHandleText}> Check In Details </Text>
                             </View>
-                            ))}
-                    </View>
-                </>)}
+                            <View style={styles.mainTableOuterView} >
+                                    {AdminCheckedInDetails && AdminCheckedInDetails.map((item, index) => ( 
+                                    <View key={index}> 
+                                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                                        <View style={styles.mainTableView}>
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getAgencyStatusColor()]}>{item.Holder3}</Text>
+                                            </View>
 
-                {DoNotShowAdminPendingCheckInScreen ?(<></>):(<>
-                    <View style={{height:20}} ></View>
-                    {DoNotShowAdminPendingCheckInDetailsScreen ?(<></>):(<>
-                        <View style = {[mainTableTitleHandleView2(),getBackgroundColor(AdminAccountStatus)]} >
-                            <Text style = { styles.tableTitleHandleText}> Check In Details </Text>
-                        </View>
-                        <View style={styles.mainTableOuterView} >
-                                {AdminPendingCheckedInDetails && AdminPendingCheckedInDetails.map((item, index) => ( 
-                                <View key={index}> 
-                                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                                    <View style={styles.mainTableView}>
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getAgencyStatusColor()]}>{item.Holder3}</Text>
-                                        </View>
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.Name}</Text>
+                                            </View>
 
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.Name}</Text>
-                                        </View>
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInDay}</Text>
+                                            </View>
 
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInDay}</Text>
-                                        </View>
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getAgencyAdminCheckOutColor()]}>{item.CheckOutDay}</Text>
+                                            </View>
 
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getAgencyAdminCheckOutColor()]}>{item.CheckOutDay}</Text>
-                                        </View>
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInDate}</Text>
+                                            </View>
 
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInDate}</Text>
-                                        </View>
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getAgencyAdminCheckOutColor()]}>{item.CheckOutDate}</Text>
+                                            </View>
 
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getAgencyAdminCheckOutColor()]}>{item.CheckOutDate}</Text>
-                                        </View>
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInTime}</Text>
+                                            </View>
 
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInTime}</Text>
-                                        </View>
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getAgencyAdminCheckOutColor()]}>{item.CheckOutTime}</Text>
+                                            </View>
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInLongitude}</Text>
+                                            </View>
 
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getAgencyAdminCheckOutColor()]}>{item.CheckOutTime}</Text>
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInLatitude}</Text>
+                                            </View>
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <TouchableOpacity onPress={()=>{this.showAdminApproveCheckInScreen(item.id,item.Name,item.CheckInDay,item.CheckInDate,item.CheckInTime,item.CheckOutDay,item.CheckOutDate,item.CheckOutTime,item.CheckInLongitude,item.CheckInLatitude)}} style={styles.ratingChatBtn2} >
+                                                <Text style={styles.ratingChatBtnText} >Approve Worker</Text> 
+                                            </TouchableOpacity>
+                                            </View>
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <View style={{width:20}} ></View>
+                                            </View>
                                         </View>
-
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInLongitude}</Text>
-                                        </View>
-
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInLatitude}</Text>
-                                        </View>
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <TouchableOpacity onPress={()=>{this.showAdminApprovePendingCheckInScreen(item.id,item.Name,item.CheckInDay,item.CheckInDate,item.CheckInTime,item.CheckOutDay,item.CheckOutDate,item.CheckOutTime,item.CheckInLongitude,item.CheckInLatitude)}} style={styles.ratingChatBtn2} >
-                                            <Text style={styles.ratingChatBtnText} >Approve Worker</Text> 
-                                        </TouchableOpacity>
-                                        </View>
-                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
-                                            <View style={{width:20}} ></View>
-                                        </View>
+                                    </ScrollView>
                                     </View>
-                                </ScrollView>
-                                </View>
-                                ))}
-                        </View>
-                        </>)}
-                    
-                        {DoNotShowAdminApprovePendingCheckInScreen?<></>:(<>
+                                    ))}
+                            </View>
+                            </>)}
+                        
+                        {DoNotShowAdminApproveCheckInScreen?<></>:(<>
                             <View style={{height:15}} ></View>
                             <View style={styles.ApplyCardView}>
                                 <View style={{height:5}} ></View>
@@ -1969,6 +1704,7 @@ render() {
                                         <Text style = {styles.checkInCardRightText}>  {AdminApproveCheckInDay}  </Text>
                                     </View>
                                 </View>
+
                                 <View style = {styles.checkInCardView} >
                                     <View style = {styles.checkInLineCardVieW}></View>
                                     <View style={{height:20}} ></View>
@@ -1987,6 +1723,7 @@ render() {
                                     <View style={{height:20}} ></View>
                                 </View>
 
+
                                 <View style = {styles.checkInCardView} >
                                     <View style = {styles.checkInCardLeftView} >
                                         <Text style = {styles.checkInCardLeftText}> Date-In  </Text>
@@ -1995,7 +1732,6 @@ render() {
                                         <Text style = {styles.checkInCardRightText}>  {AdminApproveCheckInDate} </Text>
                                     </View>
                                 </View>
-
                                 <View style = {styles.checkInCardView} >
                                     <View style = {styles.checkInLineCardVieW}></View>
                                     <View style={{height:20}} ></View>
@@ -2013,7 +1749,6 @@ render() {
                                     <View style = {styles.checkInLineCardVieW}></View>
                                     <View style={{height:20}} ></View>
                                 </View>
-
 
                                 <View style = {styles.checkInCardView} >
                                     <View style = {styles.checkInCardLeftView} >
@@ -2075,45 +1810,316 @@ render() {
                                         <Text style = {styles.btnText}> Approve </Text>
                                     </TouchableOpacity>
                                     <View style={{height:20}} ></View>
-                                    <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn3]} onPress={()=>{this.showAdminPendingCheckInDetailsScreen()}}  >
+                                    <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn3]} onPress={()=>{this.showAdminCheckInDetailsScreen()}}  >
                                         <Text style = {styles.btnText}> Cancel  </Text>
                                     </TouchableOpacity>
-                                    <View style={{height:20}} ></View>
+                                    <View style={{height:20}}></View>
                                 </View>
                             </View>
                         </>)}
                     </>)}
 
-                    {DoNotShowAdminHelpScreen ?(<></>):(<>
-                    <View style={{height:15}} ></View>
+                    {DoNotShowAdminCheckOutScreen ?(<></>):(<>
+                        <View style={{height:20}} ></View>
+                        <View style = {[mainTableTitleHandleView2(),getBackgroundColor(AdminAccountStatus)]} >
+                            <Text style = { styles.tableTitleHandleText}>Checked Out Details </Text>
+                        </View>
+                        <View style={styles.mainTableOuterView} >
+                                {AdminCheckedOutDetails && AdminCheckedOutDetails.map((item, index) => ( 
+                                <View key={index}> 
+                                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                                    <View style={styles.mainTableView}>
+                                    <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                            <Text  style={[trTdText(),getAgencyStatusColor()]}>{item.Holder3}</Text>
+                                        </View>
 
-                    <View  style={styles.MainInnerCardAboutView}>
-                        <Text style={[aboutTitleText(),getPlainColor(AdminAccountStatus)]} >On Profile</Text>
-                        <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >1. Workers List</Text>
-                        <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >Shows List Of All Workers</Text>
-                        <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >2. Check Ins</Text>
-                        <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >Shows Today's Workers Who Have Checked In And Not Yet Approved</Text>
-                        <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >3. Checked Outs</Text>
-                        <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >Shows All The Workers Have Checked Out And Approved</Text>
-                        <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >4. Pending Check Ins</Text>
-                        <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >Shows All The Workers Who Have Checked In And Not Yet Approved</Text>
+                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.Name}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInDay}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                            <Text  style={[trTdText(),getAgencyAdminCheckOutColor()]}>{item.CheckOutDay}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInDate}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                            <Text  style={[trTdText(),getAgencyAdminCheckOutColor()]}>{item.CheckOutDate}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInTime}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                            <Text  style={[trTdText(),getAgencyAdminCheckOutColor()]}>{item.CheckOutTime}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInLongitude}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInLatitude}</Text>
+                                        </View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                            <View style={{width:20}} ></View>
+                                        </View>
+                                    </View>
+                                </ScrollView>
+                                </View>
+                                ))}
+                        </View>
+                    </>)}
+
+                    {DoNotShowAdminPendingCheckInScreen ?(<></>):(<>
+                        <View style={{height:20}} ></View>
+                        {DoNotShowAdminPendingCheckInDetailsScreen ?(<></>):(<>
+                            <View style = {[mainTableTitleHandleView2(),getBackgroundColor(AdminAccountStatus)]} >
+                                <Text style = { styles.tableTitleHandleText}> Check In Details </Text>
+                            </View>
+                            <View style={styles.mainTableOuterView} >
+                                    {AdminPendingCheckedInDetails && AdminPendingCheckedInDetails.map((item, index) => ( 
+                                    <View key={index}> 
+                                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                                        <View style={styles.mainTableView}>
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getAgencyStatusColor()]}>{item.Holder3}</Text>
+                                            </View>
+
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.Name}</Text>
+                                            </View>
+
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInDay}</Text>
+                                            </View>
+
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getAgencyAdminCheckOutColor()]}>{item.CheckOutDay}</Text>
+                                            </View>
+
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInDate}</Text>
+                                            </View>
+
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getAgencyAdminCheckOutColor()]}>{item.CheckOutDate}</Text>
+                                            </View>
+
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInTime}</Text>
+                                            </View>
+
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getAgencyAdminCheckOutColor()]}>{item.CheckOutTime}</Text>
+                                            </View>
+
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInLongitude}</Text>
+                                            </View>
+
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <Text  style={[trTdText(),getPlainColor(AdminAccountStatus)]}>{item.CheckInLatitude}</Text>
+                                            </View>
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <TouchableOpacity onPress={()=>{this.showAdminApprovePendingCheckInScreen(item.id,item.Name,item.CheckInDay,item.CheckInDate,item.CheckInTime,item.CheckOutDay,item.CheckOutDate,item.CheckOutTime,item.CheckInLongitude,item.CheckInLatitude)}} style={styles.ratingChatBtn2} >
+                                                <Text style={styles.ratingChatBtnText} >Approve Worker</Text> 
+                                            </TouchableOpacity>
+                                            </View>
+                                            <View style={[tableTrView(),getBorderBottomColor(AdminAccountStatus)]} >
+                                                <View style={{width:20}} ></View>
+                                            </View>
+                                        </View>
+                                    </ScrollView>
+                                    </View>
+                                    ))}
+                            </View>
+                            </>)}
                         
+                            {DoNotShowAdminApprovePendingCheckInScreen?<></>:(<>
+                                <View style={{height:15}} ></View>
+                                <View style={styles.ApplyCardView}>
+                                    <View style={{height:5}} ></View>
+                                    
+                                    <TouchableOpacity style={[styles.MainNavigationBtnAgency, styles.MainNavigationBtn4]}  >
+                                        <Text style = {styles.btnText}>Checked In User Details  </Text>
+                                    </TouchableOpacity>
+                                    <View style={{height:10}} ></View>
 
-                        <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >5. Approve Worker</Text>
-                        <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >Approves A Worker Who Have Check Out </Text>
-                        <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >6. Pending</Text>
-                        <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >It Means That Worker Is Not Yet Approved By The Manager</Text>
-                        <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >7. Approved</Text>
-                        <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >It Means That Worker Was Approved By The Manager</Text>
-                        <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >8. Waiting...</Text>
-                        <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >It Shows That The Worker Has Not Yet Check Out</Text>
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInCardLeftView} >
+                                            <Text style = {styles.checkInCardLeftText}> Name  </Text>
+                                        </View>
+                                        <View style = {styles.checkInCardRightView} >
+                                            <Text style = {styles.checkInCardRightText}>  {AdminApproveName}  </Text>
+                                        </View>
+                                    </View>
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInLineCardVieW}></View>
+                                        <View style={{height:20}} ></View>
+                                    </View>
+
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInCardLeftView} >
+                                            <Text style = {styles.checkInCardLeftText}> Day-In  </Text>
+                                        </View>
+                                        <View style = {styles.checkInCardRightView} >
+                                            <Text style = {styles.checkInCardRightText}>  {AdminApproveCheckInDay}  </Text>
+                                        </View>
+                                    </View>
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInLineCardVieW}></View>
+                                        <View style={{height:20}} ></View>
+                                    </View>
+
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInCardLeftView} >
+                                            <Text style = {styles.checkOutCardText}> Day-Out  </Text>
+                                        </View>
+                                        <View style = {styles.checkInCardRightView} >
+                                            <Text style = {styles.checkOutCardText}>  {AdminApproveCheckOutDay}  </Text>
+                                        </View>
+                                    </View>
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInLineCardVieW}></View>
+                                        <View style={{height:20}} ></View>
+                                    </View>
+
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInCardLeftView} >
+                                            <Text style = {styles.checkInCardLeftText}> Date-In  </Text>
+                                        </View>
+                                        <View style = {styles.checkInCardRightView} >
+                                            <Text style = {styles.checkInCardRightText}>  {AdminApproveCheckInDate} </Text>
+                                        </View>
+                                    </View>
+
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInLineCardVieW}></View>
+                                        <View style={{height:20}} ></View>
+                                    </View>
+
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInCardLeftView} >
+                                            <Text style = {styles.checkOutCardText}> Date-Out  </Text>
+                                        </View>
+                                        <View style = {styles.checkInCardRightView} >
+                                            <Text style = {styles.checkOutCardText}>  {AdminApproveCheckOutDate}  </Text>
+                                        </View>
+                                    </View>
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInLineCardVieW}></View>
+                                        <View style={{height:20}} ></View>
+                                    </View>
 
 
-                
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInCardLeftView} >
+                                            <Text style = {styles.checkInCardLeftText}> Time-In </Text>
+                                        </View>
+                                        <View style = {styles.checkInCardRightView} >
+                                            <Text style = {styles.checkInCardRightText}>  {AdminApproveCheckInTime} </Text>
+                                        </View>
+                                    </View>
 
-                    </View>
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInLineCardVieW}></View>
+                                        <View style={{height:20}} ></View>
+                                    </View>
 
-                </>)}
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInCardLeftView} >
+                                            <Text style = {styles.checkOutCardText}> Time-Out </Text>
+                                        </View>
+                                        <View style = {styles.checkInCardRightView} >
+                                            <Text style = {styles.checkOutCardText}>  {AdminApproveCheckOutTime}  </Text>
+                                        </View>
+                                    </View>
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInLineCardVieW}></View>
+                                        <View style={{height:20}} ></View>
+                                    </View>
+
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInCardLeftView} >
+                                            <Text style = {styles.checkInCardLeftText}> Latitude-In </Text>
+                                        </View>
+                                        <View style = {styles.checkInCardRightView} >
+                                            <Text style = {styles.checkInCardRightText}>  {AdminApproveCheckInLatitude} </Text>
+                                        </View>
+                                    </View>
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInLineCardVieW}></View>
+                                        <View style={{height:20}} ></View>
+                                    </View>
+
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInCardLeftView} >
+                                            <Text style = {styles.checkInCardLeftText}> Longitude-In </Text>
+                                        </View>
+                                        <View style = {styles.checkInCardRightView} >
+                                            <Text style = {styles.checkInCardRightText}>  {AdminApproveCheckInLongitude} </Text>
+                                        </View>
+                                    </View>
+                                    <View style = {styles.checkInCardView} >
+                                        <View style = {styles.checkInLineCardVieW}></View>
+                                        <View style={{height:20}} ></View>
+                                    </View>
+
+                                    
+
+                                    <View style={{alignItems:'center', marginTop:20}} >
+                                        <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn1]} onPress={this.postAdminApproval} >
+                                            <Text style = {styles.btnText}> Approve </Text>
+                                        </TouchableOpacity>
+                                        <View style={{height:20}} ></View>
+                                        <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn3]} onPress={()=>{this.showAdminPendingCheckInDetailsScreen()}}  >
+                                            <Text style = {styles.btnText}> Cancel  </Text>
+                                        </TouchableOpacity>
+                                        <View style={{height:20}} ></View>
+                                    </View>
+                                </View>
+                            </>)}
+                        </>)}
+
+                        {DoNotShowAdminHelpScreen ?(<></>):(<>
+                        <View style={{height:15}} ></View>
+
+                        <View  style={styles.MainInnerCardAboutView}>
+                            <Text style={[aboutTitleText(),getPlainColor(AdminAccountStatus)]} >On Profile</Text>
+                            <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >1. Workers List</Text>
+                            <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >Shows List Of All Workers</Text>
+                            <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >2. Check Ins</Text>
+                            <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >Shows Today's Workers Who Have Checked In And Not Yet Approved</Text>
+                            <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >3. Checked Outs</Text>
+                            <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >Shows All The Workers Have Checked Out And Approved</Text>
+                            <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >4. Pending Check Ins</Text>
+                            <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >Shows All The Workers Who Have Checked In And Not Yet Approved</Text>
+                            
+
+                            <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >5. Approve Worker</Text>
+                            <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >Approves A Worker Who Have Check Out </Text>
+                            <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >6. Pending</Text>
+                            <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >It Means That Worker Is Not Yet Approved By The Manager</Text>
+                            <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >7. Approved</Text>
+                            <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >It Means That Worker Was Approved By The Manager</Text>
+                            <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >8. Waiting...</Text>
+                            <Text style={[aboutText(),getPlainColor(AdminAccountStatus)]} >It Shows That The Worker Has Not Yet Check Out</Text>
+
+
+                    
+
+                        </View>
+
+                    </>)}
+                </ScrollView>
             </>)}
 
 
@@ -2133,7 +2139,6 @@ render() {
 
 
                 <View style={styles.MainBottomSpaceView}></View>
-                </ScrollView>
             </View>
 
     );

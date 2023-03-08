@@ -16,14 +16,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mogahenze.triplecare"
     },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#8f33ff"
       },
       "package": "com.mogahenze.triplecare",
-      "versionCode": 12
+      "versionCode": 13
     },
     "web": {
       "favicon": "./assets/favicon.png"

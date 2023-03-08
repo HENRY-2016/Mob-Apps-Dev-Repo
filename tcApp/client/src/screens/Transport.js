@@ -352,7 +352,6 @@ render() {
                 </TouchableOpacity>
             </View>
             </View>
-                <ScrollView showsVerticalScrollIndicator={false} >
                     <View style={styles.MainTopHeaderView} >
                         <View style={styles.MainTopHeaderTextView}>
                             <Text style={styles.MainTopHeaderTextLabel}> Welcome To Tc Transport{"\n"}Tc Boda Tc Taxi </Text>
@@ -363,46 +362,48 @@ render() {
 
 
                     {DoNotShowHomeScreen ? <></>:(<>
-                        <View style={{height:5}} ></View>
-                        {CheckUserLogInDetails ?(<>
-                            <View style={styles.ApplyCardView3} >
-                                <View style={{height:20}} ></View>
-                                <View style={{alignItems:'center'}} >
-                                    <View style={{height:30}} ></View>
-                                    <Text style = {styles.AgencyNameText}> Checking Logging In Details</Text>
-                                    <View style={{height:30}} ></View>
-                                    <View style={styles.activityIndicatorContainer}>
-                                        <ActivityIndicator size="large" color={COLORS.white}/>
-                                    </View>
-                                    <View style={{height:30}} ></View>
-                                </View>
-                            </View>
-                        </>):(<>
-                            {IsUserNotLoggedIn?(<>
-                                <View style={styles.ApplyCardView} >
+                        <ScrollView showsVerticalScrollIndicator={false} >
+                            <View style={{height:5}} ></View>
+                            {CheckUserLogInDetails ?(<>
+                                <View style={styles.ApplyCardView3} >
                                     <View style={{height:20}} ></View>
                                     <View style={{alignItems:'center'}} >
-                                        <Image source={UserImg} style={styles.AgencyIcon}/>
-                                    </View>
-                                    <View style={{height:30}} ></View>
-
-                                    <Text style = {styles.btnText}> User Log In  </Text>
-
-                                    <TextInput style={styles.input} placeholder="Tc Number" onChangeText={text => this.setLogInNumber(text)}  
-                                        placeholderTextColor = "#5800c4"/>
-
-                                    <TextInput style={styles.input} placeholder="Password" onChangeText={text => this.setLogInPassword(text)}  
-                                        placeholderTextColor = "#5800c4" secureTextEntry />
-
-                                    <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn4]} onPress={()=>{ this.logInUser()}} >
-                                        <Text style = {styles.btnText}> Log In  </Text>
-                                        <View style={styles.ArrowMainViewLogIn}>
-                                            <AntDesign style={styles.ArrowIconLogIn} name="login" size={25} color="white" />
+                                        <View style={{height:30}} ></View>
+                                        <Text style = {styles.AgencyNameText}> Checking Logging In Details</Text>
+                                        <View style={{height:30}} ></View>
+                                        <View style={styles.activityIndicatorContainer}>
+                                            <ActivityIndicator size="large" color={COLORS.white}/>
                                         </View>
-                                    </TouchableOpacity>
+                                        <View style={{height:30}} ></View>
+                                    </View>
                                 </View>
-                            </>):(<>{this.showProfileScreen()}</>)}
-                            </>)}
+                            </>):(<>
+                                {IsUserNotLoggedIn?(<>
+                                    <View style={styles.ApplyCardView} >
+                                        <View style={{height:20}} ></View>
+                                        <View style={{alignItems:'center'}} >
+                                            <Image source={UserImg} style={styles.AgencyIcon}/>
+                                        </View>
+                                        <View style={{height:30}} ></View>
+
+                                        <Text style = {styles.btnText}> User Log In  </Text>
+
+                                        <TextInput style={styles.input} placeholder="Tc Number" onChangeText={text => this.setLogInNumber(text)}  
+                                            placeholderTextColor = "#5800c4"/>
+
+                                        <TextInput style={styles.input} placeholder="Password" onChangeText={text => this.setLogInPassword(text)}  
+                                            placeholderTextColor = "#5800c4" secureTextEntry />
+
+                                        <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn4]} onPress={()=>{ this.logInUser()}} >
+                                            <Text style = {styles.btnText}> Log In  </Text>
+                                            <View style={styles.ArrowMainViewLogIn}>
+                                                <AntDesign style={styles.ArrowIconLogIn} name="login" size={25} color="white" />
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                </>):(<>{this.showProfileScreen()}</>)}
+                                </>)}
+                        </ScrollView>
                     </>)}
                     <View style={{height:20}}></View>
 
@@ -419,110 +420,63 @@ render() {
 
                     {  DoNotShowProfileScreen ? <></>:(<>
                         {this.renderNavigationButtons()}
-                        <View style={{height:15}} ></View>
-                        <View style = {[userProfileView(),getBackgroundColor(AccountStatus)]} >
-                            <View style = {[styles.UserProfileImageView]} >
-                                <Entypo name="user" size={90} color="white" />
-                            </View>
-                            <View style = {[styles.UserProfileNameView]} >
-                                <Text style = {styles.btnText}>{ClubMemberName}</Text>
-
-                                <View style={{height:20}} ></View>
-                                <Text style = {styles.btnText}> {convertToUpperCase(ClubMemberCardNo)} </Text>
-
-                            </View>
-                        </View>
-                        
-                        <View style={{height:20}} ></View>
-                        <View style = {[mainTableTitleHandleView(),getBackgroundColor(AccountStatus)]} >
-                            <Text style = { styles.tableTitleHandleText}> Boda Orders </Text>
-                        </View>
-
-                        <View style={styles.mainTableOuterView} >
-                        {TcBodaUserOrders && TcBodaUserOrders.map((item, index) => (
-                            <View key={index}>
-                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                                <View style={styles.mainTableView}>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Name}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{convertToUpperCase(item.Number)}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Holder1}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.From}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.To}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Service}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Date}</Text>
-                                    </View>
-
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.LogInPassword}</Text>
-                                    </View>
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <View style={{width:20}} ></View>
-                                    </View>
+                        <ScrollView showsVerticalScrollIndicator={false} >
+                            <View style={{height:15}} ></View>
+                            <View style = {[userProfileView(),getBackgroundColor(AccountStatus)]} >
+                                <View style = {[styles.UserProfileImageView]} >
+                                    <Entypo name="user" size={90} color="white" />
                                 </View>
-                            </ScrollView>
-                            </View>
-                            ))}
-                            </View>
+                                <View style = {[styles.UserProfileNameView]} >
+                                    <Text style = {styles.btnText}>{ClubMemberName}</Text>
 
+                                    <View style={{height:20}} ></View>
+                                    <Text style = {styles.btnText}> {convertToUpperCase(ClubMemberCardNo)} </Text>
+
+                                </View>
+                            </View>
+                            
                             <View style={{height:20}} ></View>
                             <View style = {[mainTableTitleHandleView(),getBackgroundColor(AccountStatus)]} >
-                                <Text style = { styles.tableTitleHandleText}> Taxi Orders </Text>
+                                <Text style = { styles.tableTitleHandleText}> Boda Orders </Text>
                             </View>
 
                             <View style={styles.mainTableOuterView} >
-                            {TcTaxiUserOrders && TcTaxiUserOrders.map((item, index) => (
+                            {TcBodaUserOrders && TcBodaUserOrders.map((item, index) => (
                                 <View key={index}>
                                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
                                     <View style={styles.mainTableView}>
-                                        
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Name}</Text>
-                                    </View>
 
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{convertToUpperCase(item.Number)}</Text>
-                                    </View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Name}</Text>
+                                        </View>
 
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Holder1}</Text>
-                                    </View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{convertToUpperCase(item.Number)}</Text>
+                                        </View>
 
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.From}</Text>
-                                    </View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Holder1}</Text>
+                                        </View>
 
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.To}</Text>
-                                    </View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.From}</Text>
+                                        </View>
 
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Service}</Text>
-                                    </View>
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.To}</Text>
+                                        </View>
 
-                                    <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
-                                        <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Date}</Text>
-                                    </View>
-                                        
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Service}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Date}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.LogInPassword}</Text>
+                                        </View>
                                         <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
                                             <View style={{width:20}} ></View>
                                         </View>
@@ -531,14 +485,63 @@ render() {
                                 </View>
                                 ))}
                                 </View>
-                                
 
-                        <View style={{height:20}} ></View>
-                        <View >
-                            <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth4(),getBackgroundColor(AccountStatus)]} onPress={this.logOutUser} >
-                                <Text style = {styles.btnText}> Log Out  </Text>
-                            </TouchableOpacity>
-                        </View>
+                                <View style={{height:20}} ></View>
+                                <View style = {[mainTableTitleHandleView(),getBackgroundColor(AccountStatus)]} >
+                                    <Text style = { styles.tableTitleHandleText}> Taxi Orders </Text>
+                                </View>
+
+                                <View style={styles.mainTableOuterView} >
+                                {TcTaxiUserOrders && TcTaxiUserOrders.map((item, index) => (
+                                    <View key={index}>
+                                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                                        <View style={styles.mainTableView}>
+                                            
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Name}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{convertToUpperCase(item.Number)}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Holder1}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.From}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.To}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Service}</Text>
+                                        </View>
+
+                                        <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                            <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.Date}</Text>
+                                        </View>
+                                            
+                                            <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
+                                                <View style={{width:20}} ></View>
+                                            </View>
+                                        </View>
+                                    </ScrollView>
+                                    </View>
+                                    ))}
+                                    </View>
+                                    
+
+                            <View style={{height:20}} ></View>
+                            <View >
+                                <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth4(),getBackgroundColor(AccountStatus)]} onPress={this.logOutUser} >
+                                    <Text style = {styles.btnText}> Log Out  </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </ScrollView>
                     </>)}
                     
                     {/* 
@@ -552,65 +555,67 @@ render() {
                     */}
                     { DoNotShowTcBodaScreen ?<></>:(<>
                         {this.renderNavigationButtons()}
-                        <View style={{height:20}} ></View>
-                        <View style={{alignItems:'center'}} >
-                            <Fontisto name="motorcycle" size={80} color={COLORS.colourNumberOne} />
-                        </View>
-                        {DoNowShowTcBodaHomeScreen?(<></>):(<>
-                        <View style={{height:15}} ></View>
-                        <View style={styles.MainOuterCardListView} >
-                            <View  style={styles.MainInnerCardAboutView}>
-                                <Text style={[aboutTitleText(),getPlainColor(AccountStatus)]} >Triple Care  Boda</Text>
-                                <Text style={[aboutText(),getPlainColor(AccountStatus)]} >1. Enjoy Tc Ride</Text>
+                        <ScrollView showsVerticalScrollIndicator={false} >
+                            <View style={{height:20}} ></View>
+                            <View style={{alignItems:'center'}} >
+                                <Fontisto name="motorcycle" size={80} color={COLORS.colourNumberOne} />
                             </View>
-                            <View style={{alignItems:'center'}}>
-                                <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth2(),getBackgroundColor(AccountStatus)]} onPress={this.showTcBodaOrderScreen} >
-                                    <Text style = {styles.btnText}> Get A Ride Now  </Text>
-                                </TouchableOpacity>
-                                <View style={{height:20}} ></View>
-                            </View>
-                        </View>
-                        </>)}
-
-                        {DoNowShowTcBodaOrderScreen?(<></>):(<>
-                        <View>
-                            <Text style={[aboutTitleText(),getPlainColor(AccountStatus)]} >....Ordering Tc Boda Now...</Text>
-                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >Enter Your Details & Submit </Text>
-                                
-                            <View style={styles.orderListDetailsText} >
-                            
-                                <TextInput style={styles.bookingInput}  editable = {false} defaultValue={ClubMemberName}  
-                                placeholderTextColor = "#5800c4"/>
-
-                                <TextInput style={[styles.bookingInput]}   editable = {false} defaultValue={ClubMemberCardNo}
-                                placeholderTextColor = "#5800c4"/>
-
-                                <TextInput style={[styles.bookingInput]} placeholder="Mobile Number"  onChangeText={text => this.setOrderPhone(text)}
-                                placeholderTextColor = "#5800c4" />
-
-                                <TextInput style={[styles.bookingInput]} placeholder="From :  Pickup Area"  onChangeText={text => this.setOrderFrom(text)}
-                                placeholderTextColor = "#5800c4" />
-
-                                <TextInput style={[styles.bookingInput]} placeholder="To :: End Point" onChangeText={text => this.setOrderTo(text)}
-                                placeholderTextColor = "#5800c4" />
-
-                                <TextInput style={[styles.bookingInput]} placeholder="Booking Time" onChangeText={text => this.setOrderTo(text)}
-                                placeholderTextColor = "#5800c4" />
-
+                            {DoNowShowTcBodaHomeScreen?(<></>):(<>
+                            <View style={{height:15}} ></View>
+                            <View style={styles.MainOuterCardListView} >
+                                <View  style={styles.MainInnerCardAboutView}>
+                                    <Text style={[aboutTitleText(),getPlainColor(AccountStatus)]} >Triple Care  Boda</Text>
+                                    <Text style={[aboutText(),getPlainColor(AccountStatus)]} >1. Enjoy Tc Ride</Text>
+                                </View>
                                 <View style={{alignItems:'center'}}>
-                                <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} onPress={()=>this.postUserTransportOder('Boda')} >
-                                    <Text style = {styles.btnText}> Submit  </Text>
-                                </TouchableOpacity>
-                                <View style={{height:20}} ></View>
-                                <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth3(),getBackgroundColor(AccountStatus)]} onPress={this.showTcBodaHomeScreen}  >
-                                    <Text style = {styles.btnText}>  Cancel This Ride</Text>
-                                </TouchableOpacity>
-                                <View style={{height:20}} ></View>
+                                    <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth2(),getBackgroundColor(AccountStatus)]} onPress={this.showTcBodaOrderScreen} >
+                                        <Text style = {styles.btnText}> Get A Ride Now  </Text>
+                                    </TouchableOpacity>
+                                    <View style={{height:20}} ></View>
+                                </View>
+                            </View>
+                            </>)}
 
+                            {DoNowShowTcBodaOrderScreen?(<></>):(<>
+                            <View>
+                                <Text style={[aboutTitleText(),getPlainColor(AccountStatus)]} >....Ordering Tc Boda Now...</Text>
+                                <Text style={[aboutText(),getPlainColor(AccountStatus)]} >Enter Your Details & Submit </Text>
+                                    
+                                <View style={styles.orderListDetailsText} >
+                                
+                                    <TextInput style={styles.bookingInput}  editable = {false} defaultValue={ClubMemberName}  
+                                    placeholderTextColor = "#5800c4"/>
+
+                                    <TextInput style={[styles.bookingInput]}   editable = {false} defaultValue={ClubMemberCardNo}
+                                    placeholderTextColor = "#5800c4"/>
+
+                                    <TextInput style={[styles.bookingInput]} placeholder="Mobile Number"  onChangeText={text => this.setOrderPhone(text)}
+                                    placeholderTextColor = "#5800c4" />
+
+                                    <TextInput style={[styles.bookingInput]} placeholder="From :  Pickup Area"  onChangeText={text => this.setOrderFrom(text)}
+                                    placeholderTextColor = "#5800c4" />
+
+                                    <TextInput style={[styles.bookingInput]} placeholder="To :: End Point" onChangeText={text => this.setOrderTo(text)}
+                                    placeholderTextColor = "#5800c4" />
+
+                                    <TextInput style={[styles.bookingInput]} placeholder="Booking Time" onChangeText={text => this.setOrderTo(text)}
+                                    placeholderTextColor = "#5800c4" />
+
+                                    <View style={{alignItems:'center'}}>
+                                    <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} onPress={()=>this.postUserTransportOder('Boda')} >
+                                        <Text style = {styles.btnText}> Submit  </Text>
+                                    </TouchableOpacity>
+                                    <View style={{height:20}} ></View>
+                                    <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth3(),getBackgroundColor(AccountStatus)]} onPress={this.showTcBodaHomeScreen}  >
+                                        <Text style = {styles.btnText}>  Cancel This Ride</Text>
+                                    </TouchableOpacity>
+                                    <View style={{height:20}} ></View>
+
+                                </View>
+                                </View>
                             </View>
-                            </View>
-                        </View>
-                        </>)}
+                            </>)}
+                        </ScrollView>
                     </>)}
                     
                     {/* 
@@ -624,70 +629,69 @@ render() {
                     */}
                     {DoNotShowTcTaxiScreen?<></>:(<>
                         {this.renderNavigationButtons()}
-                        <View style={{height:20}} ></View>
-                        <View style={{alignItems:'center'}} >
-                            <Fontisto name="taxi" size={70} color={COLORS.colourNumberOne} />
-                        </View>
-                        <View style={{height:15}} ></View>
-
-                        {DoNowShowTcTaxiHomeScreen?(<></>):(<>
-                        <View style={{height:15}} ></View>
-                        <View style={styles.MainOuterCardListView} >
-                            <View  style={styles.MainInnerCardAboutView}>
-                                <Text style={[aboutTitleText(),getPlainColor(AccountStatus)]} >Triple Care  Taxi</Text>
-                                <Text style={[aboutText(),getPlainColor(AccountStatus)]} >1. Enjoy Tc Drive</Text>
+                        <ScrollView showsVerticalScrollIndicator={false} >
+                            <View style={{height:20}} ></View>
+                            <View style={{alignItems:'center'}} >
+                                <Fontisto name="taxi" size={70} color={COLORS.colourNumberOne} />
                             </View>
-                            <View style={{alignItems:'center'}}>
-                                <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth2(),getBackgroundColor(AccountStatus)]} onPress={this.showTcTaxiOrderScreen} >
-                                    <Text style = {styles.btnText}> Get A Drive Now  </Text>
-                                </TouchableOpacity>
-                                <View style={{height:20}} ></View>
-                            </View>
-                        </View>
-                        </>)}
+                            <View style={{height:15}} ></View>
 
-                        {DoNowShowTcTaxiOrderScreen?(<></>):(<>
-                        <View>
-                            <Text style={[aboutTitleText(),getPlainColor(AccountStatus)]} >....Ordering Tc Taxi Now...</Text>
-                            <Text style={[aboutText(),getPlainColor(AccountStatus)]} >Enter Your Details & Submit </Text>
-                                
-                            <View style={styles.orderListDetailsText} >
-                            
-                                <TextInput style={styles.bookingInput}  editable = {false} defaultValue={ClubMemberName}  
-                                placeholderTextColor = "#5800c4"/>
-
-                                <TextInput style={[styles.bookingInput]}   editable = {false} defaultValue={ClubMemberCardNo}
-                                placeholderTextColor = "#5800c4"/>
-
-                                <TextInput style={[styles.bookingInput]} placeholder="Mobile Number"  onChangeText={text => this.setOrderPhone(text)}
-                                placeholderTextColor = "#5800c4" />
-
-                                <TextInput style={[styles.bookingInput]} placeholder="From :  Pickup Area"  onChangeText={text => this.setOrderFrom(text)}
-                                placeholderTextColor = "#5800c4" />
-
-                                <TextInput style={[styles.bookingInput]} placeholder="To :: End Point" onChangeText={text => this.setOrderTo(text)}
-                                placeholderTextColor = "#5800c4" />
-
-                                <TextInput style={[styles.bookingInput]} placeholder="Booking Time" onChangeText={text => this.setOrderTo(text)}
-                                placeholderTextColor = "#5800c4" />
-                                
+                            {DoNowShowTcTaxiHomeScreen?(<></>):(<>
+                            <View style={{height:15}} ></View>
+                            <View style={styles.MainOuterCardListView} >
+                                <View  style={styles.MainInnerCardAboutView}>
+                                    <Text style={[aboutTitleText(),getPlainColor(AccountStatus)]} >Triple Care  Taxi</Text>
+                                    <Text style={[aboutText(),getPlainColor(AccountStatus)]} >1. Enjoy Tc Drive</Text>
+                                </View>
                                 <View style={{alignItems:'center'}}>
-                                <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} onPress={()=>this.postUserTransportOder('Taxi')} >
-                                    <Text style = {styles.btnText}> Submit  </Text>
-                                </TouchableOpacity>
-                                <View style={{height:20}} ></View>
-                                <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth3(),getBackgroundColor(AccountStatus)]} onPress={this.showTcTaxiHomeScreen}  >
-                                    <Text style = {styles.btnText}>  Cancel This Drive</Text>
-                                </TouchableOpacity>
-                                <View style={{height:20}} ></View>
+                                    <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth2(),getBackgroundColor(AccountStatus)]} onPress={this.showTcTaxiOrderScreen} >
+                                        <Text style = {styles.btnText}> Get A Drive Now  </Text>
+                                    </TouchableOpacity>
+                                    <View style={{height:20}} ></View>
+                                </View>
                             </View>
-                            </View>
-                        </View>
-                        </>)}
-                    </>)}
+                            </>)}
 
-                
-            </ScrollView>
+                            {DoNowShowTcTaxiOrderScreen?(<></>):(<>
+                            <View>
+                                <Text style={[aboutTitleText(),getPlainColor(AccountStatus)]} >....Ordering Tc Taxi Now...</Text>
+                                <Text style={[aboutText(),getPlainColor(AccountStatus)]} >Enter Your Details & Submit </Text>
+                                    
+                                <View style={styles.orderListDetailsText} >
+                                
+                                    <TextInput style={styles.bookingInput}  editable = {false} defaultValue={ClubMemberName}  
+                                    placeholderTextColor = "#5800c4"/>
+
+                                    <TextInput style={[styles.bookingInput]}   editable = {false} defaultValue={ClubMemberCardNo}
+                                    placeholderTextColor = "#5800c4"/>
+
+                                    <TextInput style={[styles.bookingInput]} placeholder="Mobile Number"  onChangeText={text => this.setOrderPhone(text)}
+                                    placeholderTextColor = "#5800c4" />
+
+                                    <TextInput style={[styles.bookingInput]} placeholder="From :  Pickup Area"  onChangeText={text => this.setOrderFrom(text)}
+                                    placeholderTextColor = "#5800c4" />
+
+                                    <TextInput style={[styles.bookingInput]} placeholder="To :: End Point" onChangeText={text => this.setOrderTo(text)}
+                                    placeholderTextColor = "#5800c4" />
+
+                                    <TextInput style={[styles.bookingInput]} placeholder="Booking Time" onChangeText={text => this.setOrderTo(text)}
+                                    placeholderTextColor = "#5800c4" />
+                                    
+                                    <View style={{alignItems:'center'}}>
+                                    <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} onPress={()=>this.postUserTransportOder('Taxi')} >
+                                        <Text style = {styles.btnText}> Submit  </Text>
+                                    </TouchableOpacity>
+                                    <View style={{height:20}} ></View>
+                                    <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth3(),getBackgroundColor(AccountStatus)]} onPress={this.showTcTaxiHomeScreen}  >
+                                        <Text style = {styles.btnText}>  Cancel This Drive</Text>
+                                    </TouchableOpacity>
+                                    <View style={{height:20}} ></View>
+                                </View>
+                                </View>
+                            </View>
+                            </>)}
+                        </ScrollView>
+                    </>)}
             </View>
     );
 }

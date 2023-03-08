@@ -3,13 +3,18 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import {View,Image,Text} from "react-native";
 
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItemList,
-} from '@react-navigation/drawer';
+import { 
+        MaterialCommunityIcons,Entypo,Fontisto,FontAwesome5,
+        Feather,MaterialIcons,Ionicons,
+        
+    } from '@expo/vector-icons';
 
-import { LoadTcHealthAppData,LoadAgencyData } from './src/screens/AppDataFile';
+import {
+    createDrawerNavigator,
+    DrawerContentScrollView,
+    DrawerItemList,
+} from '@react-navigation/drawer';
+import {LoadAgencyData } from './src/screens/AppDataFile';
 // UIs
 import styles from "./src/screens/stylesheet";
 import Home from './src/screens/Home';
@@ -22,10 +27,10 @@ import Providers from './src/screens/Providers';
 import Store from './src/screens/Store';
 import TeamImage from './src/imgs/teamwork.png';
 import FeedBack from './src/screens/Feedback';
-import Claims from './src/screens/Claims';
+import Projects from './src/screens/Projects';
 import Live from './src/screens/Live';
-import Tv from './src/screens/Tv';
-import News from './src/screens/News';
+import Media from './src/screens/Media';
+
 import DemoLocation from './src/screens/DemoLocation';
 function CustomDrawerContent(props) {
 return (
@@ -57,77 +62,92 @@ return (
         drawerContent={(props) => <CustomDrawerContent {...props} />}
 
         screenOptions={{
-        drawerStyle: {backgroundColor: '#F7F7EE',width: 228},
+        drawerStyle: {backgroundColor: '#F7F7EE',width: 215},
         drawerActiveBackgroundColor:'#5800c4',
         drawerInactiveTintColor:'#5800c4',
         drawerActiveTintColor:'#fff',
-        drawerLabelStyle:{fontSize: 17,marginLeft:20}
+        drawerLabelStyle:{fontSize: 17,marginLeft:0}
         }}
     >
         
         
         <Drawer.Screen name="Home"   component={Home} options={{headerShown: false,swipeEnabled: false,
-        title: 'Tc Home',unmountOnBlur: true,
+        title: 'Home',unmountOnBlur: true,
+        drawerIcon:() => (<Feather name="home" size={26} color="#5800c4"/>),
         }} />
 
 
         <Drawer.Screen name="Club"   component={Club} options={{headerShown: false,swipeEnabled: false,
-        title: 'Tc Club',unmountOnBlur: true,
+        title: 'Club',unmountOnBlur: true,
+        drawerIcon:() => (<MaterialCommunityIcons name="cards-club" size={26} color="#5800c4" />),
         }} />
         
-        <Drawer.Screen name="News"   component={News} options={{headerShown: false,swipeEnabled: false,
-        title: 'Tc News',unmountOnBlur: true,
-        }} />
 
         <Drawer.Screen name="Store"   component={Store} options={{headerShown: false,swipeEnabled: false,
-        title: 'Tc Store',unmountOnBlur: true,
+        title: 'Store',unmountOnBlur: true,
+        drawerIcon:() => (<Entypo name="shopping-cart" size={26} color="#5800c4" />),
         }} />
 
     
 
         <Drawer.Screen name="Health"   component={Health} options={{headerShown: false,swipeEnabled: false,
-        title: 'Tc Health',unmountOnBlur: true,
+        title: 'Health',unmountOnBlur: true,
+        drawerIcon:() => (<FontAwesome5 name="heading" size={26} color="#5800c4" /> ),
+        }} />
+
+        
+
+        <Drawer.Screen name="Media"   component={Media} options={{headerShown: false,swipeEnabled: false,
+        title: 'Media',unmountOnBlur: true,
+        drawerIcon:() => (<Ionicons name="ios-tv" size={26} color="#5800c4" />),
         }} />
 
         <Drawer.Screen name="Agency"   component={Agency} options={{headerShown: false,swipeEnabled: false,
-        title: 'Tc Agency',unmountOnBlur: true,
+        title: 'Agency',unmountOnBlur: true,
+        drawerIcon:() => (<MaterialIcons name="workspaces-filled" size={26} color="#5800c4" />),
         }} />
 
-        <Drawer.Screen name="DemoLocation"   component={DemoLocation} options={{headerShown: false,swipeEnabled: false,
+        {/* <Drawer.Screen name="DemoLocation"   component={DemoLocation} options={{headerShown: false,swipeEnabled: false,
         title: 'image',unmountOnBlur: true,
-        }} /> 
+        }} />  */}
 
 
-        {/* <Drawer.Screen name="Saloon"   component={Saloon} options={{headerShown: false,swipeEnabled: false,
-        title: 'Tc Saloon',unmountOnBlur: true,
-        }} /> */}
+        <Drawer.Screen name="Projects"   component={Projects} options={{headerShown: false,swipeEnabled: false,
+        title: 'Projects',unmountOnBlur: true,
+        drawerIcon:() => (<FontAwesome5 name="project-diagram" size={26} color="#5800c4" />),
+        }} />
 
         {/* <Drawer.Screen name="Services"   component={Services} options={{headerShown: false,swipeEnabled: false,
         title: 'Tc Services',unmountOnBlur: true,
         }} /> */}
         
         <Drawer.Screen name="Transport" component={Transport} options={{headerShown: false,swipeEnabled: false,
-        title: 'Tc Transport',unmountOnBlur: true,
+        title: 'Transport',unmountOnBlur: true,
+        drawerIcon:() => (<Fontisto name="motorcycle" size={26} color="#5800c4" />),
         }} />
 
-        <Drawer.Screen name="Tv"   component={Tv} options={{headerShown: false,swipeEnabled: false,
-        title: 'Tc Tv Shows',unmountOnBlur: true,
-        }} />
+        
 
         <Drawer.Screen name="Providers"   component={Providers} options={{headerShown: false,swipeEnabled: false,
-        title: 'Tc Providers',unmountOnBlur: true,
+        title: 'Providers',unmountOnBlur: true,
+        drawerIcon:() => (<Ionicons name="ios-people-sharp" size={26} color="#5800c4" />),
         }} />
         
-        <Drawer.Screen name="Holiday"   component={Holiday} options={{headerShown: false,swipeEnabled: false,
-        title: 'Tc Holiday Homes',unmountOnBlur: true,
-        }} />
+        
 
         <Drawer.Screen name="Live"   component={Live} options={{headerShown: false,swipeEnabled: false,
-        title: 'Tc Live Chat',unmountOnBlur: true,
+        title: 'Live Chat',unmountOnBlur: true,
+        drawerIcon:() => (<Ionicons name="ios-chatbubble-ellipses" size={26} color="#5800c4" />),
+        }} />
+
+        <Drawer.Screen name="Holiday"   component={Holiday} options={{headerShown: false,swipeEnabled: false,
+        title: 'Our Homes',unmountOnBlur: true,
+        drawerIcon:() => (<Ionicons name="home" size={26} color="#5800c4" />),
         }} />
 
         <Drawer.Screen name="FeedBack"   component={FeedBack} options={{headerShown: false,swipeEnabled: false,
-        title: 'Tc User FeedBack',unmountOnBlur: true,
+        title: 'FeedBacks',unmountOnBlur: true,
+        drawerIcon:() => (<MaterialIcons name="feedback" size={26} color="#5800c4"/>),
         }} />
 
         
@@ -139,7 +159,6 @@ export default function App() {
 
     const [showSplashScreen , setshowSplashScreen] = useState(true);
     setTimeout(()=>{ setshowSplashScreen(false)},4000);
-    setTimeout(()=>{ LoadTcHealthAppData()},2000);
     setTimeout(()=>{ LoadAgencyData()},2000);
 
     
@@ -160,8 +179,8 @@ return (
                         <Image style={styles.splashScreenImage} source={require('./assets/loading.png')}/>
                     </View>
 
-                    <View style={styles.splashScreenTextView}>
-                        <Text style={styles.splashScreenText}>Triple Care Ltd</Text>
+                    <View style={{alignItems:'center'}}>
+                        <Text style={styles.splashScreenText}>Triple Care Group</Text>
                     </View>
                 </View>
             </View>
@@ -176,3 +195,4 @@ return (
 );}
 
 // eas build -p android --profile preview
+// eas build -p ios --profile preview *150*3#

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Text, View, Alert,TextInput,TouchableOpacity,ScrollView,Image} from 'react-native';
+import { Text, View, Alert,TextInput,TouchableOpacity,ScrollView,Platform,Image} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import styles from "./stylesheet";
 import {Entypo, AntDesign,FontAwesome,Ionicons } from '@expo/vector-icons';
@@ -9,9 +9,8 @@ import axios from "axios";
 import { COLORS } from './Colours';
 import {
         APILogInClubMemberByCardNo,APIClubMemberApplication,APIListAllCountries,
-        APIClubMemberAllRenewals,APIPostImg,APIClubMemberAllReferrals,
-        APIClubMemberCredit,
-        APIUpdateClubMemberPassword,APIAccountStatusByCardNo 
+        APIClubMemberAllRenewals,APIClubMemberAllReferrals,APIClubMemberCredit,APIUpdateUserEmailAndNumber,
+        APIUpdateClubMemberPassword,APIUpdateClubMemberEmail,APIUpdateClubMemberNumber,APIAccountStatusByCardNo 
     } from './DataFileApis';
 import {
         getBackgroundColor,mainNavigationBtnStyle,getPlainColor,tableTrView,
@@ -64,28 +63,23 @@ constructor(props){
         ClubLogInPassword:'',
 
         // log in profile
+        UserEmail:'', MobileNumber:'',
+        ClubProfilePhone:'', ClubProfileEmail:'',
         DoNotShowProfileDetailsScreen:true, 
         DoNotShowProfileSettingsScreen:true,
+        UserHasEmailAndNumber:false, 
         ClubMemberAllRenewals:[],
         ClubMemberAllReferrals:[],
         AllMemberChats:[],
-        NewPassword:'',
-        ClubMemberId:'',
-        ClubMemberRegistration:'',
-        ClubMemberPayment:'',
+        NewPassword:'',NewNumber:'',NewEmail:'',UpdateSelectedValue:'',
+        ClubMemberId:'', ClubMemberProfile:'',
+        ClubMemberRegistration:'', ClubMemberPayment:'',
         IsMemberLogeIn:false,
         ClubMemberName:'',
-        ClubMemberCardNo:'',
-        ClubMemberPhone:'',
-        ClubMemberCategory:'',
-        ClubMemberPoints:'',
-        ClubMemberSavings:'',
-        AccountStatus:'',
-
-        
+        ClubMemberCardNo:'', ClubMemberSavings:'', AccountStatus:'',
+        ClubMemberPhone:'', ClubMemberCategory:'', ClubMemberPoints:'',
 
     }
-    
 }
 
 UNSAFE_componentWillMount()
@@ -115,8 +109,10 @@ initializeClubUserName = () =>
             let Category= jsonData[0].ClubMemberCategory;
             let Registration= jsonData[0].Registration;
             let Payment= jsonData[0].Payment;
-            let Id= jsonData[0].Id;
-
+            let Id= jsonData[0].ClubMemberId;
+            let email = jsonData[0].ProfileEmail;
+            let phone = jsonData[0].ProfilePhone;
+            let profile = jsonData[0].MemberProfile
 
             this.setState({ClubMemberName:Name});
             this.setState({ClubMemberCardNo:CardNo});
@@ -124,7 +120,10 @@ initializeClubUserName = () =>
             this.setState({ClubMemberPayment:Payment});
             this.setState({ClubMemberRegistration:Registration});
             this.setState({ClubMemberId:Id});
+            this.setState({ClubProfileEmail:email});
+            this.setState({ClubProfilePhone:phone});
             this.setState({IsMemberLogeIn:true});
+            this.setState({ClubMemberProfile:profile});
             this.getAllClubMemberRenewals(CardNo);
             this.getAccountStatus(CardNo);
             this.getAccountCredit(CardNo);
@@ -177,7 +176,9 @@ getAllClubMemberRenewals = (ClubMemberCardNo) =>
     .catch(err=>{ console.log("=====>>>"+err)})
     
 }
-
+setNewNumber = (text) =>{this.setState({NewNumber:text});}
+setNewEmail = (text) =>{this.setState({NewEmail:text});}
+setUpdateSelectedValue = (text) =>{this.setState({UpdateSelectedValue:text});}
 setNewPassword = (text) =>{this.setState({NewPassword:text});}
 setChatChat = (text) =>{this.setState({ChatChat:text});}
 setClubCardNoLogIn = (text) =>{this.setState({ClubCardNoLogIn:text});}
@@ -187,7 +188,8 @@ setMemberEmail = (text) =>{this.setState({MemberEmail:text});}
 setMemberCountry = (text) =>{this.setState({MemberCountry:text});}
 setReferralType = (text) =>  {this.setState({ReferralType:text})}
 setMemberReferral= (text) =>{this.setState({MemberReferral:text});}
-
+setUserEmail = (text) =>{this.setState({UserEmail:text});}
+setMobileNumber = (text) =>{this.setState({MobileNumber:text});}
 
 setCountrySelectedValue  = (text) =>
 {
@@ -285,6 +287,7 @@ logOutUser = async () =>
     {   
         await AsyncStorage.removeItem ('ClubMemberDetails');
         this.setState({IsMemberLogeIn:false});
+        this.setState({UserHasEmailAndNumber:false});
         Alert.alert("Information",LOGOUT_MSG)
 
     }catch (error) { console.log(error)}
@@ -391,7 +394,7 @@ logInUser = async () =>
             let results = loginRequest.data
             let jsonString = JSON.stringify(results)
             let jsonResults =JSON.parse(jsonString);
-
+            console.log(jsonString)
             if (results.length == 0)
             {Alert.alert("Sorry","\n\n  No Member Records Found \n\n Try Again")}
             else
@@ -409,8 +412,12 @@ logInUser = async () =>
                     let Payment = jsonResults[0].PaymentType;
                     let Registration = jsonResults[0].Registration;
                     let Id = jsonResults[0].id;
+                    let email = jsonResults[0].Holder2;
+                    let phone = jsonResults[0].Holder1;
+                    let profile = jsonResults[0].Holder3;
+
                     try {
-                        let MemberDetails={ClubUserName:Name,ClubMemberCardNo:CardNo,ClubMemberId:Id,ClubMemberCategory:Type,Registration:Registration,Payment:Payment}
+                        let MemberDetails={ClubUserName:Name,MemberProfile:profile,ProfileEmail:email,ProfilePhone:phone,ClubMemberCardNo:CardNo,ClubMemberId:Id,ClubMemberCategory:Type,Registration:Registration,Payment:Payment}
                         const Details  = []
                         Details.push(MemberDetails)
                         await AsyncStorage.setItem('ClubMemberDetails',JSON.stringify(Details));
@@ -423,11 +430,15 @@ logInUser = async () =>
                     this.setState({ClubMemberPayment:Payment});
                     this.setState({ClubMemberRegistration:Registration});
                     this.setState({ClubMemberId:Id});
+                    this.setState({ClubProfileEmail:email});
+                    this.setState({ClubProfilePhone:phone});
                     this.setState({IsMemberLogeIn:true});
                     this.getAllClubMemberRenewals (CardNo)
                     this.showUserAccountScreen();
                     this.getAccountStatus(CardNo)
                     this.getAccountCredit(CardNo);
+                    this.setState({UserHasEmailAndNumber:true});
+                    
                 }
             }
 
@@ -440,35 +451,96 @@ logInUser = async () =>
     }
 }
 
-updateUserPassword = async () =>
+updateUserDetails = async (Type) =>
 {
     let NewPass = this.state.NewPassword;
+    let NewEmail = this.state.NewEmail;
+    let NewNumber = this.state.NewNumber;
     let id = this.state.ClubMemberId;
-    console.log(NewPass+"::"+id)
-    if ((NewPass.length == 0))
-        {Alert.alert('Warning','Password Should Not Be Empty')}
+    let name = this.state.ClubMemberName;
+    if ((Type === "Password" && NewPass.length === 0)||(Type === "Number" && NewNumber.length === 0)||(Type === "Email" && NewEmail.length === 0))
+        {Alert.alert('Warning','Inputs Should Not Be Empty')}
     else
     {
         try
         {
-            const Request = await axios.put(APIUpdateClubMemberPassword, 
-                    {"id":id,"Password":NewPass})
-            let result = Request.data.status;
-            console.log(result);
-            Alert.alert("Request Status","\n\n"+result);
+            if (Type === 'Password')
+            {
+                const Request = await axios.put(APIUpdateClubMemberPassword, 
+                        {"id":id,"Password":NewPass})
+                let result = Request.data.status;
+                console.log(result);
+                Alert.alert(name,"\n"+result);
+            }
+            else if (Type === 'Email')
+            {
+                const Request = await axios.put(APIUpdateClubMemberEmail, 
+                        {"id":id,"Email":NewEmail})
+                let result = Request.data.status;
+                console.log(result);
+                Alert.alert(name,"\n"+result);
+            }
+            else if (Type === 'Number')
+            {
+                const Request = await axios.put(APIUpdateClubMemberNumber, 
+                        {"id":id,"Number":NewNumber})
+                let result = Request.data.status;
+                console.log(result);
+                Alert.alert(name,"\n"+result);
+            }
         }
 
         catch (error)
             {Alert.alert("An Error","\n\n  Check Your Network Connections\n"+error)};
     }
 }
+postEmailAndNumber = async () =>
+{
+    let name = this.state.ClubMemberName
+    let userEmail = this.state.UserEmail;
+    let mobileNumber = this.state.MobileNumber;
+    let id = this.state.ClubMemberId;
+    let fullPhone = this.state.PhoneCountryCode+mobileNumber;
+
+    if (
+        (userEmail.length == 0)||(mobileNumber.length == 0) )
+    {Alert.alert("Warning","All Email Or Mobile Can Not Be Empty \n\n Try Again")}
+
+    else
+    {
+        try
+        {
+            const postRequest = await axios.put(APIUpdateUserEmailAndNumber,
+                {
+                    "id":id,
+                    "MemberEmail":userEmail,
+                    "MemberPhone":fullPhone,
+                }
+            )
+            
+            let result = postRequest.data.status;
+            Alert.alert(name,result);
+            this.setState({UserEmail:''})
+            this.setState({MobileNumber:''});
+            this.showProfileDetailsScreen();
+        }
+
+        catch (error)
+            {
+                console.log(error)
+                Alert.alert("An Error","Un Able To Post Your Application\n\nCheck Your Network Connections\n\n")
+            };
+    }
+
+
+}
 render() {
 
-    const {DoNotShowProfileDetailsScreen,DoNotShowProfileSettingsScreen,AccountStatus} = this.state;
+    const {DoNotShowProfileDetailsScreen,DoNotShowProfileSettingsScreen,UserHasEmailAndNumber,ClubProfilePhone,ClubProfileEmail,AccountStatus} = this.state;
     const { DoNotShowUserAccountScreen,DoNotShowMemberCategoryScreen,ClubMemberCredit} = this.state;
     const { DoNotShowHomeScreen,DoNotShowBenefitsScreen,DoNotShowLogInScreen,DoNotShowApplyMembershipScreen} = this.state;
 
-    const {ClubMemberName,ClubMemberAllReferrals,ClubMemberCategory,IsMemberLogeIn} = this.state;
+    const {ClubMemberName,UpdateSelectedValue,ClubMemberAllReferrals,ClubMemberProfile,ClubMemberCategory,IsMemberLogeIn} = this.state;
     const {ClubMemberCardNo,ClubMemberAllRenewals,ClubMemberRegistration,ClubMemberPayment} = this.state;
     const { Countries,CountrySelectedValue,CountrySelected,PhoneCountryCode,ReferralType} = this.state;
 
@@ -489,7 +561,7 @@ render() {
                 </TouchableOpacity>
             </View>
             </View>
-                <ScrollView showsVerticalScrollIndicator={false} >
+                
                     <View style={styles.MainTopHeaderView} >
                         <View style={styles.MainTopHeaderTextView}>
                             {/* <Text style={[styles.MainTopHeaderTextLabelClub]}> {AccountStatus} </Text> */}
@@ -573,6 +645,7 @@ render() {
                     */}
 
                     {  DoNotShowHomeScreen ? <></>:(<>
+                        <ScrollView showsVerticalScrollIndicator={false} >
                         <View style={styles.clubHomeSScreenView} >
                             <Image style={styles.clubHomeScreenImage} source={require('../../assets/logo.png')}/>
                         </View>
@@ -586,6 +659,7 @@ render() {
                             enhance their Business be it on Talk the Walk Tv & Radio show, we also assist members to 
                             save and make money
                         </Text>
+                        </ScrollView>
                     </>)}
                     
                     {/* 
@@ -598,7 +672,7 @@ render() {
                         ====================================================================
                     */}
                     { DoNotShowBenefitsScreen ?<></>:(<>
-                    
+                        <ScrollView showsVerticalScrollIndicator={false} >
                         <View style={{height:15}} ></View>
                         <View style={styles.MainOuterCardListView} >
                             <View  style={styles.MainInnerCardAboutView}>
@@ -622,6 +696,7 @@ render() {
                                 <Text style={[aboutText(),getPlainColor(AccountStatus)]} >17. Pooling Resources And Grow Together Monthly</Text>
                             </View>
                         </View>
+                        </ScrollView>
                     </>)}
                     {/* 
                         ====================================================================
@@ -633,23 +708,25 @@ render() {
                         ====================================================================
                     */}
                     {DoNotShowLogInScreen?<></>:(<>
-                        <View style={styles.orderListDetailsText} >
-                        <View style={styles.ApplyCardView} >
-                            <TextInput style={styles.input} placeholder="Tc Number"  
-                            placeholderTextColor = "#5800c4"  onChangeText={text => this.setClubLogInName(text)}
-                            />
+                        <ScrollView showsVerticalScrollIndicator={false} >
+                            <View style={styles.orderListDetailsText} >
+                            <View style={styles.ApplyCardView} >
+                                <TextInput style={styles.input} placeholder="Tc Number"  
+                                placeholderTextColor = "#5800c4"  onChangeText={text => this.setClubLogInName(text)}
+                                />
 
-                            <TextInput style={styles.input} placeholder="Password" secureTextEntry
-                            placeholderTextColor = "#5800c4"  onChangeText={text => this.setClubLogInPassword(text)}
-                            />
-                            
+                                <TextInput style={styles.input} placeholder="Password" secureTextEntry
+                                placeholderTextColor = "#5800c4"  onChangeText={text => this.setClubLogInPassword(text)}
+                                />
+                                
 
-                            <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn4]} onPress={this.logInUser} >
-                                <Text style = {styles.btnText}> Log In  </Text>
-                            </TouchableOpacity>
-                            <View style={{height:30}} ></View>
-                        </View>
-                        </View>
+                                <TouchableOpacity style={[styles.MainNavigationBtn, styles.MainNavigationBtn4]} onPress={this.logInUser} >
+                                    <Text style = {styles.btnText}> Log In  </Text>
+                                </TouchableOpacity>
+                                <View style={{height:30}} ></View>
+                            </View>
+                            </View>
+                        </ScrollView>
                     </>)}
                     
                     {/* 
@@ -662,6 +739,7 @@ render() {
                         ====================================================================
                     */}
                     {DoNotShowApplyMembershipScreen?<></>:(<>
+                        <ScrollView showsVerticalScrollIndicator={false} >
                         <View style={styles.orderListDetailsTexts} >
                             
                         <View style={styles.ApplyCardView} >
@@ -678,16 +756,31 @@ render() {
                             placeholderTextColor = "#5800c4" 
                             />
 
-                            <View style={styles.pickerSelectionInputView}>
-                                <Picker style={styles.pickerSelectioninputs} dropdownIconColor= {COLORS.white}
-                                    selectedValue={ReferralType }
-                                    
-                                    onValueChange={(itemValue) =>this.setReferralType(itemValue)}>
-                                        <Picker.Item label="How Did You Know Tc Club"/> 
-                                        <Picker.Item label="By Office" value="By Office" /> 
-                                        <Picker.Item label="Club Member" value="Club Member" /> 
-                                </Picker>
-                            </View>
+                            {Platform.OS === 'android' ?(<>
+                                <View style={styles.pickerSelectionInputView1}>
+                                    <Picker style={styles.pickerSelectioninputs} dropdownIconColor= {COLORS.white}
+                                        selectedValue={ReferralType }
+                                        
+                                        onValueChange={(itemValue) =>this.setReferralType(itemValue)}>
+                                            <Picker.Item label="How Did You Know Tc Club"/> 
+                                            <Picker.Item label="By Office" value="By Office" /> 
+                                            <Picker.Item label="Club Member" value="Club Member" /> 
+                                    </Picker>
+                                </View>
+                                </>):(<>
+                                {/* IOS */}
+                                <View style={styles.iOSPickerSelectionInputView}>
+                                    <Picker
+                                        itemStyle={{ margin: 15,Color:COLORS.white, borderColor:COLORS.colourNumberOne,height: 45,borderWidth: 3,width:'90%',borderRadius: 20, }}
+                                        selectedValue={ReferralType }
+                                        
+                                        onValueChange={(itemValue) =>this.setReferralType(itemValue)}>
+                                            <Picker.Item label="How Did You Know Tc Club"/> 
+                                            <Picker.Item label="By Office" value="By Office" /> 
+                                            <Picker.Item label="Club Member" value="Club Member" /> 
+                                    </Picker>
+                                </View>
+                                </>)}
 
                             {ReferralType && ReferralType ?(<>
                                 <TextInput style={styles.input} placeholder="Office / Tc Number" onChangeText={text => this.setMemberReferral(text)}
@@ -696,19 +789,34 @@ render() {
                                 <View style={{height:20}}></View>
                             </>):(<></>)}
 
-
-                            <View style={styles.pickerSelectionInputView}>
-                                <Picker style={styles.pickerSelectioninputs} dropdownIconColor= {COLORS.white}
-                                    selectedValue={CountrySelectedValue}
-                                    
-                                    onValueChange={(itemValue) =>this.setCountrySelectedValue(itemValue)}>
-                                        <Picker.Item label="What is Your Country"/> 
-                                        {Countries && Countries.map((item,Index ) => (
-                                        <Picker.Item key={Index } label={item.countryName} value={item.countryName+':'+Index} /> 
-                                        ))}
-                                </Picker>
-                            </View>
-
+                            {Platform.OS === 'android' ?(<>
+                                <View style={styles.pickerSelectionInputView1}>
+                                    <Picker style={styles.pickerSelectioninputs} dropdownIconColor= {COLORS.white}
+                                        selectedValue={CountrySelectedValue}
+                                        
+                                        onValueChange={(itemValue) =>this.setCountrySelectedValue(itemValue)}>
+                                            <Picker.Item label="What is Your Country"/> 
+                                            {Countries && Countries.map((item,Index ) => (
+                                            <Picker.Item key={Index } label={item.countryName} value={item.countryName+':'+Index} /> 
+                                            ))}
+                                    </Picker>
+                                </View> 
+                            </>):(<>
+                                {/* IOS */}
+                                <View style={styles.iOSPickerSelectionInputView}>
+                                    <Picker 
+                                        itemStyle={{ margin: 15,Color:COLORS.white, borderColor:COLORS.colourNumberOne,height: 45,borderWidth: 3,width:'90%',borderRadius: 20, }}
+                                        
+                                        selectedValue={CountrySelectedValue}
+                                        
+                                        onValueChange={(itemValue) =>this.setCountrySelectedValue(itemValue)}>
+                                            <Picker.Item label="What is Your Country"/> 
+                                            {Countries && Countries.map((item,Index ) => (
+                                            <Picker.Item key={Index } label={item.countryName} value={item.countryName+':'+Index} /> 
+                                            ))}
+                                    </Picker>
+                                </View>
+                            </>)}
 
                             {CountrySelected == "USA" || CountrySelected =="UK" ?(<>
                                 <TextInput style={styles.input} placeholder="Country" editable = {false}  defaultValue={CountrySelected}
@@ -752,6 +860,7 @@ render() {
                             </TouchableOpacity>
                                 <View style={{height:10}} ></View>
                             </View>
+                        </ScrollView>
                     </>)}
 
                     {/* 
@@ -765,6 +874,7 @@ render() {
                     */}
 
                     {DoNotShowMemberCategoryScreen ?<></>:(<>
+                        <ScrollView showsVerticalScrollIndicator={false} >
                         <View style={{height:15}} ></View>
                         <View style={styles.MainOuterCardListView} >
                             <View  style={styles.MainInnerCardAboutView}>
@@ -804,6 +914,7 @@ render() {
                             <Text style={[aboutText(),getPlainColor(AccountStatus)]} >9. Investment Advise From The Experts</Text>
                             </View>
                         </View>
+                    </ScrollView>
                     </>)}
                     
                     {/* 
@@ -816,7 +927,7 @@ render() {
                         ====================================================================
                     */}
                     {DoNotShowUserAccountScreen ?<></>:(<>
-                        
+                        <ScrollView showsVerticalScrollIndicator={false} >
                         {/* ================== AccountStatus == Active ================== */}
                         
                         <View style = {[userProfileView(),getBackgroundColor(AccountStatus)]} >
@@ -832,14 +943,20 @@ render() {
                                 <Text style = {styles.btnText}> {convertToUpperCase(ClubMemberCardNo)} </Text>
                                 <View style={{height:20}} ></View>
                                 <Text style = {styles.btnText}> {ClubMemberCategory} : {ClubMemberPayment}  </Text>
-
+                                <View style={{height:20}} ></View>
+                                <Text style = {styles.btnText}> {ClubProfilePhone}  </Text>
+                                <View style={{height:20}} ></View>
+                                <Text style = {styles.profileEmailText}> {ClubProfileEmail}  </Text>
+                                <View style={{height:20}} ></View>
+                                <Text style = {styles.btnText}> {ClubMemberProfile} </Text>
                             </View>
                         </View>
                         {DoNotShowProfileDetailsScreen ?(<>
-                        <View style={{height:20}} ></View>
+                        <View style={{height:10}} ></View>
                         <View style = {[mainTableTitleHandleViewCredit(),getBackgroundColor(AccountStatus)]} >
                             <Text style = { styles.tableTitleHandleText}>Tc Credit :: { ClubMemberCredit} </Text>
                         </View>
+
 
                         {/* <View style={styles.mainTableOuterView} >
                         {ClubMemberAllReferrals && ClubMemberAllReferrals.map((item, index) => (
@@ -904,6 +1021,7 @@ render() {
                                     <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
                                         <Text  style={[trTdText(),getPlainColor(AccountStatus)]}>{item.MemberName}</Text>
                                     </View>
+                                    
                                     <View style={[tableTrView(),getBorderBottomColor(AccountStatus)]} >
                                         <View style={{width:20}} ></View>
                                     </View>
@@ -955,23 +1073,135 @@ render() {
                             {DoNotShowProfileSettingsScreen ? <></>:(<>
                                 <View style={{height:20}} ></View>
                                 <View style={styles.ApplyCardView} >
-                                    <Text style={styles.AboutText} >Update Your Password</Text>
-                                    <TextInput style={styles.input} placeholder="New Password"
-                                    placeholderTextColor = "#5800c4"  onChangeText={text => this.setNewPassword(text)}
-                                    />
+                                    <View style={{height:10}} ></View>
+                                    <Text style={styles.AboutText} >Update Your Details Data</Text>
+                                    <View style={{height:5}} ></View>
+                                    <View style={styles.pickerSelectionInputView1}>
+                                        <Picker style={styles.pickerSelectioninputs} dropdownIconColor= {COLORS.white}
+                                            selectedValue={UpdateSelectedValue}
+                                            onValueChange={(itemValue) =>this.setUpdateSelectedValue(itemValue)}>
+                                                <Picker.Item label="Update My..."/> 
+                                                <Picker.Item  label='Email' value='Email' /> 
+                                                <Picker.Item  label='Number' value='Number' /> 
+                                                <Picker.Item  label='Password' value='Password' /> 
+                                        </Picker>
+                                    </View>
 
-                                <View style={{alignItems:'center'}}>
-                                    <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} onPress={this.updateUserPassword} >
-                                        <Text style = {styles.btnText}> Update  </Text>
-                                    </TouchableOpacity>
+                                    {UpdateSelectedValue === "Password"?(<>
+                                        <TextInput style={styles.input} placeholder="New Password"
+                                        placeholderTextColor = "#5800c4"  onChangeText={text => this.setNewPassword(text)}/>
+
+                                        <View style={{alignItems:'center'}}>
+                                            <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} onPress={()=>{this.updateUserDetails("Password")}} >
+                                                <Text style = {styles.btnText}> Update  </Text>
+                                            </TouchableOpacity>
+                                            <View style={{height:20}} ></View>
+                                            <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth2(),getBackgroundColor(AccountStatus)]} onPress={this.showProfileDetailsScreen} >
+                                                <Text style = {styles.btnText}>  Cancel </Text>
+                                            </TouchableOpacity>
+                                            <View style={{height:30}} ></View>
+                                        </View>
+                                    </>):(<></>)}
+                                    {UpdateSelectedValue === "Email"?(<>
+                                        <TextInput style={styles.input} placeholder="New Email"
+                                        placeholderTextColor = "#5800c4"  onChangeText={text => this.setNewEmail(text)}/>
+
+                                        <View style={{alignItems:'center'}}>
+                                            <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} onPress={()=>{this.updateUserDetails("Email")}} >
+                                                <Text style = {styles.btnText}> Update  </Text>
+                                            </TouchableOpacity>
+                                            <View style={{height:20}} ></View>
+                                            <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth2(),getBackgroundColor(AccountStatus)]} onPress={this.showProfileDetailsScreen} >
+                                                <Text style = {styles.btnText}>  Cancel </Text>
+                                            </TouchableOpacity>
+                                            <View style={{height:30}} ></View>
+                                        </View>
+                                    </>):(<></>)}
+                                    {UpdateSelectedValue === "Number"?(<>
+                                        <View style={{height:20}} ></View>
+                                        <Text style = {styles.btnText}>  Include Your Country Code </Text>
+                                        <TextInput style={styles.input} placeholder="New Number"
+                                        placeholderTextColor = "#5800c4"  onChangeText={text => this.setNewNumber(text)}/>
+
+                                        <View style={{alignItems:'center'}}>
+                                            <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} onPress={()=>{this.updateUserDetails("Number")}} >
+                                                <Text style = {styles.btnText}> Update  </Text>
+                                            </TouchableOpacity>
+                                            <View style={{height:20}} ></View>
+                                            <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth2(),getBackgroundColor(AccountStatus)]} onPress={this.showProfileDetailsScreen} >
+                                                <Text style = {styles.btnText}>  Cancel </Text>
+                                            </TouchableOpacity>
+                                            <View style={{height:30}} ></View>
+                                        </View>
+                                    </>):(<></>)}
                                     <View style={{height:20}} ></View>
-                                    <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth2(),getBackgroundColor(AccountStatus)]} onPress={this.showProfileDetailsScreen} >
-                                        <Text style = {styles.btnText}>  Cancel </Text>
-                                    </TouchableOpacity>
-                                    <View style={{height:30}} ></View>
                                 </View>
+
+
+                                <View style={{height:20}} ></View>
+                                <View style={styles.ApplyCardView} >
+                                    <View style={{height:10}} ></View>
+                                    <Text style={styles.AboutText} >OR{"\n\n"}Set Up Your Valid Email And {"\n"} WhatsApp Number </Text>
+                                    
+                                    <View style={styles.pickerSelectionInputView1}>
+                                        <Picker style={styles.pickerSelectioninputs} dropdownIconColor= {COLORS.white}
+                                            selectedValue={CountrySelectedValue}
+                                            
+                                            onValueChange={(itemValue) =>this.setCountrySelectedValue(itemValue)}>
+                                                <Picker.Item label="What is Your Country"/> 
+                                                {Countries && Countries.map((item,Index ) => (
+                                                <Picker.Item key={Index } label={item.countryName} value={item.countryName+':'+Index} /> 
+                                                ))}
+                                        </Picker>
+                                    </View>
+
+
+                                    {CountrySelected == "USA" || CountrySelected =="UK" ?(<>
+                                        <TextInput style={styles.input} placeholder="Country" editable = {false}  defaultValue={CountrySelected}
+                                        placeholderTextColor = "#5800c4" 
+                                        />
+                                        <TextInput style={styles.input} placeholder="Your Email"
+                                        placeholderTextColor = "#5800c4"  onChangeText={text => this.setUserEmail(text)} />
+                                    
+                                        <View style={styles.PhoneInput} >
+                                            <TextInput style={[styles.phoneInput,styles.phoneInput1]}  editable = {false}  defaultValue={PhoneCountryCode} placeholder="Code" onChangeText={text => this.setMemberPhone(text)}
+                                            placeholderTextColor = "#5800c4" 
+                                            />
+                                            <TextInput style={[styles.phoneInput,styles.phoneInput2]} placeholder="WhatsApp 10 digits" onChangeText={text => this.setMobileNumber(text)}
+                                            placeholderTextColor = "#5800c4" maxLength={10} keyboardType="numeric"/>
+                                        </View>
+                                    
+                                        <View style={{height:20}}></View>
+                                    </>):(<>
+
+                                        <TextInput style={styles.input} placeholder="Country" editable = {false}  defaultValue={CountrySelected}
+                                        placeholderTextColor = "#5800c4"/>
+
+                                        <TextInput style={styles.input} placeholder="Your Email"
+                                        placeholderTextColor = "#5800c4"  onChangeText={text => this.setUserEmail(text)} />
+                                    
+
+                                        <View style={styles.PhoneInput} >
+                                            <TextInput style={[styles.phoneInput,styles.phoneInput1]}  editable = {false}  defaultValue={PhoneCountryCode} placeholder="Code" onChangeText={text => this.setMemberPhone(text)}
+                                            placeholderTextColor = "#5800c4" />
+                                            <TextInput style={[styles.phoneInput,styles.phoneInput2]} placeholder="WhatsApp 9 digits" onChangeText={text => this.setMobileNumber(text)}
+                                            placeholderTextColor = "#5800c4" maxLength={9} keyboardType="numeric" 
+                                            />
+                                        </View>
+                                        <View style={{height:20}}></View>
+
+                                    </>)}
+                                    <View style={{alignItems:'center'}}>
+                                        <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth1(),getBackgroundColor(AccountStatus)]} onPress={this.postEmailAndNumber} >
+                                            <Text style = {styles.btnText}> Submit  </Text>
+                                        </TouchableOpacity>
+                                        <View style={{height:20}} ></View>
+                                        <TouchableOpacity style={[mainNavigationBtnStyle(),mainNavigationBtnWidth2(),getBackgroundColor(AccountStatus)]} onPress={this.showProfileDetailsScreen} >
+                                            <Text style = {styles.btnText}>  Cancel </Text>
+                                        </TouchableOpacity>
+                                        <View style={{height:30}} ></View>
+                                    </View>
                                 </View>
-                            
                             </>)}
                         
                         <View style={{alignItems:'center'}}>
@@ -985,10 +1215,10 @@ render() {
                                 <Text style = {styles.btnText}> Log Out  </Text>
                             </TouchableOpacity>
                         </View>
+                    </ScrollView>
                     </>)}
                     
                 {/* <View style={styles.MainBottomSpaceView}></View> */}
-                </ScrollView>
     
             </View>
     );

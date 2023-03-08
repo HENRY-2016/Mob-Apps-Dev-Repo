@@ -115,15 +115,15 @@ render() {
             </View>
             </View>
 
-            <ScrollView>
-                <View style={styles.MainTopHeaderView} >
-                    <View style={styles.MainTopHeaderTextView1}>
-                        <Text style={styles.MainTopHeaderTextLabel}> Triple Care Ltd </Text>
-                    </View>
+            
+            <View style={styles.MainTopHeaderView} >
+                <View style={styles.MainTopHeaderTextView1}>
+                    <Text style={styles.MainTopHeaderTextLabel}> Triple Care Group </Text>
                 </View>
-                <View style={[styles.MainTopRadiusView,styles.MainTopRadiusView1]} ></View>
-                <View style={styles.MainTopRadiusSpaceBottomView} ></View>
-
+            </View>
+            <View style={[styles.MainTopRadiusView,styles.MainTopRadiusView1]} ></View>
+            <View style={styles.MainTopRadiusSpaceBottomView} ></View>
+            
             <View style={styles.MainNavigationBtnView1}>
             {DoNotShowMainNavBtnScreen?<></>:(<>
             <View style={styles.MainNavigationBtnView}>
@@ -149,8 +149,7 @@ render() {
             </>)}
             </View>
         
-
-            
+            <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{height:15}} ></View>
                 <Text style={styles.AboutTitleText} >Inside Tc Club</Text>
                 {NoticeBoard && NoticeBoard.map((item,index)=>(

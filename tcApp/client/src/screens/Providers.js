@@ -332,7 +332,7 @@ postProviderUpdate = async () =>
                         </TouchableOpacity>
                     </View>
                 </View>
-                <ScrollView showsVerticalScrollIndicator={false} >
+                
                     <View style={styles.MainTopHeaderView} >
                         <View style={styles.MainTopHeaderTextView}>
                             <Text style={styles.MainTopHeaderTextLabel}>Tc Providers  </Text>
@@ -383,9 +383,12 @@ postProviderUpdate = async () =>
                         ====================================================================
                         ====================================================================
                     */}
+                
                     {DoNotShowProvidersScreen ?<></>:(<>
                         <View style={{height:20}} ></View>
                         {DoNotShowProvidersListScreen1 ?<></>:(<>
+                            <ScrollView showsVerticalScrollIndicator={false} >
+
                             <View style = {[styles.mainTableTitleHandleView]} >
                                 <Text style = { styles.tableTitleHandleText}>Providers List </Text>
                             </View>
@@ -424,8 +427,11 @@ postProviderUpdate = async () =>
                                 </View>
                                 ))}
                                 </View>
+                            </ScrollView>
                         </>)}
+
                         {DoNotShowProvidersListScreen2 ?<></>:(<>
+                            <ScrollView showsVerticalScrollIndicator={false} >
                             <Text style = { styles.trTdText}>{SelectedServiceProviderName}</Text>
                             <Text style = { styles.trTdText}>Services List</Text>
                             <View style={{height:30}} ></View>
@@ -450,7 +456,9 @@ postProviderUpdate = async () =>
                                 </TouchableOpacity>
                                 <View style={{height:20}} ></View>
                             </View>
+                        </ScrollView>
                         </>)}
+                        
                     </>) }
 
                     {/* 
@@ -463,8 +471,8 @@ postProviderUpdate = async () =>
                         ====================================================================
                     */}
                     { DoNotShowLogInScreen ? <></>:(<>
-
                         {DoNotShowProviderLogInScreen?<></>:(<>
+                            <ScrollView showsVerticalScrollIndicator={false} >
                             <View style={styles.orderListDetailsText} >
                             <View style={styles.ApplyCardView22} >
                                 <TextInput style={styles.input} placeholder="Provider Tc Number"  
@@ -482,6 +490,7 @@ postProviderUpdate = async () =>
                                 <View style={{height:30}} ></View>
                             </View>
                             </View>
+                            </ScrollView>
                         </>)}
 
                     </>)}
@@ -537,6 +546,7 @@ postProviderUpdate = async () =>
 
 
                         {DoNotShowProviderClearedScreen ?<></>:(<>
+                        <ScrollView showsVerticalScrollIndicator={false} >
                         <View style={{height:30}} ></View>
                         <View style = {[styles.mainTableTitleHandleView]} >
                             <Text style = { styles.tableTitleHandleText}> Cleared </Text>
@@ -576,9 +586,11 @@ postProviderUpdate = async () =>
                             </ScrollView>
                             ))} 
                             </View>
+                            </ScrollView>
                         </>)}
 
                         {DoNotShowProviderPendingScreen ?<></>:(<>
+                        <ScrollView showsVerticalScrollIndicator={false} >
                         <View style={{height:30}} ></View>
                         <View style = {[styles.mainTableTitleHandleView]} >
                             <Text style = { styles.tableTitleHandleText}> Pending </Text>
@@ -610,10 +622,12 @@ postProviderUpdate = async () =>
                             </ScrollView>
                             ))}
                             </View>
+                        </ScrollView>
                         </>)}
 
                         {DoNotShowProviderPaymentsScreen ?<></>:(<>
                             {DoNotShowProviderPaymentsInnerScreen1 ?<></>:(<>
+                                <ScrollView showsVerticalScrollIndicator={false} >
                                 <View style={{height:30}} ></View>
                                 <View style = {[styles.mainTableTitleHandleView]} >
                                     <Text style = { styles.tableTitleHandleText}> Payments </Text>
@@ -659,10 +673,11 @@ postProviderUpdate = async () =>
                                     </ScrollView>
                                     ))}
                                     </View>
+                                </ScrollView>
                             </>)}
                             {DoNotShowProviderPaymentsInnerScreen2?<></>:(<>
+                                <ScrollView showsVerticalScrollIndicator={false} >
                                 <View>
-                                
                                     <View style={{height:60}} ></View>
                                     <Text style={styles.btnText2} >Member Serviced Details</Text>
                                     <View style={{height:30}} ></View>
@@ -691,6 +706,7 @@ postProviderUpdate = async () =>
                                         <View style={{height:20}} ></View>
                                     </View>
                                 </View>
+                                </ScrollView>
                             </>)}
                         </>)}
 
@@ -707,7 +723,6 @@ postProviderUpdate = async () =>
                     
                     </>)}
                 <View style={styles.MainBottomSpaceView}></View>
-                </ScrollView>
             </View>
         );
     }

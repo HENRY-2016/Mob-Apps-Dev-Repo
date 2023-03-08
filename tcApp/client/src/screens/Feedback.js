@@ -57,11 +57,10 @@ render() {
                 </View>
             </View>
 
-            <ScrollView>
                 <View style={styles.MainTopHeaderView} >
                     <View style={styles.MainTopHeaderTextView1}>
-                        <Text style={styles.MainTopHeaderTextLabel}> Tc App Support  </Text>
-                        <Text style={styles.MainTopHeaderTextLabel}> And FeedBacks </Text>
+                        <View style={{height:10}} ></View>
+                        <Text style={styles.MainTopHeaderTextLabel}> Tc App Support {"\n"} And FeedBacks  </Text>
                     </View>
                 </View>
                 <View style={[styles.MainTopRadiusView,styles.MainTopRadiusView1]} ></View>
@@ -92,34 +91,37 @@ render() {
             </View> 
 
             {DoNotShowFeedBackScreen?<></>:(<>
-                <View style={{height:30}} ></View>
-                <Text  style={styles.AboutTitleText}>Triple Care Ltd FeedBacks </Text>
-                <View style={{height:30}} ></View>
-                <Text  onPress={()=>{Linking.openURL('tel:+447868651393');}} style={styles.AboutText}>Mobile: +44 7868 651 393 </Text>
-                <Text  onPress={()=>{Linking.openURL('https://api.whatsapp.com/send/?phone=447868651393');}} style={styles.AboutText}>WhatsApp: +44 7868 651 393 </Text>
-                <Text  onPress={()=>{Linking.openURL('mailto:info@TripleCareLtd.com');}} style={styles.AboutText}>Email: info@TripleCareLtd.com</Text>
-                <TouchableOpacity onPress={this.tripleCareLtd} style={styles.AboutTexts} >
-                    <Text style={styles.AboutText}>Website: TripleCareLtd.com </Text>
-                </TouchableOpacity>
-                <View style={{height:20}} ></View>
-                <Text  style={styles.AboutText}>Your Feed Back Is Important </Text>
-                <Text  style={styles.AboutText}>Thank You</Text>
+                <ScrollView showsVerticalScrollIndicator={false} >
+                    <View style={{height:30}} ></View>
+                    <Text  style={styles.AboutTitleText}>Triple Care Ltd FeedBacks </Text>
+                    <View style={{height:30}} ></View>
+                    <Text  onPress={()=>{Linking.openURL('tel:+447868651393');}} style={styles.AboutText}>Mobile: +44 7868 651 393 </Text>
+                    <Text  onPress={()=>{Linking.openURL('https://api.whatsapp.com/send/?phone=447868651393');}} style={styles.AboutText}>WhatsApp: +44 7868 651 393 </Text>
+                    <Text  onPress={()=>{Linking.openURL('mailto:info@TripleCareLtd.com');}} style={styles.AboutText}>Email: info@TripleCareLtd.com</Text>
+                    <TouchableOpacity onPress={this.tripleCareLtd} style={styles.AboutTexts} >
+                        <Text style={styles.AboutText}>Website: TripleCareLtd.com </Text>
+                    </TouchableOpacity>
+                    <View style={{height:20}} ></View>
+                    <Text  style={styles.AboutText}>Your Feed Back Is Important </Text>
+                    <Text  style={styles.AboutText}>Thank You</Text>
+                </ScrollView>
             </>)}
 
 
             {DoNotShowSupportScreen ?<></>:(<>
-                <View style={{height:30}} ></View>
-                <Text  style={styles.AboutTitleText}>App Feedbacks And Issues </Text>
-                <View style={{height:30}} ></View>
-                <Text  onPress={()=>{Linking.openURL('tel:+447868651393');}} style={styles.AboutText}>Mobile: +44 7868 651 393 </Text>
-                <Text  onPress={()=>{Linking.openURL('https://api.whatsapp.com/send/?phone=447868651393');}} style={styles.AboutText}>WhatsApp: +44 7868 651 393 </Text>
-                <Text  onPress={()=>{Linking.openURL('mailto:info@TripleCareLtd.com');}} style={styles.AboutText}>Email: info@TripleCareLtd.com</Text>
-                
-                <View style={{height:20}} ></View>
-                <Text  style={styles.AboutText}>Your Feed Back Is Important </Text>
-                <Text  style={styles.AboutText}>Thank You</Text>
+                <ScrollView showsVerticalScrollIndicator={false} >
+                    <View style={{height:30}} ></View>
+                    <Text  style={styles.AboutTitleText}>App Feedbacks And Issues </Text>
+                    <View style={{height:30}} ></View>
+                    <Text  onPress={()=>{Linking.openURL('tel:+447868651393');}} style={styles.AboutText}>Mobile: +44 7868 651 393 </Text>
+                    <Text  onPress={()=>{Linking.openURL('https://api.whatsapp.com/send/?phone=447868651393');}} style={styles.AboutText}>WhatsApp: +44 7868 651 393 </Text>
+                    <Text  onPress={()=>{Linking.openURL('mailto:info@TripleCareLtd.com');}} style={styles.AboutText}>Email: info@TripleCareLtd.com</Text>
+                    
+                    <View style={{height:20}} ></View>
+                    <Text  style={styles.AboutText}>Your Feed Back Is Important </Text>
+                    <Text  style={styles.AboutText}>Thank You</Text>
+                </ScrollView>
             </>)}
-            </ScrollView>
             </View>
 
     );

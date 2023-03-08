@@ -1,22 +1,23 @@
 
 
 
-// var BaseUrl = "http://mogahenze.com:7676";
+// var BaseUrl = "https://triplecareapps.com";
 var BaseUrl = "http://192.168.0.157:8000";
 // var BaseUrl = "http://192.168.1.157:8000"; // MTN
 
-// whats up audio On 21-12-2022
 
 export const ImageUrl = BaseUrl+"/images/";
 export const VideoUrl = BaseUrl+"/videos/";
 
 export const APIPostImg = BaseUrl+"/api/club/post/img";
+export const APIUpdateUserEmailAndNumber= BaseUrl+"/api/club/update/user/email/and/number";
 export const APIPostLogIns = BaseUrl+"/api/users/login/post";
 export const APIListRatingChats = BaseUrl+"/api/ratings/list/all/by/card/No/";
 export const APIListTalkTheWalk = BaseUrl+"/api/list/talk/the/walk/all";
 export const APIListFunny = BaseUrl+"/api/list/funny/all";
 export const APIPostRating = BaseUrl+"/api/ratings/update/row";
 export const APIPostHomesOrders = BaseUrl+"/api/holiday/homes/order/post";
+export const APIPostHomesFeedBacks = BaseUrl+"/api/holiday/homes/feed/back/post";
 export const APIListAllCountries = BaseUrl+"/api/countries/list/all";
 export const APIListAllHolidayHomes = BaseUrl+"/api/holiday/homes/list/all";
 export const APIListAllNoticeBoard = BaseUrl+"/api/notice/board/list/all";
@@ -27,6 +28,8 @@ export const APIListAllDealsItems = BaseUrl+"/api/store/list/all/deals/items";
 export const APIPostCustomerOrder = BaseUrl+"/api/store/post/customer/order";
 
 export const APIUpdateClubMemberPassword = BaseUrl+"/api/club/update/member/password";
+export const APIUpdateClubMemberEmail = BaseUrl+"/api/club/update/member/email";
+export const APIUpdateClubMemberNumber = BaseUrl+"/api/club/update/member/number";
 export const APILogInClubMemberByCardNo = BaseUrl+"/api/club/member/log/in/by/card/No/";
 export const APIAccountStatusByCardNo = BaseUrl+"/api/club/member/account/status/by/card/No/";
 export const APIClubMemberApplication = BaseUrl+"/api/club/membership/application";

@@ -41,6 +41,7 @@ export default StyleSheet.create(
 	MainNavigationBtnView:
 	{
 		backgroundColor:COLORS.colourBodyColor,
+		// flexDirection:'row',
 		// backgroundColor:COLORS.colourNumberOne,
 		// height:50,
 	},
@@ -137,7 +138,12 @@ MainTopHeaderTextLabelClub:{paddingLeft:40,fontSize:25,color:COLORS.white, margi
 		fontSize:OTHERS.producttextfontsize,
 		color:COLORS.black,
 	},
-	
+	profileEmailText: {
+		color: COLORS.white,
+		fontSize: OTHERS.bigbtnfontsize,
+		marginTop:-20, marginLeft:-55,
+		
+	},
 	btnText: {
 		color: COLORS.white,
 		fontSize: OTHERS.bigbtnfontsize,
@@ -376,6 +382,7 @@ TcNewsIcon:
 	marginRight:60,
 	width:300,
 },
+TcHomesIcon:{width:250,height:120,},
 	
 	// ================================================================
 	// ================================================================
@@ -876,7 +883,28 @@ VideoView:
 	marginLeft:10,marginRight:10
 
 },
-
+iOSPickerSelectionInputView: {
+	// itemStyle={{ margin: 15,Color:COLORS.white, borderColor:COLORS.colourNumberOne,height: 45,borderWidth: 3,width:'90%',borderRadius: 20, }}
+	// margin: 5, flex: 1,
+	// height: 40,
+	// width:'90%',
+	// textAlign:'left',
+	// borderWidth: 3,
+	// borderRadius: 50,
+	// borderColor:COLORS.colourNumberOne,
+	// backgroundColor:COLORS.colourNumberOne,
+	// borderBottomWidth:3,
+	// borderWidth: 3,
+	// borderRadius: 50,
+	// borderColor:COLORS.colourNumberOne,
+},
+iOSPickerSelectionInputs:
+{
+	// marginTop: -10,marginLeft:10,
+	// height: 40,
+	color:COLORS.colourNumberOne,
+	// fontSize:20,width:'90%',
+},
 pickerSelectionInputView: {
 	margin: 5, flex: 1,
 	height: 40,
@@ -1140,5 +1168,82 @@ CartTypeText:
 	marginLeft:30, marginTop:-5,marginBottom:5,
 },
 
+
+
+// ================================================================
+// ================================================================
+	// Check box Screen
+// ================================================================
+// ================================================================
+
+
+checkBoxParagraph: 
+{
+	fontSize: 15,
+	marginLeft:10,
+	color:COLORS.colourNumberThree,
+},
+
+
+checkboxBase: {
+    width: 24,
+    height: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: COLORS.colourNumberOne,
+    backgroundColor: 'transparent',
+},
+checkboxChecked: {backgroundColor: COLORS.colourNumberOne,},
+
+appContainer: 
+{
+	flex: 1,
+	alignItems: 'center',
+	justifyContent: 'center',
+},
+appTitle: 
+{
+	marginVertical: 16,
+	// fontWeight: 'bold',
+	fontSize: 24,
+},
+checkboxContainer: {
+// margin:8,
+marginLeft:28,marginRight:8,
+marginBottom:8,marginTop:8,
+flexDirection: 'row',
+alignItems: 'center',
+},
+checkboxLabel: {
+marginLeft: 8,
+// fontWeight: 500,
+fontSize: 18,
+},
+
+// ================================================================
+// ================================================================
+	// Date Date
+// ================================================================
+// ================================================================
+
+datePickerSelectionInputView: 
+{
+	height: 40,
+	borderColor:COLORS.MainColorOne,
+	borderWidth: 3,borderRadius: 50,
+},
+// pickerSelectionInputs:
+// {
+// 	marginTop: -10,marginLeft:10,
+// 	height: 40,color:COLORS.MainColorOne,
+// 	fontSize:20,
+// 	width:'90%',
+// },
+
+datePickerSelectionInputView1: {width:110},
+DateMainView:{flexDirection:'row',},
+SelectDateView:{ marginLeft:20, width:160,},
 
 });

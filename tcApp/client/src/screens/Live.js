@@ -379,7 +379,7 @@ render() {
                 </TouchableOpacity>
             </View>
             </View>
-                <ScrollView showsVerticalScrollIndicator={false} >
+                
                     <View style={styles.MainTopHeaderView} >
                         <View style={styles.MainTopHeaderTextView}>
                             <Text style={styles.MainTopHeaderTextLabel}> Welcome To Tc Chats </Text>
@@ -424,6 +424,7 @@ render() {
                     <View style={{height:20}}></View>
 
             {DoNotShowChatScreen?<></>:(<>
+                <ScrollView showsVerticalScrollIndicator={false} >
                 {DoNotShowChatLogInScreen?<></>:(<>
                     <View style={styles.orderListDetailsText} >
 
@@ -517,6 +518,7 @@ render() {
                         </View>
                         </View>
                 </>)}
+                </ScrollView>
             </>)}
 
 
@@ -524,6 +526,7 @@ render() {
 
 
             {DoNotShowRatingScreen?<></>:(<>
+                <ScrollView showsVerticalScrollIndicator={false} >
                 {DoNotShowRatingDetailsScreen?<></>:(<>
                     {AllChatRatings && AllChatRatings.map((item, index) => (
 
@@ -594,12 +597,9 @@ render() {
                         </View>
                     </View>
                 </>)}
-            
+                </ScrollView>
             </>)}
 
-                {/* <View style={{height:20}} ></View> */}
-                </ScrollView>
-    
             </View>
     );
 }

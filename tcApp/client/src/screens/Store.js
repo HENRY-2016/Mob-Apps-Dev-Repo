@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Text, View, Alert,TextInput,TouchableOpacity, ScrollView, Image} from 'react-native';
+import { Text, View, Alert,TextInput,TouchableOpacity,Platform, ScrollView, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Picker} from '@react-native-picker/picker';
 
@@ -325,7 +325,6 @@ postCustomerOrderDetails =  async () =>
                         </TouchableOpacity>
                     </View>
                 </View>
-                <ScrollView>
                     <View style={styles.MainTopHeaderView} >
                         <View style={styles.MainTopHeaderTextView}>
                             <Text style={styles.MainTopHeaderTextLabel}> Tc Store Products </Text>
@@ -382,7 +381,7 @@ postCustomerOrderDetails =  async () =>
                     {DoNotShowStoreScreen ?<></>:(<>
                         <Text style={[styles.ScreenTitleText,styles.ScreenTitleText1]} >Tc Store Items For Shopping</Text>
 
-                        <ScrollView>
+                        <ScrollView showsVerticalScrollIndicator={false}>
                             {StoreItems && StoreItems.map((item, index) => (
                                 <View key={index}>
                                 <View style={styles.ShoppingCardMainListView}>
@@ -425,7 +424,7 @@ postCustomerOrderDetails =  async () =>
                     */}
                     { DoNotShowDealsScreen ? <></>:(<>
                         <Text style={[styles.ScreenTitleText,styles.ScreenTitleText1]} >Tc Deals For Shopping</Text>
-                        <ScrollView>
+                        <ScrollView showsVerticalScrollIndicator={false}>
                             {DealsItems && DealsItems.map((item, index) => (
                                 <View key={index}>
                                 <View style={styles.ShoppingCardMainListView}>
@@ -471,6 +470,7 @@ postCustomerOrderDetails =  async () =>
                         ====================================================================
                     */}
                     {DoNotShowMyCartScreen ?<></>:(<>
+                        <ScrollView showsVerticalScrollIndicator={false}>
                         
                         <Text style={[styles.ScreenTitleText,styles.ScreenTitleText1]} >Your Shopping Cart Has :: {NumberOfItems} :: Item(s)</Text>
                         {DoNotShowShoppingCartScreen?<></>:(<>
@@ -530,17 +530,32 @@ postCustomerOrderDetails =  async () =>
                             <View style={{height:20}} ></View>
                             {DoNotShowCheckOutDetailsScreen?<></>:(<>
                             <Text style={[styles.ScreenTitleText,styles.ScreenTitleText1]} >Customer Details</Text>
-
-                            <View style={styles.pickerSelectionInputView}>
-                                <Picker style={styles.pickerSelectioninputs} dropdownIconColor= {COLORS.white}
-                                    selectedValue={CustomerType }
+                            
+                            {Platform.OS === 'android'?(<>
+                                <View style={styles.pickerSelectionInputView}>
+                                    <Picker style={styles.pickerSelectioninputs} dropdownIconColor= {COLORS.white}
+                                        selectedValue={CustomerType }
+                                        
+                                        onValueChange={(itemValue) =>this.setCustomerType(itemValue)}>
+                                            <Picker.Item label="Select Customer Category"/> 
+                                            <Picker.Item label="Club Member" value="Club Member" /> 
+                                            <Picker.Item label="None Member" value="None Member" /> 
+                                    </Picker>
+                                </View>
+                            </>):(<>
+                                {/* IOS */}
+                                <View style={styles.iOSPickerSelectionInputView}>
+                                    <Picker 
+                                        itemStyle={{ margin: 15,Color:COLORS.white, borderColor:COLORS.colourNumberOne,height: 45,borderWidth: 3,width:'90%',borderRadius: 20, }}
+                                        selectedValue={CustomerType }
                                     
-                                    onValueChange={(itemValue) =>this.setCustomerType(itemValue)}>
-                                        <Picker.Item label="Select Customer Category"/> 
-                                        <Picker.Item label="Club Member" value="Club Member" /> 
-                                        <Picker.Item label="None Member" value="None Member" /> 
-                                </Picker>
+                                        onValueChange={(itemValue) =>this.setCustomerType(itemValue)}>
+                                            <Picker.Item label="Select Customer Category"/> 
+                                            <Picker.Item label="Club Member" value="Club Member" /> 
+                                            <Picker.Item label="None Member" value="None Member" /> 
+                                    </Picker>
                             </View>
+                            </>) }
 
                             {CustomerType == "Club Member"?(<>
 
@@ -549,7 +564,7 @@ postCustomerOrderDetails =  async () =>
 
                                 <TextInput style={styles.input} placeholder="Mobile Number" onChangeText={text => this.setCustomerMobile(text)}
                                 placeholderTextColor = "#5800c4" maxLength={10} keyboardType='numeric' />  
-
+                                
                                 <View style={styles.pickerSelectionInputView}>
                                     <Picker style={styles.pickerSelectioninputs} dropdownIconColor= {COLORS.white}
                                         selectedValue={DeliveryMethod }
@@ -572,6 +587,7 @@ postCustomerOrderDetails =  async () =>
                                             <Picker.Item label="Cash On Delivery" value="Cash On Delivery" />
                                     </Picker>
                                 </View>
+
                             </>):(<>
                                 <TextInput style={styles.input} placeholder="Full Name" onChangeText={text => this.setCustomerName(text)}
                                 placeholderTextColor = "#5800c4"/>
@@ -680,6 +696,7 @@ postCustomerOrderDetails =  async () =>
                             </View>
                             </>)}
                         </>)}
+                    </ScrollView>
                     </>)}
 
                     
@@ -698,8 +715,6 @@ postCustomerOrderDetails =  async () =>
                     </>)}
                     
                 <View style={styles.MainBottomSpaceView}></View>
-                </ScrollView>
-    
             </View>
         );
     }

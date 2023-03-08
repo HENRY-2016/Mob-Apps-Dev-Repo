@@ -17,9 +17,11 @@ export const mainTableTitleHandleView2 = () =>
 export const mainTableTitleHandleViewCredit = () =>
 {return{borderRadius:0,borderBottomWidth:2,height: 45,width:230,marginLeft:10,}}
 export const userProfileView = () =>
-{return{height:140,borderRadius:30,marginLeft:9,marginRight:9,flexDirection:"row"}}
+{return{height:210,borderRadius:30,marginLeft:9,marginRight:9,flexDirection:"row"}}
 export const userProfileView2 = () =>
 {return{height:160,borderRadius:30,marginLeft:9,marginRight:9,flexDirection:"row"}}
+export const userProfileView3 = () =>
+{return{height:140,borderRadius:30,marginLeft:9,marginRight:9,flexDirection:"row"}}
 export const aboutText = () =>
 {return{fontSize:19, paddingLeft:30,paddingBottom:20,paddingRight:20,}}
 export const aboutTitleText = () =>
