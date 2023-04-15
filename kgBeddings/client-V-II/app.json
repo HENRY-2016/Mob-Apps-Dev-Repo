@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "Dr Kg",
+    "slug": "kgBeddings-V-II",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#759ed7"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#759ed7"
+      },
+      "package": "com.mogahenze.drkgbeddings",
+      "versionCode": 9
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a624ccf0-fdca-46a3-8f17-12621413092b"
+      }
+    }
+  }
+}

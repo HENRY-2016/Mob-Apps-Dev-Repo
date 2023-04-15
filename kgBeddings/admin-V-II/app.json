@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "Admin-II",
+    "slug": "admin-V-II",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {"backgroundColor": "#759ed7"},
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {"backgroundColor": "#759ed7"},
+      "package": "com.mogahenze.drkgadmin2",
+      "versionCode": 1
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
